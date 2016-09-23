@@ -14,9 +14,10 @@ export function combine<T>(operation: string): (...variables: Array<Variable<T>>
   return (...variables) => ({ operation, variables });
 }
 
-let nextId = 1;
+export function define<T>(id: string, value: T): DecisionVariable<T> {
+  return { id, value };
+}
 
-export function buildDecisionVariable<T>(value?: T, prefix?: string): DecisionVariable<T> {
-  prefix = prefix ? prefix : `v`;
-  return { id: `${prefix}_${nextId++}`, value };
+export function declare<T>(id: string): DecisionVariable<T> {
+  return { id };
 }
