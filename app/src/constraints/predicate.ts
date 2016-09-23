@@ -1,7 +1,7 @@
-export interface Predicate<T> {
+export interface Predicate {
   property: string;
 }
 
-export function buildPredicate<T>(property: string): Predicate<T> {
+export function buildPredicate(property: string): Predicate {
   return { property };
 }

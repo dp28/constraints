@@ -1,11 +1,11 @@
 import {Variable}  from './variable';
 import {Predicate} from './predicate';
 
-export interface Constraint<T> {
-  predicate: Predicate<T>;
-  variables: Array<Variable<T>>;
+export interface Constraint {
+  predicate: Predicate;
+  variables: Array<Variable>;
 }
 
-export function buildConstraint<T>(predicate: Predicate<T>): (...vars: Array<Variable<T>>) => Constraint<T> {
+export function buildConstraint(predicate: Predicate): (...vars: Array<Variable>) => Constraint {
   return (...variables) => ({ predicate, variables });
 }

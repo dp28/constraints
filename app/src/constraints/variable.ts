@@ -1,23 +1,28 @@
-export type Variable<T> = DecisionVariable<T> | VariableRelation<T>
+export type Variable = DecisionVariable | VariableRelation
 
-export interface DecisionVariable<T> {
-  value?: T;
+export interface DecisionVariable {
+  value?: number;
   id: string;
 }
 
-export interface VariableRelation<T> {
+export interface VariableRelation {
   operation: string;
-  variables: Array<Variable<T>>;
+  variables: Array<Variable>;
 }
 
-export function combine<T>(operation: string): (...variables: Array<Variable<T>>) => VariableRelation<T> {
+export function combine(operation: string): (...variables: Array<Variable>) => VariableRelation {
   return (...variables) => ({ operation, variables });
 }
 
-export function define<T>(id: string, value: T): DecisionVariable<T> {
+export const add      = combine(`add`);
+export const subtract = combine(`subtract`);
+export const multiply = combine(`multiply`);
+export const divide   = combine(`divide`);
+
+export function define(id: string, value?: number): DecisionVariable {
   return { id, value };
 }
 
-export function declare<T>(id: string): DecisionVariable<T> {
+export function declare<T>(id: string): DecisionVariable {
   return { id };
 }

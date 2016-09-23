@@ -1,2 +1,4 @@
 export * from './equality-constraints';
-export * from './numeric-variable';
+export * from './variable';
+export * from './constraint';
+export * from './predicate';
