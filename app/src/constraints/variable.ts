@@ -1,8 +1,11 @@
+import {Domain} from "./domain";
+
 export type Variable = DecisionVariable | VariableRelation
 
 export interface DecisionVariable {
-  value?: number;
   id: string;
+  domain: Domain;
+  value?: number;
 }
 
 export interface VariableRelation {
@@ -19,10 +22,10 @@ export const subtract = combine(`subtract`);
 export const multiply = combine(`multiply`);
 export const divide   = combine(`divide`);
 
-export function define(id: string, value?: number): DecisionVariable {
-  return { id, value };
+export function define(id: string, domain: Domain, value?: number): DecisionVariable {
+  return { id, domain, value };
 }
 
-export function declare<T>(id: string): DecisionVariable {
-  return { id };
+export function declare<T>(id: string, domain: Domain): DecisionVariable {
+  return { id, domain };
 }
