@@ -1,20 +1,24 @@
 import {Domain} from "./domain";
 
-export type Variable = DecisionVariable | VariableRelation
+export type VariableId = string;
+export type VariableReference = VariableId | VariableRelation;
+export type Variable = DecisionVariable | VariableReference;
 
 export interface DecisionVariable {
-  id: string;
-  domain: Domain;
+  id: VariableId;
+  domainId: string;
   value?: number;
 }
 
 export interface VariableRelation {
   operation: string;
-  variables: Array<Variable>;
+  variableReferences: Array<VariableReference>;
 }
 
 export function combine(operation: string): (...variables: Array<Variable>) => VariableRelation {
-  return (...variables) => ({ operation, variables });
+  return (...variables) => (
+    { operation, variableReferences: variables.map(toVariableReference) }
+  );
 }
 
 export const add      = combine(`add`);
@@ -23,9 +27,21 @@ export const multiply = combine(`multiply`);
 export const divide   = combine(`divide`);
 
 export function define(id: string, domain: Domain, value?: number): DecisionVariable {
-  return { id, domain, value };
+  return { id, domainId: domain.id, value };
 }
 
 export function declare<T>(id: string, domain: Domain): DecisionVariable {
-  return { id, domain };
+  return define(id, domain);
+}
+
+export function toVariableReference(variable: Variable): VariableReference {
+  return isDecisionVariable(variable) ? variable.id : variable;
+}
+
+function isDecisionVariable(variable: Variable): variable is DecisionVariable {
+  return (<DecisionVariable>variable).id !== undefined;
+}
+
+function isVariableId(variable: Variable): variable is VariableId {
+  return typeof variable === `string`;
 }

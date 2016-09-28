@@ -1,4 +1,3 @@
-import {Variable}        from './variable';
 import {buildConstraint} from './constraint';
 import {buildPredicate}  from './predicate';
 

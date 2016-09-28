@@ -1,11 +1,13 @@
-import {Variable}  from './variable';
+import {Variable, VariableReference, toVariableReference}  from './variable';
 import {Predicate} from './predicate';
 
 export interface Constraint {
   predicate: Predicate;
-  variables: Array<Variable>;
+  variableReferences: Array<VariableReference>;
 }
 
 export function buildConstraint(predicate: Predicate): (...vars: Array<Variable>) => Constraint {
-  return (...variables) => ({ predicate, variables });
+  return (...variables) => (
+    { predicate, variableReferences: variables.map(toVariableReference) }
+  );
 }
