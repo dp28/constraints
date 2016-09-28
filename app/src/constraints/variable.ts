@@ -1,4 +1,4 @@
-import {Domain} from "./domain";
+import {DomainReference, DomainId, toDomainId} from "./domain";
 
 export type VariableId = string;
 export type VariableReference = VariableId | VariableRelation;
@@ -6,7 +6,7 @@ export type Variable = DecisionVariable | VariableReference;
 
 export interface DecisionVariable {
   id: VariableId;
-  domainId: string;
+  domainId: DomainId;
   value?: number;
 }
 
@@ -26,12 +26,12 @@ export const subtract = combine(`subtract`);
 export const multiply = combine(`multiply`);
 export const divide   = combine(`divide`);
 
-export function define(id: string, domain: Domain, value?: number): DecisionVariable {
-  return { id, domainId: domain.id, value };
-}
-
-export function declare<T>(id: string, domain: Domain): DecisionVariable {
-  return define(id, domain);
+export function buildDecisionVariable(
+  id: string,
+  domain: DomainReference,
+  value?: number
+): DecisionVariable {
+  return { id, domainId: toDomainId(domain), value };
 }
 
 export function toVariableReference(variable: Variable): VariableReference {
