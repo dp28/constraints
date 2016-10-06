@@ -1,5 +1,7 @@
 import {range, inclusiveRange} from './utils/range';
 
+import {parseProblem} from './adapters/mini-zinc';
+
 import {
   ProblemBuilder,
   sum,
@@ -58,6 +60,6 @@ workDurations.forEach((workPerDay, day) => (
 
 problem.addConstraint(mustBeEqual(sum(workDurations), workDurationPerWeek));
 
-export function toJson() {
-  return problem.toProblem();
+export function run(): string {
+  return parseProblem(problem.toProblem());
 }

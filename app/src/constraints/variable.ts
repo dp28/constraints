@@ -46,6 +46,6 @@ function isDecisionVariable(variable: Variable): variable is DecisionVariable {
   return (<DecisionVariable>variable).id !== undefined;
 }
 
-function isVariableId(variable: Variable): variable is VariableId {
+export function isVariableId(variable: Variable): variable is VariableId {
   return typeof variable === `string`;
 }
