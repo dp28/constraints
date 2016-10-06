@@ -26,6 +26,10 @@ export const subtract = combine(`subtract`);
 export const multiply = combine(`multiply`);
 export const divide   = combine(`divide`);
 
+export function sum(variables: Array<Variable>): VariableRelation {
+  return add(...variables);
+}
+
 export function buildDecisionVariable(
   id: string,
   domain: DomainReference,

@@ -1,6 +1,7 @@
 import {Constraint} from './constraint';
 import {DecisionVariable, buildDecisionVariable} from './variable';
-import {Domain, buildDomain, buildDomainFromRange} from './domain';
+import {Domain, DomainReference, buildDomain, buildDomainFromRange} from './domain';
+import {range} from '../utils/range';
 
 export interface Problem {
   domains: { [domainId: string]: Domain };
@@ -28,7 +29,7 @@ export function ProblemBuilder() {
       return { domains, decisionVariables, constraints };
     },
 
-    defineDomain(id: string, ...values: Array<number>): Domain {
+    defineDomain(id: string, values: Array<number>): Domain {
       return addDomain(buildDomain(id, values));
     },
 
@@ -36,8 +37,12 @@ export function ProblemBuilder() {
       return addDomain(buildDomainFromRange(id, start, end));
     },
 
-    defineVariable(id: string, domainOrDomainId: Domain | string, value?: number): DecisionVariable {
-      return addVariable(buildDecisionVariable(id, domainOrDomainId, value));
+    defineVariable(id: string, domain: DomainReference, value?: number): DecisionVariable {
+      return addVariable(buildDecisionVariable(id, domain, value));
+    },
+
+    defineVariables(idPrefix: string, domain: DomainReference, number: number): Array<DecisionVariable> {
+      return range(0, number).map(i => addVariable(buildDecisionVariable(`${idPrefix}_${i}`, domain)));
     },
 
     addConstraint(constraint: Constraint): void {
