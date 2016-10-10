@@ -11,6 +11,10 @@ export interface DomainDeclarations {
   [domainId: string]: Domain;
 }
 
+export interface Solution {
+  [variableId: string]: number;
+}
+
 export interface Problem {
   domains: DomainDeclarations;
   decisionVariables: DecisionVariableDeclarations;

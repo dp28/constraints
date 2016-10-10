@@ -1,6 +1,13 @@
-import {Problem} from '../../constraints/index';
+import {promisify} from 'bluebird';
+
+import {Problem, Solution} from '../../constraints/index';
 import {parseConstraints} from './constraint-parser';
 import {parseDecisionVariables} from './variable-parser';
+import {solve as solveMinizinc} from 'minizinc-solver';
+
+export function solve(problem: Problem): PromiseLike<Solution> {
+  return promisify(solveMinizinc)(parseProblem(problem)).then(JSON.parse);
+}
 
 export function parseProblem(problem: Problem): string {
   return [
@@ -13,7 +20,7 @@ export function parseProblem(problem: Problem): string {
 
 function defineOutput(variableNames: Array<string>): string {
   const variableOutputs = variableNames
-    .map(name =>`"  \\"${name}\\": ", show(${name})`)
+    .map(name => `"  \\"${name}\\": ", show(${name})`)
     .join(`, ",\\n",\n`);
-  return `output ["{\\n", ${variableOutputs}, "\\n}"];`
+  return `output ["{\\n", ${variableOutputs}, "\\n}"];`;
 }
