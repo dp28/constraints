@@ -24,17 +24,18 @@ const preferredDayDuration = hour * 8;
 
 const problem = ProblemBuilder();
 
-// Domains
+// Ranges
 
 const dayIndices      = range(0, numDays);
-const workDayDuration = problem.defineDomain(`workDayDuration`, range(0, dayDuration));
-const startTime       = problem.defineDomain(`startTime`, inclusiveRange(0, maxStartTime));
-const endTime         = problem.defineDomain(`endTime`, range(minEndTime, dayDuration));
-const lunchDuration   = problem.defineDomain(`lunchDuration`, inclusiveRange(hour / 2, hour));
+const workDayDuration = problem.defineRange(`workDayDuration`, 0, dayDuration - 1);
+const startTime       = problem.defineRange(`startTime`, 0, maxStartTime);
+const endTime         = problem.defineRange(`endTime`, minEndTime, dayDuration - 1);
+const lunchDuration   = problem.defineRange(`lunchDuration`, hour / 2, hour);
 
-const possibleWorkDurationPerWeek = problem.defineDomain(
+const possibleWorkDurationPerWeek = problem.defineRange(
   `possibleWorkDurationPerWeek`,
-  inclusiveRange(minWorkDurationPerWeek, maxWorkDurationPerWeek)
+  minWorkDurationPerWeek,
+  maxWorkDurationPerWeek
 );
 
 // Decision variables

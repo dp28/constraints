@@ -1,4 +1,4 @@
-import {DomainReference, DomainId, toDomainId} from './domain';
+import {RangeReference, RangeId, toRangeId} from './range';
 
 export type VariableId = string;
 export type VariableReference = VariableId | VariableRelation;
@@ -6,7 +6,7 @@ export type Variable = DecisionVariable | VariableReference;
 
 export interface DecisionVariable {
   id: VariableId;
-  domainId: DomainId;
+  rangeId: RangeId;
   value?: number;
 }
 
@@ -32,10 +32,10 @@ export function sum(variables: Array<Variable>): VariableRelation {
 
 export function buildDecisionVariable(
   id: string,
-  domain: DomainReference,
+  range: RangeReference,
   value?: number
 ): DecisionVariable {
-  return { id, domainId: toDomainId(domain), value };
+  return { id, rangeId: toRangeId(range), value };
 }
 
 export function toVariableReference(variable: Variable): VariableReference {
