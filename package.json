@@ -2,22 +2,20 @@
   "name": "constraints",
   "version": "0.0.0",
   "author": "",
-
   "main": "app/build/index.js",
-
-  "dependencies": {},
-
-  "devDependencies": {
-    "gulp": "^3.6.2",
-    "gulp-tsc": "^0.10.1",
-    "gulp-shell": "^0.4.2",
-    "gulp-tslint": "^2.0.0",
-    "run-sequence":"^1.1.1",
-    "mocha" : "*"
+  "dependencies": {
+    "bluebird": "^3.4.6"
   },
-
-  "scripts" : {
-    "main" : "gulp buildrun",
-    "test": "gulp build && mocha"
+  "devDependencies": {
+    "mocha": "*",
+    "run-sequence": "^1.1.1",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3",
+    "typings": "^1.4.0"
+  },
+  "scripts": {
+    "compile": "tsc --pretty",
+    "compile:watch": "tsc --pretty -w",
+    "test": "tsc --pretty && mocha"
   }
 }

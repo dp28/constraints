@@ -1,7 +1,7 @@
 export function range(start: number, end: number): Array<number> {
   const numElements = end - start;
   if (numElements > 0)
-    return Array.apply(null, Array(numElements)).map((_, i) => i + start);
+    return Array.apply(null, Array(numElements)).map((_: any, i: number) => i + start);
   else
     return [];
 }

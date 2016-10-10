@@ -4,11 +4,13 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": true
+        "sourceMap": false,
+        "outDir": "app/build"
     },
     "compileOnSave": false,
     "include": [
-        "src/**/*"
+        "app/src/**/*",
+        "typings/index.dt.ts"
     ],
     "exclude": [
         "node_modules",
