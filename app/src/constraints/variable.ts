@@ -1,4 +1,4 @@
-import {DomainReference, DomainId, toDomainId} from "./domain";
+import {DomainReference, DomainId, toDomainId} from './domain';
 
 export type VariableId = string;
 export type VariableReference = VariableId | VariableRelation;

@@ -7,7 +7,7 @@ export function parseConstraints(constraints: Array<Constraint>): string {
 function parseConstraint(constraint: Constraint): string {
   const variables = constraint.variableReferences.map(parseVariableReference);
   const body = variables.join(parsePredicate(constraint.predicate));
-  return `constraint ${body};`
+  return `constraint ${body};`;
 }
 
 function parsePredicate(predicate: Predicate): string {
@@ -28,7 +28,7 @@ function parseVariableReference(variable: VariableReference): string {
 
 function parseVariableRelation(variableRelation: VariableRelation): string {
   const variables = variableRelation.variableReferences.map(parseVariableReference);
-  return `(${variables.join(parseOperatorType(variableRelation.operation))})`
+  return `(${variables.join(parseOperatorType(variableRelation.operation))})`;
 }
 
 function parseOperatorType(operationType: string): string {

@@ -49,12 +49,12 @@ export function ProblemBuilder() {
       return addVariable(buildDecisionVariable(id, domain));
     },
 
-    defineVariables(idPrefix: string, domain: DomainReference, number: number): Array<DecisionVariable> {
-      return range(0, number).map(i => addVariable(buildDecisionVariable(`${idPrefix}_${i}`, domain)));
+    defineVariables(idPrefix: string, domain: DomainReference, num: number): Array<DecisionVariable> {
+      return range(0, num).map(i => addVariable(buildDecisionVariable(`${idPrefix}_${i}`, domain)));
     },
 
     addConstraint(constraint: Constraint): void {
       constraints.push(constraint);
     }
-  }
+  };
 }

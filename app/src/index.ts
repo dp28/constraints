@@ -1,6 +1,8 @@
+/// <reference path="../../typings/index.d.ts"/>
+
 import {range, inclusiveRange} from './utils/range';
 
-import {parseProblem} from './adapters/mini-zinc';
+import {solve} from './adapters/mini-zinc';
 
 import {
   ProblemBuilder,
@@ -56,10 +58,10 @@ workDurations.forEach((workPerDay, day) => (
       subtract(endTimes[day], lunchDurations[day], startTimes[day])
     )
   )
-))
+));
 
 problem.addConstraint(mustBeEqual(sum(workDurations), workDurationPerWeek));
 
-export function run(): string {
-  return parseProblem(problem.toProblem());
+export function run(): PromiseLike<any> {
+  return solve(problem.toProblem());
 }

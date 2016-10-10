@@ -16,6 +16,7 @@
   "scripts": {
     "compile": "tsc --pretty",
     "compile:watch": "tsc --pretty -w",
-    "test": "tsc --pretty && mocha"
+    "test": "tsc --pretty && mocha",
+    "lint": "tslint 'app/src/**/*.ts' --force"
   }
 }

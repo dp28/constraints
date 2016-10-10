@@ -18,7 +18,7 @@ export function buildDomain(id: string, values: Array<number>): Domain {
 export function buildDomainFromRange(id: string, start: number, end: number): Domain {
   const values: Array<number> = [];
   while (start < end)
-    values.push(start++)
+    values.push(start++);
   return buildDomain(id, values);
 }
 

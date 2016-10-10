@@ -11,9 +11,9 @@ function parseVariable(variableName: string, problem: Problem): string {
   const variable = problem.decisionVariables[variableName];
   const domain = problem.domains[variable.domainId];
   const value = variable.value ? ` = ${variable.value}` : ``;
-  return `var ${parseDomain(domain)}: ${variableName}${value};`
+  return `var ${parseDomain(domain)}: ${variableName}${value};`;
 }
 
 function parseDomain(domain: Domain): string {
-  return `${domain.values[0]}..${domain.values[domain.values.length -1]}`;
+  return `${domain.values[0]}..${domain.values[domain.values.length - 1]}`;
 }
