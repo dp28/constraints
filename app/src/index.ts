@@ -8,6 +8,7 @@ import {
   ProblemBuilder,
   sum,
   subtract,
+  buildRange,
   mustBeEqual
 } from './constraints';
 
@@ -27,16 +28,12 @@ const problem = ProblemBuilder();
 // Ranges
 
 const dayIndices      = range(0, numDays);
-const workDayDuration = problem.defineRange(`workDayDuration`, 0, dayDuration - 1);
-const startTime       = problem.defineRange(`startTime`, 0, maxStartTime);
-const endTime         = problem.defineRange(`endTime`, minEndTime, dayDuration - 1);
-const lunchDuration   = problem.defineRange(`lunchDuration`, hour / 2, hour);
+const workDayDuration = buildRange(0, dayDuration - 1);
+const startTime       = buildRange(0, maxStartTime);
+const endTime         = buildRange(minEndTime, dayDuration - 1);
+const lunchDuration   = buildRange(hour / 2, hour);
 
-const possibleWorkDurationPerWeek = problem.defineRange(
-  `possibleWorkDurationPerWeek`,
-  minWorkDurationPerWeek,
-  maxWorkDurationPerWeek
-);
+const possibleWorkDurationPerWeek = buildRange(minWorkDurationPerWeek, maxWorkDurationPerWeek);
 
 // Decision variables
 

@@ -11,7 +11,7 @@ export function solve(problem: Problem): PromiseLike<Solution> {
 
 export function parseProblem(problem: Problem): string {
   return [
-    parseDecisionVariables(problem),
+    parseDecisionVariables(problem.decisionVariables),
     parseConstraints(problem.constraints),
     `solve satisfy;`,
     defineOutput(Object.keys(problem.decisionVariables))

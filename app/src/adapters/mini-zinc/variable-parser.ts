@@ -1,17 +1,15 @@
-import {DecisionVariable, Problem, Range} from '../../constraints/index';
+import {DecisionVariable, DecisionVariableDeclarations, Range} from '../../constraints/index';
 
-export function parseDecisionVariables(problem: Problem): string {
+export function parseDecisionVariables(decisionVariables: DecisionVariableDeclarations): string {
   return Object
-    .keys(problem.decisionVariables)
-    .map(variableName => parseVariable(variableName, problem))
+    .keys(decisionVariables)
+    .map(variableName => parseVariable(decisionVariables[variableName]))
     .join(`\n`);
 }
 
-function parseVariable(variableName: string, problem: Problem): string {
-  const variable = problem.decisionVariables[variableName];
-  const range = problem.ranges[variable.rangeId];
+function parseVariable(variable: DecisionVariable): string {
   const value = variable.value ? ` = ${variable.value}` : ``;
-  return `var ${parseRange(range)}: ${variableName}${value};`;
+  return `var ${parseRange(variable.range)}: ${variable.id}${value};`;
 }
 
 function parseRange(range: Range): string {
