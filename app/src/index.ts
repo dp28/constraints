@@ -9,7 +9,9 @@ import {
   sum,
   subtract,
   buildRange,
-  mustBeEqual
+  mustBeEqual,
+  or,
+  mustBeLessThan
 } from './constraints';
 
 // Constants
@@ -59,6 +61,26 @@ workDurations.forEach((workPerDay, day) => (
 ));
 
 problem.addConstraint(mustBeEqual(sum(workDurations), workDurationPerWeek));
+
+// monday run
+const dayRange = buildRange(0, dayDuration);
+const runStart = problem.defineVariable(`runStart`, dayRange);
+const runEnd = problem.defineVariable(`runEnd`, dayRange);
+const runDuration = problem.defineVariable(`runDuration`, buildRange(hour, 3 * hour));
+
+problem.addConstraint(
+  mustBeEqual(
+    runDuration,
+    subtract(runEnd, runStart)
+  )
+);
+
+problem.addConstraint(
+  or(
+    mustBeLessThan(runEnd, startTimes[0]),
+    mustBeLessThan(endTimes[0], runStart)
+  )
+);
 
 export function run(): PromiseLike<any> {
   return solve(problem.toProblem());

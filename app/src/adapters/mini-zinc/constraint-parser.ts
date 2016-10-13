@@ -1,17 +1,31 @@
-import {Constraint, Predicate, isVariableId, VariableReference, VariableRelation} from '../../constraints/index';
+import {
+  Constraint,
+  BooleanPredicate,
+  isBooleanPredicate,
+  IntegerPredicate,
+  isVariableId,
+  VariableReference,
+  VariableRelation
+} from '../../constraints/index';
 
 export function parseConstraints(constraints: Array<Constraint>): string {
   return constraints.map(parseConstraint).join(`\n`);
 }
 
-const parsePredicate = fetch<string>({
+const parseIntComparisonOperator = fetch<string>({
   equal:              `=`,
   notEqual:           `!=`,
   lessThan:           `<`,
   lessThanOrEqual:    `<=`,
   greaterThan:        `>`,
   greaterThanOrEqual: `>=`
-}, `Unknown predicate type`);
+}, `Unknown integer comparison type`);
+
+const parseBoolComparisonOperator = fetch<string>({
+  and: `/\\`,
+  or:  `\\/`,
+  not: `not`,
+}, `Unknown boolean comparison type`);
 
 const parseOperatorType = fetch<string>({
   add:      `+`,
@@ -21,9 +35,41 @@ const parseOperatorType = fetch<string>({
 }, `Unknown operator type`);
 
 function parseConstraint(constraint: Constraint): string {
-  const variables = constraint.variableReferences.map(parseVariableReference);
-  const body = variables.join(parsePredicate(constraint.predicate.property));
+  let body: string;
+  if (isBooleanPredicate(constraint))
+    body = parseBoolPredicate(constraint);
+  else
+    body = parseIntPredicate(constraint);
   return `constraint ${body};`;
+}
+
+function parseBoolPredicate(predicate: BooleanPredicate): string {
+  const operator = parseBoolComparisonOperator(predicate.operator);
+  const join = isUnary(operator) ? joinUnaryOperator(operator) : joinNonUnaryOperator(operator);
+  const clauses = predicate
+    .predicates
+    .map(parseIntPredicate)
+    .map(surround(`(`, `)`));
+  return join(clauses);
+}
+
+function isUnary(operator: string): boolean {
+  return operator === `not`;
+}
+
+function joinUnaryOperator(operator: string): (clauses: Array<string>) => string {
+  return clauses => `${operator} ${clauses[0]}`;
+}
+
+function joinNonUnaryOperator(operator: string): (clauses: Array<string>) => string {
+  return clauses => clauses.join(operator);
+}
+
+function parseIntPredicate(predicate: IntegerPredicate): string {
+  return predicate
+    .variableReferences
+    .map(parseVariableReference)
+    .join(parseIntComparisonOperator(predicate.operator));
 }
 
 function parseVariableReference(variable: VariableReference): string {
@@ -44,4 +90,8 @@ function fetch<T>(map: { [key: string]: T }, errorMessage: string): (key: string
       throw Error(`${errorMessage}: ${key}`);
   };
 
+}
+
+function surround(prefix: string, suffix: string): (value: string) => string {
+  return value => prefix + value + suffix;
 }
