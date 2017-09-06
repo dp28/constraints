@@ -2,8 +2,9 @@
   "name": "constraints",
   "version": "0.0.0",
   "author": "",
-  "main": "app/build/index.js",
+  "main": "build/index.js",
   "dependencies": {
+    "@types/bluebird": "^3.5.8",
     "bluebird": "3.5.0",
     "minizinc-solver": "^0.2.0"
   },
@@ -16,6 +17,6 @@
     "compile": "tsc --pretty",
     "compile:watch": "tsc --pretty -w",
     "test": "tsc --pretty && mocha",
-    "lint": "tslint 'app/src/**/*.ts' --force"
+    "lint": "tslint 'src/**/*.ts' --force"
   }
 }

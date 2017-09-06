@@ -5,11 +5,13 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": false,
-        "outDir": "app/build"
+        "outDir": "build",
+        "target": "es5",
+        "lib": ["es5", "es6", "dom"]
     },
     "compileOnSave": false,
     "include": [
-        "app/src/**/*",
+        "src/**/*",
         "typings/index.dt.ts"
     ],
     "exclude": [
