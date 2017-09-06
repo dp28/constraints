@@ -4,19 +4,24 @@
   "author": "",
   "main": "build/index.js",
   "dependencies": {
-    "@types/bluebird": "^3.5.8",
     "bluebird": "3.5.0",
     "minizinc-solver": "^0.2.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.8",
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.2",
     "mocha": "3.5.0",
     "tslint": "5.7.0",
     "typescript": "2.5.2"
   },
   "scripts": {
+    "clean": "rm -rf build",
     "compile": "tsc --pretty",
     "compile:watch": "tsc --pretty -w",
-    "test": "tsc --pretty && mocha",
-    "lint": "tslint 'src/**/*.ts' --force"
+    "lint": "tslint 'src/**/*.ts' --force",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "test:watch": "npm run test -- --watch --watch-extensions ts --growl"
   }
 }
