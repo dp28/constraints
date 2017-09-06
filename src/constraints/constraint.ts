@@ -18,13 +18,13 @@ export function isBooleanPredicate(predicate: Predicate): predicate is BooleanPr
   return Boolean((<BooleanPredicate>predicate).predicates);
 }
 
-function buildIntegerPredicate(operator: string): (...vars: Array<Variable>) => Predicate {
+function buildIntegerPredicate(operator: string): (...vars: Array<Variable>) => IntegerPredicate {
   return (...variables) => (
     { operator, variableReferences: variables.map(toVariableReference) }
   );
 }
 
-function buildBooleanPredicate(operator: string): (...predicates: Array<Predicate>) => Predicate {
+function buildBooleanPredicate(operator: string): (...predicates: Array<Predicate>) => BooleanPredicate {
   return (...predicates) => ({ operator, predicates });
 }
 
