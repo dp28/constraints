@@ -1,7 +1,8 @@
-import {Constraint} from './constraint';
-import {VariableDeclaration, buildDecisionVariable} from './variable';
-import {Range, buildRange} from './range';
-import {range} from '../utils/range';
+import { Constraint } from './constraint';
+import { VariableDeclaration, buildDecisionVariable } from './variable';
+import { Range, buildRange } from './range';
+import { range } from '../utils/range';
+import { indexById } from '../utils/object';
 
 export interface VariableDeclarations {
   [variableId: string]: VariableDeclaration;
@@ -26,14 +27,6 @@ export function buildProblem(
   };
 }
 
-function indexById(variables: Array<VariableDeclaration>): { [id: string]: VariableDeclaration } {
-  const result: { [id: string]: VariableDeclaration } = {};
-  return variables.reduce((result, variable) => {
-    result[variable.id] = variable;
-    return result;
-  }, result);
-}
-
 export function ProblemBuilder() {
   const variables: { [variableId: string]: VariableDeclaration } = {};
   const constraints: Array<Constraint> = [];
@@ -48,12 +41,12 @@ export function ProblemBuilder() {
       return { variables, constraints };
     },
 
-    defineVariable(id: string, range: Range): VariableDeclaration {
-      return addVariable(buildDecisionVariable(id, range));
+    defineVariable(range: Range): VariableDeclaration {
+      return addVariable(buildDecisionVariable(range));
     },
 
     defineVariables(idPrefix: string, rangeRef: Range, num: number): Array<VariableDeclaration> {
-      return range(0, num).map(i => addVariable(buildDecisionVariable(`${idPrefix}_${i}`, rangeRef)));
+      return range(0, num).map(() => addVariable(buildDecisionVariable(rangeRef)));
     },
 
     addConstraint(constraint: Constraint): void {

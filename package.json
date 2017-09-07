@@ -4,6 +4,8 @@
   "author": "",
   "main": "build/index.js",
   "dependencies": {
+    "@types/cuid": "^1.3.0",
+    "cuid": "^1.3.8",
     "minizinc-solver": "^0.2.0"
   },
   "devDependencies": {
@@ -19,7 +21,7 @@
     "compile": "tsc --pretty",
     "compile:watch": "tsc --pretty -w",
     "lint": "tslint 'src/**/*.ts' --force",
-    "test": "npm run test:unit && npm run test:solvers",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts solver-tests/**/*.spec.ts",
     "test:unit": "mocha -r ts-node/register src/**/*.spec.ts",
     "test:solvers": "mocha -r ts-node/register solver-tests/**/*.spec.ts",
     "test:unit:watch": "npm run test:unit -- --watch --watch-extensions ts --growl",

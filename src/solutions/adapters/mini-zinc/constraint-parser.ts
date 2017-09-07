@@ -9,7 +9,7 @@ import {
 } from '../../../constraints';
 
 export function parseConstraints(constraints: Array<Constraint>): string {
-  return constraints.map(parseConstraint).join(`\n`);
+  return constraints.map(parseFullConstraint).join(`\n`);
 }
 
 const parseIntComparisonOperator = fetch<string>({
@@ -34,21 +34,25 @@ const parseOperatorType = fetch<string>({
   divide:   `/`
 }, `Unknown operator type`);
 
-function parseConstraint(constraint: Constraint): string {
-  let body: string;
-  if (isBooleanPredicate(constraint))
-    body = parseBoolPredicate(constraint);
-  else
-    body = parseIntPredicate(constraint);
+function parseFullConstraint(constraint: Constraint): string {
+  const body = parseConstraintClause(constraint);
   return `constraint ${body};`;
+}
+
+function parseConstraintClause(constraint: Constraint): string {
+  if (isBooleanPredicate(constraint))
+    return parseBoolPredicate(constraint);
+  else
+    return parseIntPredicate(constraint);
 }
 
 function parseBoolPredicate(predicate: BooleanPredicate): string {
   const operator = parseBoolComparisonOperator(predicate.operator);
   const join = isUnary(operator) ? joinUnaryOperator(operator) : joinNonUnaryOperator(operator);
+
   const clauses = predicate
     .predicates
-    .map(parseIntPredicate)
+    .map(parseConstraintClause)
     .map(surround(`(`, `)`));
   return join(clauses);
 }
