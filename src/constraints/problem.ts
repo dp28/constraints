@@ -22,7 +22,7 @@ export function buildProblem(
   return {
     decisionVariables: indexById(variables),
     constraints
-  }
+  };
 }
 
 function indexById(variables: Array<DecisionVariable>): { [id: string]: DecisionVariable } {

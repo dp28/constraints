@@ -12,7 +12,7 @@ import {
 import * as constraints from '../constraints/constraint';
 import * as relations from '../constraints/variable';
 
-import { solve } from './solver'
+import { solve } from './solver';
 
 describe('solve', () => {
   it('should return valid values for all the variables in the Problem', () => {
@@ -42,7 +42,7 @@ describe('solve', () => {
 
     function buildConstrainedProblem(constraint: (...v: Array<Variable>) => Constraint) {
       return buildProblem([a, b], [constraint(a, b)]);
-    };
+    }
 
     it('should satisfy mustBeEqual constraints', () => {
       const problem = buildConstrainedProblem(constraints.mustBeEqual);
@@ -96,7 +96,7 @@ describe('solve', () => {
 
     function buildConstrainedProblem(constraint: (...v: Array<Constraint>) => Constraint) {
       return buildProblem([a, b], [constraint(lessThanOrEqual, equal)]);
-    };
+    }
 
     it('should satisfy "and" constraints', () => {
       const problem = buildConstrainedProblem(constraints.and);
@@ -129,31 +129,31 @@ describe('solve', () => {
     function buildConstrainedProblem(combine: (...v: Array<Variable>) => Variable) {
       const combined = combine(a, b);
       return buildProblem([a, b, result], [constraints.mustBeEqual(result, combined)]);
-    };
+    }
 
     it('should satisfy "add" relations', () => {
-      const problem = buildConstrainedProblem(relations.add)
+      const problem = buildConstrainedProblem(relations.add);
       return solve(problem).then((solution) => {
         expect(solution.a + solution.b).to.equal(solution.result);
       });
     });
 
     it('should satisfy "subtract" relations', () => {
-      const problem = buildConstrainedProblem(relations.subtract)
+      const problem = buildConstrainedProblem(relations.subtract);
       return solve(problem).then((solution) => {
         expect(solution.a - solution.b).to.equal(solution.result);
       });
     });
 
     it('should satisfy "multiply" relations', () => {
-      const problem = buildConstrainedProblem(relations.multiply)
+      const problem = buildConstrainedProblem(relations.multiply);
       return solve(problem).then((solution) => {
         expect(solution.a * solution.b).to.equal(solution.result);
       });
     });
 
     it('should satisfy "divide" relations', () => {
-      const problem = buildConstrainedProblem(relations.divide)
+      const problem = buildConstrainedProblem(relations.divide);
       return solve(problem).then((solution) => {
         expect(solution.a / solution.b).to.equal(solution.result);
       });
@@ -168,5 +168,5 @@ describe('solve', () => {
     return solve(problem).then(solution => (
       expect(solution).to.equal(null)
     ));
-  })
+  });
 });

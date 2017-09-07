@@ -46,7 +46,7 @@ describe('combine', () => {
   it('should return a VariableRelation with references to the specified variables', () => {
     const variable = buildDecisionVariable('id', { min: 1, max: 2 }, 1);
     const otherVariable = buildDecisionVariable('id2', { min: 1, max: 2 }, 2);
-    const combined = combine('bla')(variable, otherVariable)
+    const combined = combine('bla')(variable, otherVariable);
     expect(combined.variableReferences).to.deep.equal(['id', 'id2']);
   });
 });

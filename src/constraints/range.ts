@@ -8,5 +8,5 @@ export function buildRange(min: number, max: number): Range {
 }
 
 export function isWithinRange(value: number, { min, max }: Range): boolean {
-  return value >= min && value <= max && Number.isInteger(value); 
+  return value >= min && value <= max && Number.isInteger(value);
 }

@@ -35,7 +35,7 @@ entries(IntegerPredicates).forEach(([operation, [name, predicateBuilder]]) => {
 
     it('should include references to all the passed in variables', () => {
       const variable = { id: 'b', range: { min: 1, max: 2 } };
-      expect(predicateBuilder('a', variable).variableReferences).to.deep.equal(['a', 'b'])
+      expect(predicateBuilder('a', variable).variableReferences).to.deep.equal(['a', 'b']);
     });
   });
 });
@@ -53,6 +53,6 @@ entries(BooleanPredicates).forEach(([operation, predicateBuilder]) => {
 
   it('should include all the passed in predicates', () => {
     const predicate = predicateBuilder(mustBeEqual(), mustNotBeEqual());
-    expect(predicate.predicates).to.deep.equal([mustBeEqual(), mustNotBeEqual()])
+    expect(predicate.predicates).to.deep.equal([mustBeEqual(), mustNotBeEqual()]);
   });
 });
