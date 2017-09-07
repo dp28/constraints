@@ -20,6 +20,23 @@ export interface Problem {
   constraints: Array<Constraint>;
 }
 
+export function buildProblem(
+  variables: Array<DecisionVariable>,
+  constraints: Array<Constraint>): Problem {
+  return {
+    decisionVariables: indexById(variables),
+    constraints
+  }
+}
+
+function indexById(variables: Array<DecisionVariable>): { [id: string]: DecisionVariable } {
+  const result: { [id: string]: DecisionVariable } = {};
+  return variables.reduce((result, variable) => {
+    result[variable.id] = variable;
+    return result;
+  }, result);
+}
+
 export function ProblemBuilder() {
   const decisionVariables: { [variableId: string]: DecisionVariable } = {};
   const constraints: Array<Constraint> = [];
@@ -46,4 +63,23 @@ export function ProblemBuilder() {
       constraints.push(constraint);
     }
   };
+}
+
+export function combineProblems(problems: Array<Problem>): Problem {
+  return {
+    decisionVariables: assign(problems.map(problem => problem.decisionVariables)),
+    constraints: concat(problems.map(problem => problem.constraints))
+  };
+}
+
+function assign(objects: Array<DecisionVariableDeclarations>): DecisionVariableDeclarations {
+  const result: DecisionVariableDeclarations = {};
+  return objects.reduce((result, object) => {
+    Object.keys(object).forEach(key => result[key] = object[key]);
+    return result;
+  }, result);
+}
+
+function concat<T>(arrays: Array<Array<T>>): Array<T> {
+  return arrays.reduce(((all, constraints) => all.concat(constraints)));
 }
