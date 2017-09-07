@@ -6,7 +6,7 @@ import {
   isVariableId,
   VariableReference,
   VariableRelation
-} from '../../constraints/index';
+} from '../../../constraints';
 
 export function parseConstraints(constraints: Array<Constraint>): string {
   return constraints.map(parseConstraint).join(`\n`);

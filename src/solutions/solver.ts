@@ -1,6 +1,10 @@
-import { Problem, Solution } from '../constraints';
-import * as minizinc from '../adapters/mini-zinc';
+import { Problem } from '../constraints';
+import * as minizinc from './adapters/mini-zinc';
 
-export function solve(problem: Problem, solver = minizinc.solve): Promise<Solution> {
+export interface Solution {
+  [variableId: string]: number;
+}
+
+export function solve(problem: Problem, solver = minizinc.solve): Promise<Solution | null> {
   return solver(problem);
 }

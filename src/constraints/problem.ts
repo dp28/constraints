@@ -11,10 +11,6 @@ export interface RangeDeclarations {
   [rangeId: string]: Range;
 }
 
-export interface Solution {
-  [variableId: string]: number;
-}
-
 export interface Problem {
   decisionVariables: DecisionVariableDeclarations;
   constraints: Array<Constraint>;

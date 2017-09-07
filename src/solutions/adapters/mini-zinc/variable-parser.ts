@@ -1,4 +1,8 @@
-import {DecisionVariable, DecisionVariableDeclarations, Range} from '../../constraints/index';
+import {
+  DecisionVariable,
+  DecisionVariableDeclarations,
+  Range
+} from '../../../constraints';
 
 export function parseDecisionVariables(decisionVariables: DecisionVariableDeclarations): string {
   return Object
