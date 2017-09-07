@@ -1,6 +1,6 @@
 import {promisify} from 'bluebird';
 
-import {Problem, Solution} from '../../constraints/index';
+import {Problem, Solution} from '../../constraints';
 import {parseConstraints} from './constraint-parser';
 import {parseDecisionVariables} from './variable-parser';
 import {solveWithTimeout} from 'minizinc-solver';
@@ -10,7 +10,6 @@ export function solve(problem: Problem): PromiseLike<Solution> {
 }
 
 function solveMinizinc(minizincProblem: string, callback: (error: any, result: string) => void): void {
-  console.log(minizincProblem);
   solveWithTimeout(minizincProblem, 5000, callback);
 }
 
