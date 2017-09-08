@@ -19,11 +19,11 @@
     "compile": "tsc --pretty",
     "compile:watch": "tsc --pretty -w",
     "lint": "tslint 'src/**/*.ts' --force",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts solver-tests/**/*.spec.ts",
+    "test": "npm run test:unit && npm run test:solvers",
     "test:unit": "mocha -r ts-node/register src/**/*.spec.ts",
     "test:solvers": "mocha -r ts-node/register solver-tests/**/*.spec.ts",
-    "test:watch": "npm run test -- --watch --watch-extensions ts --growl",
     "test:unit:watch": "npm run test:unit -- --watch --watch-extensions ts --growl",
-    "test:solvers:watch": "npm run test:solvers -- --watch --watch-extensions ts --growl"
+    "test:solvers:watch": "npm run test:solvers -- --watch --watch-extensions ts --growl",
+    "test:watch": "npm run test -- --watch --watch-extensions ts --growl"
   }
 }
