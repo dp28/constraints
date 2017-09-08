@@ -7,12 +7,12 @@ import {
   isWithinRange,
   Variable,
   Constraint
-} from '../constraints';
+} from '../src/constraints';
 
-import * as constraints from '../constraints/constraint';
-import * as relations from '../constraints/variable';
+import * as constraints from '../src/constraints/constraint';
+import * as relations from '../src/constraints/variable';
 
-import { solve } from './solver';
+import { solve } from '../src/solutions/solver';
 
 describe('solve', () => {
   it('should return valid values for all the variables in the Problem', () => {
