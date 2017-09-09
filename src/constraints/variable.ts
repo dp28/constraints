@@ -1,3 +1,4 @@
+import * as generateId from 'cuid';
 import {Range} from './range';
 
 export type VariableId = string;
@@ -36,16 +37,15 @@ export function sum(variables: Array<Variable>): VariableRelation {
   return add(...variables);
 }
 
-export function buildConstant(id: string, value: number) {
-  return { id, value };
+export function buildConstant(value: number) {
+  return { id : generateId(), value };
 }
 
 export function buildDecisionVariable(
-  id: string,
   range: Range,
   value?: number
 ): DecisionVariable {
-  return { id, range, value };
+  return { id : generateId(), range, value };
 }
 
 export function toVariableReference(variable: Variable): VariableReference {

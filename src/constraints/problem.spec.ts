@@ -3,7 +3,8 @@ import { expect } from 'chai';
 
 import { buildProblem, combineProblems, ProblemBuilder } from './problem';
 import { Constraint } from './constraint';
-import { Variable, buildConstant } from './variable';
+import { buildRange } from './range';
+import { buildDecisionVariable, buildConstant } from './variable';
 
 describe('buildProblem', () => {
   it('should return a Problem with the passed-in constraints', () => {
@@ -15,21 +16,17 @@ describe('buildProblem', () => {
   });
 
   it('should return a Problem with the passed-in constants', () => {
-    const constant = buildConstant('a', 10);
-    expect(buildProblem([constant], []).variables).to.deep.equal({ a: constant });
+    const constant = buildConstant( 10);
+    expect(buildProblem([constant], []).variables).to.deep.equal({ [constant.id]: constant });
   });
 
   it('should return a Problem with the passed-in variables mapped by id', () => {
-    const variable: Variable = {
-      id: 'x', range: { min: 1, max: 2 }
-    };
-    const otherVariable: Variable = {
-      id: 'y', range: { min: 1, max: 2 }
-    };
+    const variable = buildDecisionVariable({ min: 1, max: 2 });
+    const otherVariable = buildDecisionVariable({ min: 1, max: 2 });
     const problem = buildProblem([variable, otherVariable], []);
     expect(problem.variables).to.deep.equal({
-      x: variable,
-      y: otherVariable
+      [variable.id]: variable,
+      [otherVariable.id]: otherVariable
     });
   });
 });
@@ -53,21 +50,19 @@ describe('combineProblems', () => {
   });
 
   it(`should return a problem with a combined map of all the problems' variables`, () => {
-    const variable: Variable = {
-      id: 'x', range: { min: 1, max: 2 }
-    };
-    const constant = buildConstant('y', 2);
-    const sharedVariable: Variable = {
-      id: 'z', range: { min: 1, max: 2 }
-    };
+    const range = buildRange(1, 2);
+
+    const variable = buildDecisionVariable(range);
+    const constant = buildConstant(2);
+    const sharedVariable = buildDecisionVariable(range);
     const combinedProblem = combineProblems([
       buildProblem([sharedVariable, variable], []),
       buildProblem([sharedVariable, constant], []),
     ]);
     expect(combinedProblem.variables).to.deep.equal({
-      x: variable,
-      y: constant,
-      z: sharedVariable
+      [variable.id]: variable,
+      [constant.id]: constant,
+      [sharedVariable.id]: sharedVariable
     });
   });
 });

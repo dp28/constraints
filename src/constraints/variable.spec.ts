@@ -13,10 +13,14 @@ import {
 } from './variable';
 
 describe('buildConstant', () => {
-  const constant = buildConstant('id', 1);
+  const constant = buildConstant(1);
 
-  it('should have the specified id', () => {
-    expect(constant.id).to.equal('id');
+  it('should have an id', () => {
+    expect(constant.id).not.to.be.undefined;
+  });
+
+  it('should have a unique id', () => {
+    expect(constant.id).not.to.equal(buildConstant(1).id);
   });
 
   it('should have the specified value', () => {
@@ -25,10 +29,14 @@ describe('buildConstant', () => {
 });
 
 describe('buildDecisionVariable', () => {
-  const variable = buildDecisionVariable('id', { min: 1, max: 2 }, 1);
+  const variable = buildDecisionVariable({ min: 1, max: 2 }, 1);
 
-  it('should have the specified id', () => {
-    expect(variable.id).to.equal('id');
+  it('should have an id', () => {
+    expect(variable.id).not.to.be.undefined;
+  });
+
+  it('should have a unique id', () => {
+    expect(variable.id).not.to.equal(buildDecisionVariable({ min: 1, max: 2 }).id);
   });
 
   it('should have the specified range', () => {
@@ -42,8 +50,8 @@ describe('buildDecisionVariable', () => {
 
 describe('toVariableReference', () => {
   it('should return a variable\'s id if passed a variable', () => {
-    const variable = buildDecisionVariable('id', { min: 1, max: 2 }, 1);
-    expect(toVariableReference(variable)).to.equal('id');
+    const variable = buildDecisionVariable({ min: 1, max: 2 }, 1);
+    expect(toVariableReference(variable)).to.equal(variable.id);
   });
 
   it('should return a passed in variable id without changing it', () => {
@@ -57,10 +65,10 @@ describe('combine', () => {
   });
 
   it('should return a VariableRelation with references to the specified variables', () => {
-    const variable = buildDecisionVariable('id', { min: 1, max: 2 }, 1);
-    const otherVariable = buildDecisionVariable('id2', { min: 1, max: 2 }, 2);
+    const variable = buildDecisionVariable({ min: 1, max: 2 }, 1);
+    const otherVariable = buildDecisionVariable({ min: 1, max: 2 }, 2);
     const combined = combine('bla')(variable, otherVariable);
-    expect(combined.variableReferences).to.deep.equal(['id', 'id2']);
+    expect(combined.variableReferences).to.deep.equal([variable.id, otherVariable.id]);
   });
 });
 
