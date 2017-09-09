@@ -1,8 +1,14 @@
 import {Range} from './range';
 
 export type VariableId = string;
+export type VariableDeclaration = Constant | DecisionVariable;
 export type VariableReference = VariableId | VariableRelation;
-export type Variable = DecisionVariable | VariableReference;
+export type Variable = VariableDeclaration | VariableReference;
+
+export interface Constant {
+  id: VariableId;
+  value: number;
+}
 
 export interface DecisionVariable {
   id: VariableId;
@@ -30,6 +36,10 @@ export function sum(variables: Array<Variable>): VariableRelation {
   return add(...variables);
 }
 
+export function buildConstant(id: string, value: number) {
+  return { id, value };
+}
+
 export function buildDecisionVariable(
   id: string,
   range: Range,
@@ -39,11 +49,15 @@ export function buildDecisionVariable(
 }
 
 export function toVariableReference(variable: Variable): VariableReference {
-  return isDecisionVariable(variable) ? variable.id : variable;
+  return isVariableDeclaration(variable) ? variable.id : variable;
 }
 
-function isDecisionVariable(variable: Variable): variable is DecisionVariable {
+function isVariableDeclaration(variable: Variable): variable is VariableDeclaration {
   return (<DecisionVariable>variable).id !== undefined;
+}
+
+export function isConstant(variable: VariableDeclaration): variable is Constant {
+  return (<Constant>variable).value !== undefined;
 }
 
 export function isVariableId(variable: Variable): variable is VariableId {

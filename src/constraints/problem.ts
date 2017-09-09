@@ -1,10 +1,10 @@
 import {Constraint} from './constraint';
-import {DecisionVariable, buildDecisionVariable} from './variable';
+import {VariableDeclaration, buildDecisionVariable} from './variable';
 import {Range, buildRange} from './range';
 import {range} from '../utils/range';
 
-export interface DecisionVariableDeclarations {
-  [variableId: string]: DecisionVariable;
+export interface VariableDeclarations {
+  [variableId: string]: VariableDeclaration;
 }
 
 export interface RangeDeclarations {
@@ -12,21 +12,22 @@ export interface RangeDeclarations {
 }
 
 export interface Problem {
-  decisionVariables: DecisionVariableDeclarations;
+  variables: VariableDeclarations;
   constraints: Array<Constraint>;
 }
 
 export function buildProblem(
-  variables: Array<DecisionVariable>,
-  constraints: Array<Constraint>): Problem {
+  variables: Array<VariableDeclaration>,
+  constraints: Array<Constraint>
+): Problem {
   return {
-    decisionVariables: indexById(variables),
+    variables: indexById(variables),
     constraints
   };
 }
 
-function indexById(variables: Array<DecisionVariable>): { [id: string]: DecisionVariable } {
-  const result: { [id: string]: DecisionVariable } = {};
+function indexById(variables: Array<VariableDeclaration>): { [id: string]: VariableDeclaration } {
+  const result: { [id: string]: VariableDeclaration } = {};
   return variables.reduce((result, variable) => {
     result[variable.id] = variable;
     return result;
@@ -34,24 +35,24 @@ function indexById(variables: Array<DecisionVariable>): { [id: string]: Decision
 }
 
 export function ProblemBuilder() {
-  const decisionVariables: { [variableId: string]: DecisionVariable } = {};
+  const variables: { [variableId: string]: VariableDeclaration } = {};
   const constraints: Array<Constraint> = [];
 
-  function addVariable(variable: DecisionVariable): DecisionVariable {
-    decisionVariables[variable.id] = variable;
+  function addVariable(variable: VariableDeclaration): VariableDeclaration {
+    variables[variable.id] = variable;
     return variable;
   }
 
   return {
     toProblem(): Problem {
-      return { decisionVariables, constraints };
+      return { variables, constraints };
     },
 
-    defineVariable(id: string, range: Range): DecisionVariable {
+    defineVariable(id: string, range: Range): VariableDeclaration {
       return addVariable(buildDecisionVariable(id, range));
     },
 
-    defineVariables(idPrefix: string, rangeRef: Range, num: number): Array<DecisionVariable> {
+    defineVariables(idPrefix: string, rangeRef: Range, num: number): Array<VariableDeclaration> {
       return range(0, num).map(i => addVariable(buildDecisionVariable(`${idPrefix}_${i}`, rangeRef)));
     },
 
@@ -63,13 +64,13 @@ export function ProblemBuilder() {
 
 export function combineProblems(problems: Array<Problem>): Problem {
   return {
-    decisionVariables: assign(problems.map(problem => problem.decisionVariables)),
+    variables: assign(problems.map(problem => problem.variables)),
     constraints: concat(problems.map(problem => problem.constraints))
   };
 }
 
-function assign(objects: Array<DecisionVariableDeclarations>): DecisionVariableDeclarations {
-  const result: DecisionVariableDeclarations = {};
+function assign(objects: Array<VariableDeclarations>): VariableDeclarations {
+  const result: VariableDeclarations = {};
   return objects.reduce((result, object) => {
     Object.keys(object).forEach(key => result[key] = object[key]);
     return result;

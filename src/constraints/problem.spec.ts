@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 import { buildProblem, combineProblems, ProblemBuilder } from './problem';
 import { Constraint } from './constraint';
-import { Variable } from './variable';
+import { Variable, buildConstant } from './variable';
 
 describe('buildProblem', () => {
   it('should return a Problem with the passed-in constraints', () => {
@@ -14,6 +14,11 @@ describe('buildProblem', () => {
     expect(buildProblem([], [constraint]).constraints).to.deep.equal([constraint]);
   });
 
+  it('should return a Problem with the passed-in constants', () => {
+    const constant = buildConstant('a', 10);
+    expect(buildProblem([constant], []).variables).to.deep.equal({ a: constant });
+  });
+
   it('should return a Problem with the passed-in variables mapped by id', () => {
     const variable: Variable = {
       id: 'x', range: { min: 1, max: 2 }
@@ -22,7 +27,7 @@ describe('buildProblem', () => {
       id: 'y', range: { min: 1, max: 2 }
     };
     const problem = buildProblem([variable, otherVariable], []);
-    expect(problem.decisionVariables).to.deep.equal({
+    expect(problem.variables).to.deep.equal({
       x: variable,
       y: otherVariable
     });
@@ -51,19 +56,17 @@ describe('combineProblems', () => {
     const variable: Variable = {
       id: 'x', range: { min: 1, max: 2 }
     };
-    const otherVariable: Variable = {
-      id: 'y', range: { min: 1, max: 2 }
-    };
+    const constant = buildConstant('y', 2);
     const sharedVariable: Variable = {
       id: 'z', range: { min: 1, max: 2 }
     };
     const combinedProblem = combineProblems([
       buildProblem([sharedVariable, variable], []),
-      buildProblem([sharedVariable, otherVariable], []),
+      buildProblem([sharedVariable, constant], []),
     ]);
-    expect(combinedProblem.decisionVariables).to.deep.equal({
+    expect(combinedProblem.variables).to.deep.equal({
       x: variable,
-      y: otherVariable,
+      y: constant,
       z: sharedVariable
     });
   });

@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import {
   buildProblem,
   buildDecisionVariable,
+  buildConstant,
   isWithinRange,
   Variable,
   Constraint
@@ -29,6 +30,14 @@ describe('solve', () => {
   it('should return the specified value for a variable if given', () => {
     const range = { min: 1, max: 20 };
     const a = buildDecisionVariable('a', range, 10);
+    const problem = buildProblem([a], []);
+    return solve(problem).then((solution) => {
+      expect(solution.a).to.equal(10);
+    });
+  });
+
+  it('should return the specified value for a constant', () => {
+    const a = buildConstant('a', 10);
     const problem = buildProblem([a], []);
     return solve(problem).then((solution) => {
       expect(solution.a).to.equal(10);

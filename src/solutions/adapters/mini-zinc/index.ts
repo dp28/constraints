@@ -1,7 +1,7 @@
 import { Problem } from '../../../constraints';
 import { Solution } from '../../solver';
 import { parseConstraints } from './constraint-parser';
-import { parseDecisionVariables } from './variable-parser';
+import { parseVariables } from './variable-parser';
 import { solveWithTimeout } from 'minizinc-solver';
 
 export function solve(problem: Problem): Promise<Solution | null> {
@@ -18,10 +18,10 @@ function solveMinizincInPromise(minizincProblem: string): Promise<string> {
 
 export function parseProblem(problem: Problem): string {
   return [
-    parseDecisionVariables(problem.decisionVariables),
+    parseVariables(problem.variables),
     parseConstraints(problem.constraints),
     `solve satisfy;`,
-    defineOutput(Object.keys(problem.decisionVariables))
+    defineOutput(Object.keys(problem.variables))
   ].join(`\n\n`);
 }
 

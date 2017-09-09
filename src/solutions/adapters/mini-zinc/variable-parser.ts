@@ -1,19 +1,31 @@
 import {
+  VariableDeclaration,
+  VariableDeclarations,
+  Constant,
   DecisionVariable,
-  DecisionVariableDeclarations,
-  Range
+  isConstant,
+  Range,
+  buildRange
 } from '../../../constraints';
 
-export function parseDecisionVariables(decisionVariables: DecisionVariableDeclarations): string {
+export function parseVariables(variables: VariableDeclarations): string {
   return Object
-    .keys(decisionVariables)
-    .map(variableName => parseVariable(decisionVariables[variableName]))
+    .keys(variables)
+    .map(variableName => parseVariable(variables[variableName]))
     .join(`\n`);
 }
 
-function parseVariable(variable: DecisionVariable): string {
-  const value = variable.value ? ` = ${variable.value}` : ``;
-  return `var ${parseRange(variable.range)}: ${variable.id}${value};`;
+function parseVariable(variable: VariableDeclaration): string {
+  return isConstant(variable) ? parseConstant(variable) : parseDecisionVariable(variable);
+}
+
+function parseConstant({ id, value }: Constant): string {
+  const range = parseRange(buildRange(value, value))
+    return `var ${range}: ${id} = ${value};`
+}
+
+function parseDecisionVariable(variable: DecisionVariable) {
+  return `var ${parseRange(variable.range)}: ${variable.id};`;
 }
 
 function parseRange(range: Range): string {

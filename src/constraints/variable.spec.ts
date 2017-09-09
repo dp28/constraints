@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import {
   buildDecisionVariable,
+  buildConstant,
   toVariableReference,
   combine,
   add,
@@ -10,6 +11,18 @@ import {
   multiply,
   divide
 } from './variable';
+
+describe('buildConstant', () => {
+  const constant = buildConstant('id', 1);
+
+  it('should have the specified id', () => {
+    expect(constant.id).to.equal('id');
+  });
+
+  it('should have the specified value', () => {
+    expect(constant.value).to.equal(1);
+  });
+});
 
 describe('buildDecisionVariable', () => {
   const variable = buildDecisionVariable('id', { min: 1, max: 2 }, 1);
