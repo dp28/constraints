@@ -10,6 +10,8 @@
   "author": "Daniel Patterson <dan24patt@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.1",
+    "cors": "^2.8.4",
     "express": "^4.15.4",
     "json-constraints-solver": "0.0.0"
   },
