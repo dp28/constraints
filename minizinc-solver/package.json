@@ -1,0 +1,33 @@
+{
+  "name": "minizinc-solver",
+  "version": "0.2.0",
+  "description": "A javascript wrapper for the MiniZinc constraints modelling language compiler and solver.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha spec",
+    "test:watch": "mocha -w --growl spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dp28/constraints.git"
+  },
+  "keywords": [
+    "constraints",
+    "minizinc",
+    "solver"
+  ],
+  "author": "Daniel Patterson <dan24patt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dp28/constraints/issues"
+  },
+  "homepage": "https://github.com/dp28/constraints#readme",
+  "os": [
+    "linux"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0"
+  }
+}
