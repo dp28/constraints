@@ -4,8 +4,8 @@ export default {
   eventContext: {
     minutesPerUnit: 15,
     range: {
-      min: new Date(2016, 8, 19, 0, 0),
-      max: new Date(2016, 8, 26, 0, 0)
+      min: 0,
+      max: 672
     }
   },
   constrainedEvents: {
@@ -13,12 +13,12 @@ export default {
       id: `work1`,
       name: `work`,
       start: {
-        min: new Date(2016, 8, 19, 6, 30),
-        max: new Date(2016, 8, 19, 9, 30)
+        min: 0,
+        max: 95
       },
       end: {
-        min: new Date(2016, 8, 19, 16, 0),
-        max: new Date(2016, 8, 19, 21, 0)
+        min: 0,
+        max: 95
       },
       duration: {
         min: 24,
@@ -29,12 +29,12 @@ export default {
       id: `work2`,
       name: `work`,
       start: {
-        min: new Date(2016, 8, 20, 6, 30),
-        max: new Date(2016, 8, 20, 9, 30)
+        min: 96,
+        max: 191
       },
       end: {
-        min: new Date(2016, 8, 20, 16, 0),
-        max: new Date(2016, 8, 20, 21, 0)
+        min: 96,
+        max: 191
       },
       duration: {
         min: 24,
@@ -45,12 +45,12 @@ export default {
       id: `work3`,
       name: `work`,
       start: {
-        min: new Date(2016, 8, 21, 6, 30),
-        max: new Date(2016, 8, 21, 9, 30)
+        min: 192,
+        max: 287
       },
       end: {
-        min: new Date(2016, 8, 21, 16, 0),
-        max: new Date(2016, 8, 21, 21, 0)
+        min: 192,
+        max: 287
       },
       duration: {
         min: 24,
@@ -61,12 +61,12 @@ export default {
       id: `work4`,
       name: `work`,
       start: {
-        min: new Date(2016, 8, 22, 6, 30),
-        max: new Date(2016, 8, 22, 9, 30)
+        min: 288,
+        max: 383
       },
       end: {
-        min: new Date(2016, 8, 22, 16, 0),
-        max: new Date(2016, 8, 22, 21, 0)
+        min: 288,
+        max: 383
       },
       duration: {
         min: 24,
@@ -77,12 +77,12 @@ export default {
       id: `work5`,
       name: `work`,
       start: {
-        min: new Date(2016, 8, 23, 6, 30),
-        max: new Date(2016, 8, 23, 9, 30)
+        min: 384,
+        max: 479
       },
       end: {
-        min: new Date(2016, 8, 23, 16, 0),
-        max: new Date(2016, 8, 23, 21, 0)
+        min: 384,
+        max: 479
       },
       duration: {
         min: 24,
