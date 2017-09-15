@@ -1,0 +1,25 @@
+.ConstrainedEvent-field {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.ConstrainedEvent label {
+  font-weight: normal;
+  display: block;
+}
+
+.ConstrainedEvent-summary {
+  display: table;
+  width: 100%;
+}
+
+.ConstrainedEvent-summary button {
+  display: table-cell;
+  width: auto;
+  margin-right: 10px;
+}
+
+.ConstrainedEvent-summary p {
+  display: table-cell;
+  width: 100%;
+}
