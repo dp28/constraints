@@ -21,7 +21,7 @@ export interface EventConfig {
 }
 
 export interface Event {
-  id: string,
+  id: string;
   config: EventConfig;
   start: DecisionVariable;
   end: DecisionVariable;
@@ -30,7 +30,7 @@ export interface Event {
 }
 
 export interface EventProblem {
-  events: Array<Event>,
+  events: Array<Event>;
   constraints?: Array<Constraint>;
   variables?: Array<DecisionVariable>;
 }

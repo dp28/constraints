@@ -6,7 +6,7 @@ import {
   isConstant,
   Range,
   buildRange
-} from '../../../constraints';
+} from 'json-constraints';
 
 export function parseVariables(variables: VariableDeclarations): string {
   return Object

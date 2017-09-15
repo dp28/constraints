@@ -1,0 +1,44 @@
+{
+  "name": "json-constraints",
+  "version": "0.0.0",
+  "description": "A library to programatically define constraints problems in a JSON format",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@types/cuid": "^1.3.0",
+    "cuid": "^1.3.8"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.2",
+    "mocha": "3.5.0",
+    "ts-node": "^3.3.0",
+    "tslint": "5.7.0",
+    "typescript": "2.5.2"
+  },
+  "scripts": {
+    "clean": "rm -rf build",
+    "compile": "tsc --pretty",
+    "compile:watch": "tsc --pretty -w",
+    "lint": "tslint 'src/**/*.ts' --force",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "test:watch": "npm run test -- --watch --watch-extensions ts --growl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dp28/constraints.git"
+  },
+  "keywords": [
+    "constraints",
+    "problem",
+    "schema",
+    "json"
+  ],
+  "author": "Daniel Patterson <dan24patt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dp28/constraints/issues"
+  },
+  "homepage": "https://github.com/dp28/constraints#readme"
+}

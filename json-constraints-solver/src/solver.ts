@@ -1,4 +1,4 @@
-import { Problem } from '../constraints';
+import { Problem } from 'json-constraints';
 import * as minizinc from './adapters/mini-zinc';
 
 export interface Solution {

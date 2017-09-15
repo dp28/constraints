@@ -1,8 +1,8 @@
-import { Problem } from '../../../constraints';
-import { Solution } from '../../solver';
+import { solveWithTimeout } from 'minizinc-solver';
+import { Problem, Solution } from 'json-constraints';
+
 import { parseConstraints } from './constraint-parser';
 import { parseVariables } from './variable-parser';
-import { solveWithTimeout } from 'minizinc-solver';
 
 export function solve(problem: Problem): Promise<Solution | null> {
   return solveMinizincInPromise(parseProblem(problem)).then(JSON.parse);

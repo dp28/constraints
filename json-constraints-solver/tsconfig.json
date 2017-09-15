@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "outDir": "build",
+    "target": "es5",
+    "lib": ["es5", "es6", "dom"],
+    "declaration": true
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*",
+    "typings/index.dt.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

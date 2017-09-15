@@ -27,34 +27,6 @@ export function buildProblem(
   };
 }
 
-export function ProblemBuilder() {
-  const variables: { [variableId: string]: VariableDeclaration } = {};
-  const constraints: Array<Constraint> = [];
-
-  function addVariable(variable: VariableDeclaration): VariableDeclaration {
-    variables[variable.id] = variable;
-    return variable;
-  }
-
-  return {
-    toProblem(): Problem {
-      return { variables, constraints };
-    },
-
-    defineVariable(range: Range): VariableDeclaration {
-      return addVariable(buildDecisionVariable(range));
-    },
-
-    defineVariables(idPrefix: string, rangeRef: Range, num: number): Array<VariableDeclaration> {
-      return range(0, num).map(() => addVariable(buildDecisionVariable(rangeRef)));
-    },
-
-    addConstraint(constraint: Constraint): void {
-      constraints.push(constraint);
-    }
-  };
-}
-
 export function combineProblems(problems: Array<Problem>): Problem {
   return {
     variables: assign(problems.map(problem => problem.variables)),

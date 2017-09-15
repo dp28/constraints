@@ -1,6 +1,6 @@
 import 'mocha';
 import { expect } from 'chai';
-
+import * as constraints from 'json-constraints';
 import {
   buildProblem,
   buildDecisionVariable,
@@ -8,12 +8,9 @@ import {
   isWithinRange,
   Variable,
   Constraint
-} from '../src/constraints';
+} from 'json-constraints';
 
-import * as constraints from '../src/constraints/constraint';
-import * as relations from '../src/constraints/variable';
-
-import { solve } from '../src/solutions/solver';
+import { solve } from './solver';
 
 describe('solve', () => {
   it('should return valid values for all the variables in the Problem', () => {
@@ -141,28 +138,28 @@ describe('solve', () => {
     }
 
     it('should satisfy "add" relations', () => {
-      const problem = buildConstrainedProblem(relations.add);
+      const problem = buildConstrainedProblem(constraints.add);
       return solve(problem).then((solution) => {
         expect(solution[a.id] + solution[b.id]).to.equal(solution[result.id]);
       });
     });
 
     it('should satisfy "subtract" relations', () => {
-      const problem = buildConstrainedProblem(relations.subtract);
+      const problem = buildConstrainedProblem(constraints.subtract);
       return solve(problem).then((solution) => {
         expect(solution[a.id] - solution[b.id]).to.equal(solution[result.id]);
       });
     });
 
     it('should satisfy "multiply" relations', () => {
-      const problem = buildConstrainedProblem(relations.multiply);
+      const problem = buildConstrainedProblem(constraints.multiply);
       return solve(problem).then((solution) => {
         expect(solution[a.id] * solution[b.id]).to.equal(solution[result.id]);
       });
     });
 
     it('should satisfy "divide" relations', () => {
-      const problem = buildConstrainedProblem(relations.divide);
+      const problem = buildConstrainedProblem(constraints.divide);
       return solve(problem).then((solution) => {
         expect(solution[a.id] / solution[b.id]).to.equal(solution[result.id]);
       });

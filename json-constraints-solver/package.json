@@ -1,0 +1,51 @@
+{
+  "name": "json-constraints-solver",
+  "version": "0.0.0",
+  "description": "Solves constraints problems defined in the json-constraints format\"",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "json-constraints": "0.0.0",
+    "minizinc-solver": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.2",
+    "mocha": "3.5.0",
+    "ts-node": "^3.3.0",
+    "tslint": "5.7.0",
+    "typescript": "2.5.2"
+  },
+  "scripts": {
+    "clean": "rm -rf build",
+    "compile": "tsc --pretty",
+    "compile:watch": "tsc --pretty -w",
+    "lint": "tslint 'src/**/*.ts' --force",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "test:watch": "npm run test -- --watch --watch-extensions ts --growl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dp28/constraints.git"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "os": [
+    "linux"
+  ],
+  "keywords": [
+    "constraints",
+    "json-constraints",
+    "solver",
+    "constraints-solver",
+    "minizinc"
+  ],
+  "author": "Daniel Patterson <dan24patt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dp28/constraints/issues"
+  },
+  "homepage": "https://github.com/dp28/constraints#readme"
+}

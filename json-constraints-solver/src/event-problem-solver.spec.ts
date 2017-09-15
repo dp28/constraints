@@ -1,15 +1,15 @@
 import 'mocha';
 import { expect } from 'chai';
-
 import {
   buildProblem,
   buildDecisionVariable,
-  mustBeLessThan
-} from '../src/constraints';
+  mustBeLessThan,
+  buildEvent,
+  toProblem,
+  mustNotOverlap
+} from 'json-constraints';
 
-import { buildEvent, toProblem, mustNotOverlap } from '../src/events';
-
-import { solveEventProblem } from '../src/events/event-problem-solver';
+import { solveEventProblem } from './event-problem-solver';
 
 describe('solve', () => {
   describe('for a single event', () => {

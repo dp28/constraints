@@ -1,6 +1,5 @@
-import { solve, Solution } from '../solutions/solver';
-import { EventProblem, toProblem, Event } from './event';
-import { indexById } from '../utils/object';
+import { EventProblem, toProblem, Event, Solution } from 'json-constraints';
+import { solve } from './solver';
 
 export interface EventSolution {
   id: string;
@@ -35,4 +34,12 @@ function buildEventSolution(solution: Solution, event: Event): EventSolution {
     end: solution[event.end.id],
     duration: solution[event.duration.id]
   }
+}
+
+function indexById<Type extends { id: string }>(objects: Array<Type>): { [id: string]: Type } {
+  const result: { [id: string]: Type } = {};
+  return objects.reduce((result, object) => {
+    result[object.id] = object;
+    return result;
+  }, result);
 }
