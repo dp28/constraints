@@ -2,7 +2,6 @@ import React from "react";
 import "./Timeline.css";
 
 const Item = ({ timeInMinutes }) => {
-  const classes = isHour(timeInMinutes) ? "Item Item-show-border" : "Item";
   if (isHour(timeInMinutes)) {
     return (
       <div className="Item Item-show-border">{toHourLabel(timeInMinutes)}</div>
