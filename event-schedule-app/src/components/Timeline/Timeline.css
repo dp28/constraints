@@ -1,0 +1,13 @@
+.Timeline {
+  height: 50%;
+  width: 50%;
+}
+
+.Item {
+  width: 100%;
+  height: 5px;
+}
+
+.Item-show-border {
+  border-top: 1px solid grey;
+}

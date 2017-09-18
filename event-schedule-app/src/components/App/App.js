@@ -1,13 +1,9 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { Timeline } from "../Timeline";
+import "./App.css";
 
 export const App = () => (
   <div className="App">
-    <div className="App-header">
-      <h2>Welcome to React</h2>
-    </div>
-    <p className="App-intro">
-      To get started, edit <code>src/App.js</code> and save to reload.
-    </p>
+    <Timeline numberOfUnits={24 * 4} minutesPerUnit={15} startInUnits={0} />
   </div>
 );
