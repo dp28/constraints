@@ -1,8 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Timeline } from './Timeline';
+import React from "react";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Timeline />, div);
+import { Timeline } from "./Timeline";
+import { render } from "../../testHelpers/react";
+
+describe("<Timeline />", () => {
+  it("renders without crashing", () => {
+    render(
+      <Timeline
+        minutesPerUnit={10}
+        numberOfUnits={10}
+        startInUnits={10}
+        pixelsPerUnit={10}
+        timeClicked={x => y => x}
+      />
+    );
+  });
 });

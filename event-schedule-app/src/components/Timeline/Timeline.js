@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NewEvent } from "../NewEvent";
+import { NewEventContainer } from "../NewEvent/NewEventContainer";
 import "./Timeline.css";
 
 const Item = ({ timeInMinutes, heightInPixels, onClick }) => {
@@ -36,7 +36,7 @@ export const Timeline = ({
   return (
     <div className="Timeline">
       {items}
-      <NewEvent />
+      <NewEventContainer />
     </div>
   );
 };

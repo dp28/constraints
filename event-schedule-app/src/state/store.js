@@ -1,10 +1,8 @@
 import { createStore } from "redux";
 
-import { reducer } from "./reducer";
+import { reducer, INITIAL_STATE } from "./reducer";
 
 const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-const store = createStore(reducer, devTools);
-
-export default store;
+export const store = createStore(reducer, INITIAL_STATE, devTools);

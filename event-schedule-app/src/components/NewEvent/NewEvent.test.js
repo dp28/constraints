@@ -1,8 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { NewEvent } from './NewEvent';
+import React from "react";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<NewEvent />, div);
+import { NewEvent } from "./NewEvent";
+import { render } from "../../testHelpers/react";
+
+describe("<NewEvent />", () => {
+  it("renders without crashing", () => {
+    render(<NewEvent />);
+  });
 });

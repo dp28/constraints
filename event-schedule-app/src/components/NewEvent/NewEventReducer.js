@@ -1,4 +1,4 @@
-import { TIMELINE_ITEM_CLICKED } from "../Timeline";
+import { TIMELINE_ITEM_CLICKED } from "../Timeline/TimelineActions";
 
 export function reducer(newEvent = {}, action) {
   switch (action.type) {
