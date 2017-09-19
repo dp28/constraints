@@ -1,21 +1,44 @@
 import React from "react";
+
+import { NewEvent } from "../NewEvent";
 import "./Timeline.css";
 
-const Item = ({ timeInMinutes }) => {
-  if (isHour(timeInMinutes)) {
-    return (
-      <div className="Item Item-show-border">{toHourLabel(timeInMinutes)}</div>
-    );
-  } else {
-    return <div className="Item" />;
-  }
+const Item = ({ timeInMinutes, heightInPixels, onClick }) => {
+  const classes = isHour(timeInMinutes) ? "Item Item-show-border" : "Item";
+  const text = isHour(timeInMinutes) ? toHourLabel(timeInMinutes) : "";
+  const height = isHour(timeInMinutes) ? heightInPixels - 1 : heightInPixels;
+  return (
+    <div
+      className={classes}
+      style={{ height: height + "px" }}
+      onClick={onClick}
+    >
+      {text}
+    </div>
+  );
 };
 
-export const Timeline = ({ minutesPerUnit, numberOfUnits, startInUnits }) => {
+export const Timeline = ({
+  minutesPerUnit,
+  numberOfUnits,
+  startInUnits,
+  pixelsPerUnit,
+  timeClicked
+}) => {
   const items = buildItemUnits(numberOfUnits, startInUnits).map(unit => (
-    <Item timeInMinutes={unit * minutesPerUnit} />
+    <Item
+      key={unit}
+      timeInMinutes={unit * minutesPerUnit}
+      heightInPixels={pixelsPerUnit}
+      onClick={timeClicked(unit)}
+    />
   ));
-  return <div className="Timeline">{items}</div>;
+  return (
+    <div className="Timeline">
+      {items}
+      <NewEvent />
+    </div>
+  );
 };
 
 function buildItemUnits(numberOfUnits, startInUnits) {
