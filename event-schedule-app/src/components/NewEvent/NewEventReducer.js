@@ -13,7 +13,7 @@ function updateEvent(newEvent, { timeInUnits }) {
   if (newEvent.minStart === undefined) {
     return { ...newEvent, minStart: timeInUnits };
   }
-  if (newEvent.maxEnd !== timeInUnits) {
+  if (newEvent.maxEnd !== timeInUnits && newEvent.minStart <= timeInUnits) {
     return { ...newEvent, maxEnd: timeInUnits };
   }
   return newEvent;
