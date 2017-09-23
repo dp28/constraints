@@ -2,10 +2,10 @@ import { mapStateToProps, mapDispatchToProps } from "./TimelineContainer";
 import { TIMELINE_ITEM_CLICKED } from "./TimelineActions";
 
 describe("mapStateToProps", () => {
-  it("should map out the config property 'minutesPerUnit'", () => {
+  it("should map out a toMinutes function'", () => {
     expect(
-      mapStateToProps({ config: { minutesPerUnit: 2 } }).minutesPerUnit
-    ).toEqual(2);
+      mapStateToProps({ config: { minutesPerUnit: 2 } }).toMinutes
+    ).toBeDefined();
   });
 
   it("should map out the config property 'pixelsPerUnit'", () => {

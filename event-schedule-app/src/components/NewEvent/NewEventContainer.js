@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 
 import { NewEvent } from "./NewEvent";
+import { selectUnitConverters } from "../Config/ConfigSelectors";
 
-export function mapStateToProps({ config, newEvent }) {
+export function mapStateToProps(state) {
+  const { newEvent } = state;
   return {
-    pixelsPerUnit: config.pixelsPerUnit,
-    minutesPerUnit: config.minutesPerUnit,
+    pixelsPerUnit: selectUnitConverters(state).pixelsPerUnit,
     minStart: newEvent.minStart || 0,
     minDuration: newEvent.minDuration || 0,
     maxDuration: newEvent.maxDuration || 0,

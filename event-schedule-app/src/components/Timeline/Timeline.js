@@ -19,7 +19,7 @@ const Item = ({ timeInMinutes, heightInPixels, onClick }) => {
 };
 
 export const Timeline = ({
-  minutesPerUnit,
+  toMinutes,
   numberOfUnits,
   startInUnits,
   pixelsPerUnit,
@@ -28,7 +28,7 @@ export const Timeline = ({
   const items = buildItemUnits(numberOfUnits, startInUnits).map(unit => (
     <Item
       key={unit}
-      timeInMinutes={unit * minutesPerUnit}
+      timeInMinutes={toMinutes(unit)}
       heightInPixels={pixelsPerUnit}
       onClick={timeClicked(unit)}
     />

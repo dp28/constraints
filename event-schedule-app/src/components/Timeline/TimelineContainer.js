@@ -2,13 +2,9 @@ import { connect } from "react-redux";
 
 import { timelineItemClicked } from "./TimelineActions";
 import { Timeline } from "./Timeline";
+import { selectUnitConverters } from "../Config/ConfigSelectors";
 
-export function mapStateToProps({ config }) {
-  return {
-    minutesPerUnit: config.minutesPerUnit,
-    pixelsPerUnit: config.pixelsPerUnit
-  };
-}
+export const mapStateToProps = selectUnitConverters;
 
 export function mapDispatchToProps(dispatch) {
   return {

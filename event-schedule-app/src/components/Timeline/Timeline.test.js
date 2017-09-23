@@ -7,7 +7,7 @@ describe("<Timeline />", () => {
   it("renders without crashing", () => {
     render(
       <Timeline
-        minutesPerUnit={10}
+        toMinutes={x => x * 10}
         numberOfUnits={10}
         startInUnits={10}
         pixelsPerUnit={10}

@@ -3,7 +3,6 @@ import "./NewEvent.css";
 
 export const NewEvent = ({
   pixelsPerUnit,
-  minutesPerUnit,
   minStart,
   minDuration,
   maxDuration,

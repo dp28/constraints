@@ -4,12 +4,6 @@ describe("mapStateToProps", () => {
   function mockState({ config = {}, newEvent = {} } = {}) {
     return { config, newEvent };
   }
-  it("should map out the config property 'minutesPerUnit'", () => {
-    expect(
-      mapStateToProps(mockState({ config: { minutesPerUnit: 2 } }))
-        .minutesPerUnit
-    ).toEqual(2);
-  });
 
   it("should map out the config property 'pixelsPerUnit'", () => {
     expect(
