@@ -1,18 +1,23 @@
-import { TIMELINE_ITEM_CLICKED } from "../Timeline/TimelineActions";
+import {
+  START_EVENT,
+  SET_EVENT_END,
+  TOGGLE_EDITING_EVENT
+} from "./NewEventActions";
 
 export function reducer(newEvent = {}, action) {
   switch (action.type) {
-    case TIMELINE_ITEM_CLICKED:
-      return updateEvent(newEvent, action);
+    case START_EVENT:
+      return { ...newEvent, minStart: action.timeInUnits };
+    case SET_EVENT_END:
+      return updateEventEnd(newEvent, action);
+    case TOGGLE_EDITING_EVENT:
+      return { ...newEvent, editing: !newEvent.editing };
     default:
       return newEvent;
   }
 }
 
-function updateEvent(newEvent, { timeInUnits }) {
-  if (newEvent.minStart === undefined) {
-    return { ...newEvent, minStart: timeInUnits };
-  }
+function updateEventEnd(newEvent, { timeInUnits }) {
   if (newEvent.maxEnd !== timeInUnits && newEvent.minStart <= timeInUnits) {
     return { ...newEvent, maxEnd: timeInUnits };
   }

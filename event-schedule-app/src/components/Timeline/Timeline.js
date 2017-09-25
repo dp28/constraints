@@ -3,7 +3,7 @@ import React from "react";
 import { NewEventContainer } from "../NewEvent/NewEventContainer";
 import "./Timeline.css";
 
-const Item = ({ timeInMinutes, heightInPixels, onClick }) => {
+const Item = ({ timeInMinutes, heightInPixels, onClick, onEnter }) => {
   const classes = isHour(timeInMinutes) ? "Item Item-show-border" : "Item";
   const text = isHour(timeInMinutes) ? toHourLabel(timeInMinutes) : "";
   const height = isHour(timeInMinutes) ? heightInPixels - 1 : heightInPixels;
@@ -12,6 +12,8 @@ const Item = ({ timeInMinutes, heightInPixels, onClick }) => {
       className={classes}
       style={{ height: height + "px" }}
       onClick={onClick}
+      onMouseEnter={onEnter}
+      onTouchMove={onEnter}
     >
       {text}
     </div>
@@ -23,14 +25,16 @@ export const Timeline = ({
   numberOfUnits,
   startInUnits,
   pixelsPerUnit,
-  timeClicked
+  timeClicked,
+  timeHovered
 }) => {
   const items = buildItemUnits(numberOfUnits, startInUnits).map(unit => (
     <Item
       key={unit}
       timeInMinutes={toMinutes(unit)}
       heightInPixels={pixelsPerUnit}
-      onClick={timeClicked(unit)}
+      onClick={() => timeClicked(unit)}
+      onEnter={() => timeHovered(unit)}
     />
   ));
   return (
