@@ -1,6 +1,6 @@
 import { reducer } from "./reducer";
 import { reducer as config } from "../components/Config/ConfigReducer";
-import { reducer as newEvent } from "../components/NewEvent/NewEventReducer";
+import { reducer as timeBounds } from "../components/TimeBounds/TimeBoundsReducer";
 
 describe("reducer", () => {
   it("should be a combination of all the next-level reducers", () => {
@@ -8,7 +8,7 @@ describe("reducer", () => {
     const action = { type: "a" };
     expect(reducer(state, action)).toEqual({
       config: config(state.config, action),
-      newEvent: newEvent(state.newEvent, action)
+      timeBounds: timeBounds(state.timeBounds, action)
     });
   });
 });

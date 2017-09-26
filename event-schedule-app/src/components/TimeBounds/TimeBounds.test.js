@@ -1,10 +1,10 @@
 import React from "react";
 
-import { NewEvent } from "./NewEvent";
+import { TimeBounds } from "./TimeBounds";
 import { render } from "../../testHelpers/react";
 
-describe("<NewEvent />", () => {
+describe("<TimeBounds />", () => {
   it("renders without crashing", () => {
-    render(<NewEvent />);
+    render(<TimeBounds />);
   });
 });

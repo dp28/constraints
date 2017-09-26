@@ -1,6 +1,9 @@
 import { combineReducers } from "redux";
 
-import { reducer as newEvent } from "../components/NewEvent/NewEventReducer";
+import {
+  reducer as timeBounds,
+  InitialState as TimeBoundsInitialState
+} from "../components/TimeBounds/TimeBoundsReducer";
 import {
   reducer as config,
   InitialState as ConfigInitialState
@@ -8,7 +11,7 @@ import {
 
 export const INITIAL_STATE = {
   config: ConfigInitialState,
-  newEvent: {}
+  timeBounds: TimeBoundsInitialState
 };
 
-export const reducer = combineReducers({ config, newEvent });
+export const reducer = combineReducers({ config, timeBounds });
