@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TimeBoundsContainer } from "../TimeBounds/TimeBoundsContainer";
+import { ConstrainedEventsContainer } from "../ConstrainedEvents/ConstrainedEventsContainer";
 import "./Timeline.css";
 
 const Item = ({ timeInMinutes, heightInPixels, onClick, onEnter }) => {
@@ -40,6 +41,7 @@ export const Timeline = ({
   return (
     <div className="Timeline">
       {items}
+      <ConstrainedEventsContainer />
       <TimeBoundsContainer />
     </div>
   );

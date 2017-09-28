@@ -1,0 +1,7 @@
+.ConstrainedEvent {
+  position: absolute;
+  width: 50%;
+  opacity: 0.5;
+  background-color: blue;
+  pointer-events: none;
+}
