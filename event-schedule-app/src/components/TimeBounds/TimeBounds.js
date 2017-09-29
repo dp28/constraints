@@ -1,12 +1,13 @@
 import React from "react";
-import "./TimeBounds.css";
 
-export const TimeBounds = ({ pixelsPerUnit, min, max }) => {
-  const inPixels = time => time * pixelsPerUnit + "px";
-  return (
-    <div
-      className="TimeBounds"
-      style={{ top: inPixels(min), height: inPixels(max - min) }}
-    />
-  );
+import { TimelineItemContainer } from "../TimelineItem/TimelineItemContainer";
+
+const style = {
+  width: "50%",
+  backgroundColor: "rgba(255, 0, 0, 0.5)",
+  pointerEvents: "none"
 };
+
+export const TimeBounds = ({ min, max }) => (
+  <TimelineItemContainer start={min} end={max} style={style} />
+);

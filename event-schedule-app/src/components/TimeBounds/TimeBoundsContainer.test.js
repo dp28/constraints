@@ -1,15 +1,9 @@
 import { mapStateToProps } from "./TimeBoundsContainer";
 
 describe("mapStateToProps", () => {
-  function mockState({ config = {}, timeBounds = {} } = {}) {
-    return { config, timeBounds };
+  function mockState({ timeBounds = {} } = {}) {
+    return { timeBounds };
   }
-
-  it("should map out the config property 'pixelsPerUnit'", () => {
-    expect(
-      mapStateToProps(mockState({ config: { pixelsPerUnit: 2 } })).pixelsPerUnit
-    ).toEqual(2);
-  });
 
   ["min", "max"].forEach(property => {
     it(`should map out the timeBounds property '${property}'`, () => {

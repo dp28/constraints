@@ -1,39 +1,22 @@
 import React from "react";
 
 import { TimeBoundsContainer } from "../TimeBounds/TimeBoundsContainer";
+import { TimelineRow } from "../TimelineRow/TimelineRow";
 import { ConstrainedEventsContainer } from "../ConstrainedEvents/ConstrainedEventsContainer";
 import "./Timeline.css";
-
-const Item = ({ timeInMinutes, heightInPixels, onClick, onEnter }) => {
-  const classes = isHour(timeInMinutes) ? "Item Item-show-border" : "Item";
-  const text = isHour(timeInMinutes) ? toHourLabel(timeInMinutes) : "";
-  const height = isHour(timeInMinutes) ? heightInPixels - 1 : heightInPixels;
-  return (
-    <div
-      className={classes}
-      style={{ height: height + "px" }}
-      onClick={onClick}
-      onMouseEnter={onEnter}
-      onTouchMove={onEnter}
-    >
-      {text}
-    </div>
-  );
-};
 
 export const Timeline = ({
   toMinutes,
   numberOfUnits,
   startInUnits,
-  pixelsPerUnit,
   timeClicked,
   timeHovered
 }) => {
-  const items = buildItemUnits(numberOfUnits, startInUnits).map(unit => (
-    <Item
+  const items = buildRowUnits(numberOfUnits, startInUnits).map(unit => (
+    <TimelineRow
       key={unit}
       timeInMinutes={toMinutes(unit)}
-      heightInPixels={pixelsPerUnit}
+      timeInUnits={unit}
       onClick={() => timeClicked(unit)}
       onEnter={() => timeHovered(unit)}
     />
@@ -47,25 +30,10 @@ export const Timeline = ({
   );
 };
 
-function buildItemUnits(numberOfUnits, startInUnits) {
+function buildRowUnits(numberOfUnits, startInUnits) {
   const items = [];
   for (let i = 0; i < numberOfUnits; i++) {
     items.push(startInUnits + i);
   }
   return items;
-}
-
-function isHour(timeInMinutes) {
-  return timeInMinutes % 60 === 0;
-}
-
-function toHourLabel(timeInMinutes) {
-  const hour = Math.floor(timeInMinutes / 60);
-  const minute = timeInMinutes % 60;
-  return `${padNumber(hour)}:${padNumber(minute)}`;
-}
-
-function padNumber(number) {
-  const numString = String(number);
-  return numString.length === 1 ? `0${numString}` : numString;
 }

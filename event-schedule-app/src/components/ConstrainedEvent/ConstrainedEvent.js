@@ -1,14 +1,17 @@
 import React from "react";
-import "./ConstrainedEvent.css";
 
-export const ConstrainedEvent = ({ pixelsPerUnit, event }) => {
-  const inPixels = time => time * pixelsPerUnit + "px";
-  const minStart = event.start.min;
-  const maxEnd = event.end.max;
-  return (
-    <div
-      className="ConstrainedEvent"
-      style={{ top: inPixels(minStart), height: inPixels(maxEnd - minStart) }}
-    />
-  );
+import { TimelineItemContainer } from "../TimelineItem/TimelineItemContainer";
+
+const style = {
+  width: "50%",
+  backgroundColor: "rgba(0, 0, 255, 0.5)",
+  pointerEvents: "none"
 };
+
+export const ConstrainedEvent = ({ event }) => (
+  <TimelineItemContainer
+    start={event.start.min}
+    end={event.end.max}
+    style={style}
+  />
+);

@@ -6,10 +6,10 @@ import {
   selectTimeBoundsParam
 } from "../TimeBounds/TimeBoundsActions";
 import { Timeline } from "./Timeline";
-import { selectUnitConverters } from "../Config/ConfigSelectors";
+import { selectUnitsToMinutes } from "../Config/ConfigSelectors";
 
 export const mapStateToProps = state => ({
-  ...selectUnitConverters(state),
+  toMinutes: selectUnitsToMinutes(state),
   timeBounds: state.timeBounds
 });
 

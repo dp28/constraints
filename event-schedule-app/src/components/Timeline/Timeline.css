@@ -3,11 +3,3 @@
   width: 50%;
   position: relative;
 }
-
-.Item {
-  width: 100%;
-}
-
-.Item-show-border {
-  border-top: 1px solid grey;
-}

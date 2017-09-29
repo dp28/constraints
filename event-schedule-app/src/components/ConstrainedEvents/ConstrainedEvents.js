@@ -1,16 +1,9 @@
 import React from "react";
 
 import { ConstrainedEvent } from "../ConstrainedEvent/ConstrainedEvent";
-import "./ConstrainedEvents.css";
 
-export const ConstrainedEvents = ({ pixelsPerUnit, events }) => (
+export const ConstrainedEvents = ({ events }) => (
   <div className="ConstrainedEvents">
-    {events.map(event => (
-      <ConstrainedEvent
-        key={event.id}
-        pixelsPerUnit={pixelsPerUnit}
-        event={event}
-      />
-    ))}
+    {events.map(event => <ConstrainedEvent key={event.id} event={event} />)}
   </div>
 );

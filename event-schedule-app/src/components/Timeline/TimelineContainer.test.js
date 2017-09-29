@@ -16,13 +16,6 @@ describe("mapStateToProps", () => {
     ).toBeDefined();
   });
 
-  it("should map out the config property 'pixelsPerUnit'", () => {
-    expect(
-      mapStateToProps({ config: { pixelsPerUnit: 2 }, timeBounds: {} })
-        .pixelsPerUnit
-    ).toEqual(2);
-  });
-
   it("should map out the timeBounds", () => {
     expect(
       mapStateToProps({ config: {}, timeBounds: { editing: false } }).timeBounds

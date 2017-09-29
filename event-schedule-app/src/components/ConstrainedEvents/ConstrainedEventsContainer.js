@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 
 import { ConstrainedEvents } from "./ConstrainedEvents";
-import { selectUnitConverters } from "../Config/ConfigSelectors";
+import { selectPixelsPerUnit } from "../Config/ConfigSelectors";
 
 export function mapStateToProps(state) {
   return {
-    pixelsPerUnit: selectUnitConverters(state).pixelsPerUnit,
+    pixelsPerUnit: selectPixelsPerUnit(state),
     events: Object.values(state.constrainedEvents)
   };
 }
