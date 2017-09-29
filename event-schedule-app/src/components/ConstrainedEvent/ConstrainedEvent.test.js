@@ -5,8 +5,9 @@ import { render } from "../../testHelpers/react";
 
 describe("<ConstrainedEvent />", () => {
   it("renders without crashing", () => {
-    render(
-      <ConstrainedEvent event={{ start: { min: 0 }, end: { max: 10 } }} />
-    );
+    const event = { id: "a", start: { min: 0 }, end: { max: 10 } };
+    render(<ConstrainedEvent event={event} />, {
+      constrainedEvents: { [event.id]: event }
+    });
   });
 });

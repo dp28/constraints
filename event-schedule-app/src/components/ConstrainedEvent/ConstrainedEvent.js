@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TimelineItemContainer } from "../TimelineItem/TimelineItemContainer";
+import { VariableMarkerContainer } from "../VariableMarker/VariableMarkerContainer";
 
 const style = {
   width: "50%",
@@ -13,5 +14,29 @@ export const ConstrainedEvent = ({ event }) => (
     start={event.start.min}
     end={event.end.max}
     style={style}
-  />
+  >
+    <VariableMarkerContainer
+      eventId={event.id}
+      eventPart="start"
+      rangePart="min"
+    />
+
+    <VariableMarkerContainer
+      eventId={event.id}
+      eventPart="start"
+      rangePart="max"
+    />
+
+    <VariableMarkerContainer
+      eventId={event.id}
+      eventPart="end"
+      rangePart="min"
+    />
+
+    <VariableMarkerContainer
+      eventId={event.id}
+      eventPart="end"
+      rangePart="max"
+    />
+  </TimelineItemContainer>
 );

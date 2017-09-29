@@ -1,7 +1,8 @@
 import {
   selectPixelsPerUnit,
-  selectUnitsToPixels,
-  selectUnitsToMinutes
+  selectUnitsToPixelString,
+  selectUnitsToMinutes,
+  selectUnitsToPixels
 } from "./ConfigSelectors";
 
 describe("selectPixelsPerUnit", () => {
@@ -18,9 +19,16 @@ describe("selectUnitsToMinutes", () => {
   });
 });
 
+describe("selectUnitsToPixelString", () => {
+  it("should return a function that converts units to pixels with the px suffix", () => {
+    const state = { config: { pixelsPerUnit: 10 } };
+    expect(selectUnitsToPixelString(state)(2)).toEqual("20px");
+  });
+});
+
 describe("selectUnitsToPixels", () => {
   it("should return a function that converts units to pixels", () => {
     const state = { config: { pixelsPerUnit: 10 } };
-    expect(selectUnitsToPixels(state)(2)).toEqual("20px");
+    expect(selectUnitsToPixels(state)(2)).toEqual(20);
   });
 });

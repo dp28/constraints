@@ -5,14 +5,14 @@ import ReactDOM from "react-dom";
 
 import { INITIAL_STATE } from "../state/reducer";
 
-export function mockStore(state = INITIAL_STATE) {
-  return createStore(x => x, state);
+export function mockStore(stateExtensions) {
+  return createStore(x => x, { ...INITIAL_STATE, ...stateExtensions });
 }
 
-export function render(component) {
+export function render(component, stateExtensions = {}) {
   const div = document.createElement("div");
   return ReactDOM.render(
-    <Provider store={mockStore()}>{component}</Provider>,
+    <Provider store={mockStore(stateExtensions)}>{component}</Provider>,
     div
   );
 }
