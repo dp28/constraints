@@ -2,12 +2,7 @@ import React from "react";
 
 import { TimelineItemContainer } from "../TimelineItem/TimelineItemContainer";
 
-export const TimelineRow = ({
-  timeInMinutes,
-  timeInUnits,
-  onClick,
-  onEnter
-}) => {
+export const TimelineRow = ({ timeInMinutes, timeInUnits }) => {
   const borderTop = isHour(timeInMinutes) ? "1px solid grey" : null;
   const text = isHour(timeInMinutes) ? toHourLabel(timeInMinutes) : "";
 
@@ -16,8 +11,6 @@ export const TimelineRow = ({
       start={timeInUnits}
       end={timeInUnits + 1}
       style={{ width: "100%", borderTop }}
-      onClick={onClick}
-      onEnter={onEnter}
     >
       {text}
     </TimelineItemContainer>
