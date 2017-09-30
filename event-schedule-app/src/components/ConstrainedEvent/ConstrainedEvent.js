@@ -5,8 +5,7 @@ import { VariableMarkerContainer } from "../VariableMarker/VariableMarkerContain
 
 const style = {
   width: "50%",
-  backgroundColor: "rgba(0, 0, 255, 0.5)",
-  pointerEvents: "none"
+  backgroundColor: "rgba(0, 0, 255, 0.5)"
 };
 
 export const ConstrainedEvent = ({ event }) => (

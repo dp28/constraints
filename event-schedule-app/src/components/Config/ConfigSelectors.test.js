@@ -2,7 +2,8 @@ import {
   selectPixelsPerUnit,
   selectUnitsToPixelString,
   selectUnitsToMinutes,
-  selectUnitsToPixels
+  selectUnitsToPixels,
+  selectPixelsToUnits
 } from "./ConfigSelectors";
 
 describe("selectPixelsPerUnit", () => {
@@ -30,5 +31,17 @@ describe("selectUnitsToPixels", () => {
   it("should return a function that converts units to pixels", () => {
     const state = { config: { pixelsPerUnit: 10 } };
     expect(selectUnitsToPixels(state)(2)).toEqual(20);
+  });
+});
+
+describe("selectPixelsToUnits", () => {
+  it("should return a function that converts pixels to units", () => {
+    const state = { config: { pixelsPerUnit: 10 } };
+    expect(selectPixelsToUnits(state)(20)).toEqual(2);
+  });
+
+  it("should round to the nearest unit", () => {
+    const state = { config: { pixelsPerUnit: 10 } };
+    expect(selectPixelsToUnits(state)(25)).toEqual(3);
   });
 });

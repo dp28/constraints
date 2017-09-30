@@ -15,14 +15,21 @@ import {
   InitialState as ConstrainedEventsInitialState
 } from "../components/ConstrainedEvents/ConstrainedEventsReducer";
 
+import {
+  reducer as drag,
+  InitialState as DragInitialState
+} from "../components/Drag/DragReducer";
+
 export const INITIAL_STATE = {
   config: ConfigInitialState,
   timeBounds: TimeBoundsInitialState,
-  constrainedEvents: ConstrainedEventsInitialState
+  constrainedEvents: ConstrainedEventsInitialState,
+  drag: DragInitialState
 };
 
 export const reducer = combineReducers({
   config,
   timeBounds,
-  constrainedEvents
+  constrainedEvents,
+  drag
 });

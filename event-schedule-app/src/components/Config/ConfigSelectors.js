@@ -15,6 +15,11 @@ export const selectUnitsToPixels = createSelector(
   pixelsPerUnit => units => units * pixelsPerUnit
 );
 
+export const selectPixelsToUnits = createSelector(
+  selectPixelsPerUnit,
+  pixelsPerUnit => pixels => Math.round(pixels / pixelsPerUnit)
+);
+
 export const selectUnitsToPixelString = createSelector(
   selectPixelsPerUnit,
   pixelsPerUnit => units => `${units * pixelsPerUnit}px`
