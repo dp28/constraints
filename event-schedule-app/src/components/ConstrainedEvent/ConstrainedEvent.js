@@ -10,8 +10,8 @@ const style = {
 
 export const ConstrainedEvent = ({ event }) => (
   <TimelineItemContainer
-    start={event.start.min}
-    end={event.end.max}
+    start={event.start.range.min}
+    end={event.end.range.max}
     style={style}
   >
     <VariableMarkerContainer

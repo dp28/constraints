@@ -1,6 +1,8 @@
 import {
   SET_EVENT_VARIABLE,
-  setEventVariable
+  CREATE_EVENT,
+  setEventVariable,
+  createEvent
 } from "./ConstrainedEventsActions";
 
 describe("setEventVariable", () => {
@@ -22,5 +24,19 @@ describe("setEventVariable", () => {
 
   it("should return an action with the passed in timeInUnits", () => {
     expect(setEventVariable("", "", "", 10).timeInUnits).toEqual(10);
+  });
+});
+
+describe("createEvent", () => {
+  it("should return a CREATE_EVENT action", () => {
+    expect(createEvent().type).toEqual(CREATE_EVENT);
+  });
+
+  it("should return an action with the passed in minStart", () => {
+    expect(createEvent(10, 20).minStart).toEqual(10);
+  });
+
+  it("should return an action with the passed in maxEnd", () => {
+    expect(createEvent(10, 20).maxEnd).toEqual(20);
   });
 });

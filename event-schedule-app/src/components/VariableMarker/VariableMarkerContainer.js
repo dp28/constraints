@@ -12,8 +12,8 @@ import { setEventVariable } from "../ConstrainedEvents/ConstrainedEventsActions"
 export const mapStateToProps = (state, { eventId, eventPart, rangePart }) => {
   const toPixels = selectUnitsToPixels(state);
   const event = state.constrainedEvents[eventId];
-  const min = event.start.min;
-  const valueInUnits = event[eventPart][rangePart];
+  const min = event.start.range.min;
+  const valueInUnits = event[eventPart].range[rangePart];
   return {
     valueInUnits,
     centre: toPixels(valueInUnits - min),
