@@ -1,9 +1,11 @@
 import React from "react";
 
-import { ConstrainedEvent } from "../ConstrainedEvent/ConstrainedEvent";
+import { ConstrainedEventContainer } from "../ConstrainedEvent/ConstrainedEventContainer";
 
 export const ConstrainedEvents = ({ events }) => (
   <div className="ConstrainedEvents">
-    {events.map(event => <ConstrainedEvent key={event.id} event={event} />)}
+    {events.map(event => (
+      <ConstrainedEventContainer key={event.id} event={event} />
+    ))}
   </div>
 );

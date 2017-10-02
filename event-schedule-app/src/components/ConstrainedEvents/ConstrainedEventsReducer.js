@@ -1,6 +1,10 @@
 import { buildEvent } from "json-constraints";
 
 import { SET_EVENT_VARIABLE, CREATE_EVENT } from "./ConstrainedEventsActions";
+import {
+  FOCUS_EVENT,
+  BLUR_EVENT
+} from "../ConstrainedEvent/ConstrainedEventActions";
 
 export const InitialState = { events: {}, focused: null };
 
@@ -10,6 +14,10 @@ export function reducer(state = InitialState, action) {
       return updateEvent(state, action);
     case CREATE_EVENT:
       return addNewEvent(state, action);
+    case FOCUS_EVENT:
+      return { ...state, focused: action.eventId };
+    case BLUR_EVENT:
+      return { ...state, focused: null };
     default:
       return state;
   }

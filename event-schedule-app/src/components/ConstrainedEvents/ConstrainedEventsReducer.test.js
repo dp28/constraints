@@ -2,6 +2,10 @@ import { buildEvent } from "json-constraints";
 
 import { reducer } from "./ConstrainedEventsReducer";
 import { setEventVariable, createEvent } from "./ConstrainedEventsActions";
+import {
+  focusEvent,
+  blurEvent
+} from "../ConstrainedEvent/ConstrainedEventActions";
 
 describe("reducer", () => {
   it("should return an empty event map if called with undefined state", () => {
@@ -161,6 +165,18 @@ describe("reducer", () => {
           reducer(state, setEventVariable("a", "start", "max", 1000))
         ).toBe(state);
       });
+    });
+  });
+
+  describe("in response to a FOCUS_EVENT action", () => {
+    it("should set the 'focused' property in the state to the id in the action", () => {
+      expect(reducer({ focused: null }, focusEvent("a")).focused).toEqual("a");
+    });
+  });
+
+  describe("in response to a BLUR_EVENT action", () => {
+    it("should set the 'focused' property in the state to null", () => {
+      expect(reducer({ focused: "a" }, blurEvent("a")).focused).toEqual(null);
     });
   });
 });
