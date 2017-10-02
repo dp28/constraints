@@ -1,18 +1,8 @@
-import generateId from "cuid";
 import { buildEvent } from "json-constraints";
 
 import { SET_EVENT_VARIABLE, CREATE_EVENT } from "./ConstrainedEventsActions";
 
-const DefaultEventId = generateId();
-
-export const InitialState = {
-  [DefaultEventId]: {
-    id: DefaultEventId,
-    start: { range: { min: 30, max: 40 } },
-    duration: { range: { min: 30, max: 40 } },
-    end: { range: { min: 50, max: 60 } }
-  }
-};
+export const InitialState = {};
 
 export function reducer(events = InitialState, action) {
   switch (action.type) {
