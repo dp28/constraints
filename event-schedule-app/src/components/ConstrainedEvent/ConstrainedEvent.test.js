@@ -11,7 +11,7 @@ describe("<ConstrainedEvent />", () => {
       end: { range: { max: 10 } }
     };
     render(<ConstrainedEvent event={event} />, {
-      constrainedEvents: { [event.id]: event }
+      constrainedEvents: { events: { [event.id]: event } }
     });
   });
 });

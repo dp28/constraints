@@ -10,9 +10,11 @@ describe("mapStateToProps", () => {
   const state = {
     config: { pixelsPerUnit: 10 },
     constrainedEvents: {
-      a: {
-        start: { range: { min: 10 } },
-        end: { range: { max: 100 } }
+      events: {
+        a: {
+          start: { range: { min: 10 } },
+          end: { range: { max: 100 } }
+        }
       }
     },
     drag: {}

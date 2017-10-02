@@ -5,7 +5,10 @@ import { setEventVariable, createEvent } from "./ConstrainedEventsActions";
 
 describe("reducer", () => {
   it("should return an empty event map if called with undefined state", () => {
-    expect(reducer(undefined, { type: "INIT" })).toEqual({});
+    expect(reducer(undefined, { type: "INIT" })).toEqual({
+      events: {},
+      focused: null
+    });
   });
 
   it("should return the passed-in state if it does not respond to the action", () => {
@@ -15,20 +18,24 @@ describe("reducer", () => {
   describe("in response to a CREATE_EVENT", () => {
     const action = createEvent(10, 20);
     const result = reducer({}, action);
+    const newEvent = Object.values(result.events)[0];
 
     it("should add a new event", () => {
-      expect(Object.values(result).length).toEqual(1);
+      expect(Object.values(result.events).length).toEqual(1);
     });
 
     it("should map to the new event by its id", () => {
-      const event = Object.values(result)[0];
-      expect(result[event.id]).toEqual(event);
+      expect(result.events[newEvent.id]).toEqual(newEvent);
+    });
+
+    it("should focus on the new event", () => {
+      expect(result.focused).toEqual(newEvent.id);
     });
 
     describe("the created event", () => {
       it("should return an event created using the json-constraint buildEvent function", () => {
         const expected = buildEvent({ minStart: 10, maxEnd: 20 });
-        expect(Object.values(result)[0]).toMatchObject({
+        expect(newEvent).toMatchObject({
           start: { range: { min: 10, max: 20 } },
           duration: { range: { min: 0, max: 10 } },
           end: { range: { min: 10, max: 20 } }
@@ -39,11 +46,13 @@ describe("reducer", () => {
 
   describe("responses to a SET_EVENT_VARIABLE", () => {
     const state = {
-      b: {},
-      a: {
-        id: "a",
-        start: { range: { min: 10, max: 30 } },
-        end: { range: { min: 100, max: 300 } }
+      events: {
+        b: {},
+        a: {
+          id: "a",
+          start: { range: { min: 10, max: 30 } },
+          end: { range: { min: 100, max: 300 } }
+        }
       }
     };
 
@@ -51,11 +60,13 @@ describe("reducer", () => {
       expect(
         reducer(state, setEventVariable("a", "start", "min", 20))
       ).toEqual({
-        b: {},
-        a: {
-          id: "a",
-          start: { range: { min: 20, max: 30 } },
-          end: { range: { min: 100, max: 300 } }
+        events: {
+          b: {},
+          a: {
+            id: "a",
+            start: { range: { min: 20, max: 30 } },
+            end: { range: { min: 100, max: 300 } }
+          }
         }
       });
     });
@@ -71,11 +82,13 @@ describe("reducer", () => {
         expect(
           reducer(state, setEventVariable("a", "start", "min", 30))
         ).toEqual({
-          b: {},
-          a: {
-            id: "a",
-            start: { range: { min: 30, max: 30 } },
-            end: { range: { min: 100, max: 300 } }
+          events: {
+            b: {},
+            a: {
+              id: "a",
+              start: { range: { min: 30, max: 30 } },
+              end: { range: { min: 100, max: 300 } }
+            }
           }
         });
       });
@@ -84,11 +97,13 @@ describe("reducer", () => {
         expect(
           reducer(state, setEventVariable("a", "start", "min", 0))
         ).toEqual({
-          b: {},
-          a: {
-            id: "a",
-            start: { range: { min: 0, max: 30 } },
-            end: { range: { min: 100, max: 300 } }
+          events: {
+            b: {},
+            a: {
+              id: "a",
+              start: { range: { min: 0, max: 30 } },
+              end: { range: { min: 100, max: 300 } }
+            }
           }
         });
       });
@@ -105,11 +120,13 @@ describe("reducer", () => {
         expect(
           reducer(state, setEventVariable("a", "start", "max", 10))
         ).toEqual({
-          b: {},
-          a: {
-            id: "a",
-            start: { range: { min: 10, max: 10 } },
-            end: { range: { min: 100, max: 300 } }
+          events: {
+            b: {},
+            a: {
+              id: "a",
+              start: { range: { min: 10, max: 10 } },
+              end: { range: { min: 100, max: 300 } }
+            }
           }
         });
       });
@@ -118,11 +135,13 @@ describe("reducer", () => {
         expect(
           reducer(state, setEventVariable("a", "start", "max", 110))
         ).toEqual({
-          b: {},
-          a: {
-            id: "a",
-            start: { range: { min: 10, max: 110 } },
-            end: { range: { min: 100, max: 300 } }
+          events: {
+            b: {},
+            a: {
+              id: "a",
+              start: { range: { min: 10, max: 110 } },
+              end: { range: { min: 100, max: 300 } }
+            }
           }
         });
       });

@@ -2,21 +2,21 @@ import { buildEvent } from "json-constraints";
 
 import { SET_EVENT_VARIABLE, CREATE_EVENT } from "./ConstrainedEventsActions";
 
-export const InitialState = {};
+export const InitialState = { events: {}, focused: null };
 
-export function reducer(events = InitialState, action) {
+export function reducer(state = InitialState, action) {
   switch (action.type) {
     case SET_EVENT_VARIABLE:
-      return updateEvent(events, action);
+      return updateEvent(state, action);
     case CREATE_EVENT:
-      const event = buildEvent(action);
-      return { ...events, [event.id]: event };
+      return addNewEvent(state, action);
     default:
-      return events;
+      return state;
   }
 }
 
-function updateEvent(events, action) {
+function updateEvent(state, action) {
+  const { events } = state;
   const { eventId, eventPart, rangePart, timeInUnits } = action;
   const event = events[eventId];
   if (isValidUpdate(event, action)) {
@@ -24,9 +24,21 @@ function updateEvent(events, action) {
     const updatedRange = { ...eventVariable.range, [rangePart]: timeInUnits };
     const updatedEventVariable = { ...eventVariable, range: updatedRange };
     const updatedEvent = { ...event, [eventPart]: updatedEventVariable };
-    return { ...events, [eventId]: updatedEvent };
+    return { ...state, events: { ...events, [eventId]: updatedEvent } };
   }
-  return events;
+  return state;
+}
+
+function addNewEvent(state, action) {
+  const event = buildEvent(action);
+  return {
+    ...state,
+    focused: event.id,
+    events: {
+      ...state.events,
+      [event.id]: event
+    }
+  };
 }
 
 function isValidUpdate(event, action) {
