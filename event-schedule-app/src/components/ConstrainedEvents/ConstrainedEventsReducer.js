@@ -11,12 +11,12 @@ export function reducer(state = InitialState, action) {
       return addNewEvent(state, action);
     case UPDATE_SOLUTION:
       return updateSolution(state, action.solution);
+    default:
+      if (action.eventId) {
+        return updateEvent(state, action);
+      }
+      return state;
   }
-
-  if (action.eventId) {
-    return updateEvent(state, action);
-  }
-  return state;
 }
 
 function updateEvent(state, action) {

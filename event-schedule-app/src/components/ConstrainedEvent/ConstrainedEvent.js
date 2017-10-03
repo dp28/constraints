@@ -8,41 +8,46 @@ const style = {
   backgroundColor: "rgba(0, 0, 255, 0.5)"
 };
 
-export const ConstrainedEvent = ({ event, focus, blur }) => (
-  <TimelineItemContainer
-    start={event.start.range.min}
-    end={event.end.range.max}
-    style={style}
-  >
+export const ConstrainedEvent = ({ event, focus, blur, start, end }) => (
+  <TimelineItemContainer start={start} end={end} style={style}>
     <div
-      style={{ height: "100%", width: "100%" }}
+      style={{
+        height: "100%",
+        width: "100%",
+        borderBottom:
+          start === end ? `10px solid ${style.backgroundColor}` : null
+      }}
       tabIndex="0"
       onFocus={focus}
       onBlur={blur}
     >
-      <VariableMarkerContainer
-        eventId={event.id}
-        eventPart="start"
-        rangePart="min"
-      />
+      {event.isFocused && (
+        <div>
+          <VariableMarkerContainer
+            eventId={event.id}
+            eventPart="start"
+            rangePart="min"
+          />
 
-      <VariableMarkerContainer
-        eventId={event.id}
-        eventPart="start"
-        rangePart="max"
-      />
+          <VariableMarkerContainer
+            eventId={event.id}
+            eventPart="start"
+            rangePart="max"
+          />
 
-      <VariableMarkerContainer
-        eventId={event.id}
-        eventPart="end"
-        rangePart="min"
-      />
+          <VariableMarkerContainer
+            eventId={event.id}
+            eventPart="end"
+            rangePart="min"
+          />
 
-      <VariableMarkerContainer
-        eventId={event.id}
-        eventPart="end"
-        rangePart="max"
-      />
+          <VariableMarkerContainer
+            eventId={event.id}
+            eventPart="end"
+            rangePart="max"
+          />
+        </div>
+      )}
     </div>
   </TimelineItemContainer>
 );

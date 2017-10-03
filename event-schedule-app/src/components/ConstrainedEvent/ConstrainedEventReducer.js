@@ -20,10 +20,11 @@ export function reducer(event, action) {
 function updateEvent(event, action) {
   const { eventPart, rangePart, timeInUnits } = action;
   if (isValidUpdate(event, action)) {
-    const eventVariable = event[eventPart];
+    const unsolvedEvent = removeSolutions(event);
+    const eventVariable = unsolvedEvent[eventPart];
     const updatedRange = { ...eventVariable.range, [rangePart]: timeInUnits };
     const updatedEventVariable = { ...eventVariable, range: updatedRange };
-    return { ...event, [eventPart]: updatedEventVariable };
+    return { ...unsolvedEvent, [eventPart]: updatedEventVariable };
   }
   return event;
 }
@@ -57,4 +58,13 @@ function isValidVariableUpdate(variable, param, value) {
     (param === "min" && variable.range.max >= value) ||
     (param === "max" && variable.range.min <= value)
   );
+}
+
+function removeSolutions(event) {
+  return {
+    ...event,
+    start: { ...event.start, solution: null },
+    duration: { ...event.duration, solution: null },
+    end: { ...event.end, solution: null }
+  };
 }

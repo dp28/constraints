@@ -1,5 +1,66 @@
-import { mapDispatchToProps } from "./ConstrainedEventContainer";
+import {
+  mapStateToProps,
+  mapDispatchToProps
+} from "./ConstrainedEventContainer";
 import { focusEvent, blurEvent } from "./ConstrainedEventActions";
+
+describe("mapStateToProps", () => {
+  describe("if the event is focused", () => {
+    const event = {
+      isFocused: true,
+      start: { range: { min: 1 } },
+      end: { range: { max: 10 } }
+    };
+
+    it("should use the event's end.range.max as its end", () => {
+      expect(mapStateToProps({}, { event }).end).toEqual(10);
+    });
+
+    it("should use the event's start.range.min as its start", () => {
+      expect(mapStateToProps({}, { event }).start).toEqual(1);
+    });
+  });
+
+  describe("if the event is not focused", () => {
+    describe("but it does not have solved variables", () => {
+      const event = {
+        isFocused: false,
+        start: { range: { min: 1 } },
+        end: { range: { max: 10 } }
+      };
+
+      it("should use the event's end.range.max as its end", () => {
+        expect(mapStateToProps({}, { event }).end).toEqual(10);
+      });
+
+      it("should use the event's start.range.min as its start", () => {
+        expect(mapStateToProps({}, { event }).start).toEqual(1);
+      });
+    });
+
+    describe("and it does have solved variables", () => {
+      const event = {
+        isFocused: false,
+        start: {
+          range: { min: 1 },
+          solution: 5
+        },
+        end: {
+          range: { max: 10 },
+          solution: 9
+        }
+      };
+
+      it("should use the event's end.solution as its end", () => {
+        expect(mapStateToProps({}, { event }).end).toEqual(9);
+      });
+
+      it("should use the event's start.solution as its start", () => {
+        expect(mapStateToProps({}, { event }).start).toEqual(5);
+      });
+    });
+  });
+});
 
 describe("mapDispatchToProps", () => {
   it("should return a focus function that dispatches a FOCUS_EVENT action with the correct id", () => {

@@ -17,73 +17,57 @@ describe("reducer", () => {
   describe("responses to a SET_EVENT_VARIABLE", () => {
     const event = {
       id: "a",
-      start: { range: { min: 10, max: 30 } },
-      end: { range: { min: 100, max: 300 } }
+      start: { range: { min: 10, max: 30 }, solution: 1 },
+      duration: { range: { min: 0, max: 100 }, solution: 1 },
+      end: { range: { min: 100, max: 300 }, solution: 1 }
     };
 
     it("should set the specified part of the event", () => {
-      expect(
-        reducer(event, setEventVariable("a", "start", "min", 20))
-      ).toEqual({
+      const action = setEventVariable("a", "start", "min", 20);
+      expect(reducer(event, action).start.range.min).toEqual(20);
+    });
+
+    it("should null off all of the 'solution' properties", () => {
+      const action = setEventVariable("a", "start", "min", 20);
+      expect(reducer(event, action)).toEqual({
         id: "a",
-        start: { range: { min: 20, max: 30 } },
-        end: { range: { min: 100, max: 300 } }
+        start: { range: { min: 20, max: 30 }, solution: null },
+        duration: { range: { min: 0, max: 100 }, solution: null },
+        end: { range: { min: 100, max: 300 }, solution: null }
       });
     });
 
     describe("if the rangePart is 'min'", () => {
+      const action = setEventVariable("a", "start", "min", 31);
       it("cannot be set to be larger than the 'max'", () => {
-        expect(reducer(event, setEventVariable("a", "start", "min", 31))).toBe(
-          event
-        );
+        expect(reducer(event, action)).toBe(event);
       });
 
       it("can be set to be the 'max'", () => {
-        expect(
-          reducer(event, setEventVariable("a", "start", "min", 30))
-        ).toEqual({
-          id: "a",
-          start: { range: { min: 30, max: 30 } },
-          end: { range: { min: 100, max: 300 } }
-        });
+        const action = setEventVariable("a", "start", "min", 30);
+        expect(reducer(event, action).start.range.min).toEqual(30);
       });
 
       it("can be set to be less than the 'max'", () => {
-        expect(
-          reducer(event, setEventVariable("a", "start", "min", 0))
-        ).toEqual({
-          id: "a",
-          start: { range: { min: 0, max: 30 } },
-          end: { range: { min: 100, max: 300 } }
-        });
+        const action = setEventVariable("a", "start", "min", 0);
+        expect(reducer(event, action).start.range.min).toEqual(0);
       });
     });
 
     describe("if the rangePart is 'max'", () => {
       it("cannot be set to be less than the 'min'", () => {
-        expect(reducer(event, setEventVariable("a", "start", "max", 1))).toBe(
-          event
-        );
+        const action = setEventVariable("a", "start", "max", 1);
+        expect(reducer(event, action)).toBe(event);
       });
 
       it("can be set to be the 'min'", () => {
-        expect(
-          reducer(event, setEventVariable("a", "start", "max", 10))
-        ).toEqual({
-          id: "a",
-          start: { range: { min: 10, max: 10 } },
-          end: { range: { min: 100, max: 300 } }
-        });
+        const action = setEventVariable("a", "start", "max", 10);
+        expect(reducer(event, action).start.range.min).toEqual(10);
       });
 
       it("can be set to be more than the 'min'", () => {
-        expect(
-          reducer(event, setEventVariable("a", "start", "max", 110))
-        ).toEqual({
-          id: "a",
-          start: { range: { min: 10, max: 110 } },
-          end: { range: { min: 100, max: 300 } }
-        });
+        const action = setEventVariable("a", "start", "max", 110);
+        expect(reducer(event, action).start.range.max).toEqual(110);
       });
     });
 
@@ -97,9 +81,8 @@ describe("reducer", () => {
 
     describe("if the rangePart is 'max' and the eventPart is 'start'", () => {
       it("cannot be set to be less than the max end", () => {
-        expect(
-          reducer(event, setEventVariable("a", "start", "max", 1000))
-        ).toBe(event);
+        const action = setEventVariable("a", "start", "max", 1000);
+        expect(reducer(event, action)).toBe(event);
       });
     });
   });
