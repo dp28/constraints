@@ -16,7 +16,9 @@ export interface EventProblemSolution {
 
 export function solveEventProblem(eventProblem: EventProblem): Promise<EventProblemSolution> {
   const problem = toProblem(eventProblem);
-  return solve(problem).then(solution => buildEventProblemSolution(solution, eventProblem));
+  return solve(problem).then(solution => (
+    solution ? buildEventProblemSolution(solution, eventProblem) : null
+  ));
 }
 
 function buildEventProblemSolution(solution: Solution, eventProblem: EventProblem): EventProblemSolution {

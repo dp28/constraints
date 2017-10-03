@@ -6,7 +6,9 @@ import {
   mustBeLessThan,
   buildEvent,
   toProblem,
-  mustNotOverlap
+  mustNotOverlap,
+  mustBeEqual,
+  mustNotBeEqual
 } from 'json-constraints';
 
 import { solveEventProblem } from './event-problem-solver';
@@ -58,6 +60,23 @@ describe('solve', () => {
           (firstSolution.start >= secondSolution.end) ||
           (firstSolution.end <= secondSolution.start)
         ).to.be.true;
+      });
+    });
+  });
+
+  describe('for an unsolvable problem', () => {
+    const event = buildEvent({ minStart: 0, maxEnd: 1 });
+
+    it('should return null', () => {
+      const problem = {
+        events: [event],
+        constraints: [
+          mustBeEqual(event.start, event.end),
+          mustNotBeEqual(event.start, event.end)
+        ]
+      };
+      return solveEventProblem(problem).then((solution) => {
+        expect(solution).to.equal(null);
       });
     });
   });

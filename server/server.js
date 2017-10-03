@@ -1,21 +1,25 @@
-const express = require('express')
-const { solveEventProblem } = require('json-constraints-solver')
-const bodyParser = require('body-parser')
-const cors = require('cors')
+const express = require("express");
+const { solveEventProblem } = require("json-constraints-solver");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const app = express()
+process.on("unhandledRejection", error => {
+  console.error("unhandledRejection", error);
+});
 
-app.use(bodyParser.json())
-app.use(cors())
+const app = express();
 
-app.get('/', (request, response) => {
-  response.send('Running')
-})
+app.use(bodyParser.json());
+app.use(cors());
 
-app.post('/events', (request, response) => {
-  console.log('Received')
-  solveEventProblem(request.body).then(response.send.bind(response))
-})
+app.get("/", (request, response) => {
+  response.send("Running");
+});
 
-console.log('Listening on port 3001')
-app.listen(3001)
+app.post("/events", (request, response) => {
+  console.log("Received");
+  solveEventProblem(request.body).then(response.send.bind(response));
+});
+
+console.log("Listening on port 3001");
+app.listen(3001);

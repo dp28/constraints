@@ -1,7 +1,7 @@
 import 'mocha';
 import { expect } from 'chai';
 
-import { buildProblem, combineProblems, ProblemBuilder } from './problem';
+import { buildProblem, combineProblems } from './problem';
 import { Constraint } from './constraint';
 import { buildRange } from './range';
 import { buildDecisionVariable, buildConstant } from './variable';
