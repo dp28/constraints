@@ -16,16 +16,15 @@ describe("mapStateToProps", () => {
     ).toEqual(2);
   });
 
-  it("should transform the constrainedEvents property into an array with the correct one focused", () => {
+  it("should transform the constrainedEvents property into an array", () => {
     expect(
       mapStateToProps(
         mockState({
           constrainedEvents: {
-            events: { a: { id: "a" }, b: { id: "b" } },
-            focused: "a"
+            events: { a: { id: "a" }, b: { id: "b" } }
           }
         })
       ).events
-    ).toEqual([{ id: "a", isFocused: true }, { id: "b", isFocused: false }]);
+    ).toEqual([{ id: "a" }, { id: "b" }]);
   });
 });

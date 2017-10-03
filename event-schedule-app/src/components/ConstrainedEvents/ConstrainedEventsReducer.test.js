@@ -1,17 +1,14 @@
 import { buildEvent } from "json-constraints";
 
 import { reducer } from "./ConstrainedEventsReducer";
-import { setEventVariable, createEvent } from "./ConstrainedEventsActions";
-import {
-  focusEvent,
-  blurEvent
-} from "../ConstrainedEvent/ConstrainedEventActions";
+import { createEvent } from "./ConstrainedEventsActions";
+import { reducer as eventReducer } from "../ConstrainedEvent/ConstrainedEventReducer";
+import { blurEvent } from "../ConstrainedEvent/ConstrainedEventActions";
 
 describe("reducer", () => {
   it("should return an empty event map if called with undefined state", () => {
     expect(reducer(undefined, { type: "INIT" })).toEqual({
-      events: {},
-      focused: null
+      events: {}
     });
   });
 
@@ -33,7 +30,7 @@ describe("reducer", () => {
     });
 
     it("should focus on the new event", () => {
-      expect(result.focused).toEqual(newEvent.id);
+      expect(newEvent.isFocused).toEqual(true);
     });
 
     describe("the created event", () => {
@@ -48,135 +45,44 @@ describe("reducer", () => {
     });
   });
 
-  describe("responses to a SET_EVENT_VARIABLE", () => {
-    const state = {
-      events: {
-        b: {},
-        a: {
-          id: "a",
-          start: { range: { min: 10, max: 30 } },
-          end: { range: { min: 100, max: 300 } }
-        }
-      }
-    };
-
-    it("should set the specified part of an event", () => {
-      expect(
-        reducer(state, setEventVariable("a", "start", "min", 20))
-      ).toEqual({
+  describe("in response to actions with an eventId property", () => {
+    it("should delegate to the ConstrainedEventReducer to update the specified event", () => {
+      const state = {
         events: {
-          b: {},
           a: {
-            id: "a",
-            start: { range: { min: 20, max: 30 } },
-            end: { range: { min: 100, max: 300 } }
+            id: "a"
+          },
+          b: {
+            id: "b"
+          }
+        }
+      };
+
+      const action = blurEvent("a");
+
+      expect(reducer(state, action)).toEqual({
+        events: {
+          a: eventReducer({ id: "a" }, action),
+          b: {
+            id: "b"
           }
         }
       });
     });
 
-    describe("if the rangePart is 'min'", () => {
-      it("cannot be set to be larger than the 'max'", () => {
-        expect(reducer(state, setEventVariable("a", "start", "min", 31))).toBe(
-          state
-        );
-      });
-
-      it("can be set to be the 'max'", () => {
-        expect(
-          reducer(state, setEventVariable("a", "start", "min", 30))
-        ).toEqual({
-          events: {
-            b: {},
-            a: {
-              id: "a",
-              start: { range: { min: 30, max: 30 } },
-              end: { range: { min: 100, max: 300 } }
-            }
+    it("should return exactly the same state object if the action doesn't update the event", () => {
+      const state = {
+        events: {
+          a: {
+            id: "a"
+          },
+          b: {
+            id: "b"
           }
-        });
-      });
+        }
+      };
 
-      it("can be set to be less than the 'max'", () => {
-        expect(
-          reducer(state, setEventVariable("a", "start", "min", 0))
-        ).toEqual({
-          events: {
-            b: {},
-            a: {
-              id: "a",
-              start: { range: { min: 0, max: 30 } },
-              end: { range: { min: 100, max: 300 } }
-            }
-          }
-        });
-      });
-    });
-
-    describe("if the rangePart is 'max'", () => {
-      it("cannot be set to be less than the 'min'", () => {
-        expect(reducer(state, setEventVariable("a", "start", "max", 1))).toBe(
-          state
-        );
-      });
-
-      it("can be set to be the 'min'", () => {
-        expect(
-          reducer(state, setEventVariable("a", "start", "max", 10))
-        ).toEqual({
-          events: {
-            b: {},
-            a: {
-              id: "a",
-              start: { range: { min: 10, max: 10 } },
-              end: { range: { min: 100, max: 300 } }
-            }
-          }
-        });
-      });
-
-      it("can be set to be more than the 'min'", () => {
-        expect(
-          reducer(state, setEventVariable("a", "start", "max", 110))
-        ).toEqual({
-          events: {
-            b: {},
-            a: {
-              id: "a",
-              start: { range: { min: 10, max: 110 } },
-              end: { range: { min: 100, max: 300 } }
-            }
-          }
-        });
-      });
-    });
-
-    describe("if the rangePart is 'min' and the eventPart is 'end'", () => {
-      it("cannot be set to be less than the min start", () => {
-        expect(reducer(state, setEventVariable("a", "end", "min", 1))).toBe(
-          state
-        );
-      });
-    });
-
-    describe("if the rangePart is 'max' and the eventPart is 'start'", () => {
-      it("cannot be set to be less than the max end", () => {
-        expect(
-          reducer(state, setEventVariable("a", "start", "max", 1000))
-        ).toBe(state);
-      });
-    });
-  });
-
-  describe("in response to a FOCUS_EVENT action", () => {
-    it("should set the 'focused' property in the state to the id in the action", () => {
-      expect(reducer({ focused: null }, focusEvent("a")).focused).toEqual("a");
-    });
-  });
-
-  describe("in response to a BLUR_EVENT action", () => {
-    it("should set the 'focused' property in the state to null", () => {
-      expect(reducer({ focused: "a" }, blurEvent("a")).focused).toEqual(null);
+      expect(reducer(state, { eventId: "a" })).toBe(state);
     });
   });
 });

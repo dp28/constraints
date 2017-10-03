@@ -3,7 +3,7 @@ import {
   mapDispatchToProps,
   mergeProps
 } from "./VariableMarkerContainer";
-import { setEventVariable } from "../ConstrainedEvents/ConstrainedEventsActions";
+import { setEventVariable } from "../ConstrainedEvent/ConstrainedEventActions";
 import { startDragging, stopDragging } from "../Drag/DragActions";
 
 describe("mapStateToProps", () => {
