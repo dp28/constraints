@@ -1,5 +1,6 @@
 export const SET_EVENT_VARIABLE = "SET_EVENT_VARIABLE";
 export const CREATE_EVENT = "CREATE_EVENT";
+export const UPDATE_SOLUTION = "UPDATE_SOLUTION";
 
 export function setEventVariable(eventId, eventPart, rangePart, timeInUnits) {
   return {
@@ -13,4 +14,8 @@ export function setEventVariable(eventId, eventPart, rangePart, timeInUnits) {
 
 export function createEvent(minStart, maxEnd) {
   return { type: CREATE_EVENT, minStart, maxEnd };
+}
+
+export function updateSolution(solution) {
+  return { type: UPDATE_SOLUTION, solution };
 }
