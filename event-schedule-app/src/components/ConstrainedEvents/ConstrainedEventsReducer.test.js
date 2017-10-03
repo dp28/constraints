@@ -1,7 +1,7 @@
 import { buildEvent } from "json-constraints";
 
 import { reducer } from "./ConstrainedEventsReducer";
-import { createEvent } from "./ConstrainedEventsActions";
+import { createEvent, updateSolution } from "./ConstrainedEventsActions";
 import { reducer as eventReducer } from "../ConstrainedEvent/ConstrainedEventReducer";
 import { blurEvent } from "../ConstrainedEvent/ConstrainedEventActions";
 
@@ -41,6 +41,57 @@ describe("reducer", () => {
           duration: { range: { min: 0, max: 10 } },
           end: { range: { min: 10, max: 20 } }
         });
+      });
+    });
+  });
+
+  describe("in response to an UPDATE_SOLUTION action", () => {
+    it("should set the 'solution' properties of all event variables to the value in the solution", () => {
+      const state = {
+        events: {
+          a: {
+            id: "a",
+            start: {
+              range: { min: 1, max: 10 }
+            },
+            end: {
+              range: { min: 1, max: 10 }
+            },
+            duration: {
+              range: { min: 1, max: 10 }
+            }
+          }
+        }
+      };
+
+      const solution = {
+        events: {
+          a: {
+            start: 1,
+            end: 10,
+            duration: 9
+          }
+        }
+      };
+
+      expect(reducer(state, updateSolution(solution))).toEqual({
+        events: {
+          a: {
+            id: "a",
+            start: {
+              range: { min: 1, max: 10 },
+              solution: 1
+            },
+            end: {
+              range: { min: 1, max: 10 },
+              solution: 10
+            },
+            duration: {
+              range: { min: 1, max: 10 },
+              solution: 9
+            }
+          }
+        }
       });
     });
   });

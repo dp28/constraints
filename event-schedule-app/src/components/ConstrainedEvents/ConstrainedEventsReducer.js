@@ -1,14 +1,18 @@
 import { buildEvent } from "json-constraints";
 
-import { CREATE_EVENT } from "./ConstrainedEventsActions";
+import { CREATE_EVENT, UPDATE_SOLUTION } from "./ConstrainedEventsActions";
 import { reducer as eventReducer } from "../ConstrainedEvent/ConstrainedEventReducer";
 
 export const InitialState = { events: {} };
 
 export function reducer(state = InitialState, action) {
-  if (action.type === CREATE_EVENT) {
-    return addNewEvent(state, action);
+  switch (action.type) {
+    case CREATE_EVENT:
+      return addNewEvent(state, action);
+    case UPDATE_SOLUTION:
+      return updateSolution(state, action.solution);
   }
+
   if (action.eventId) {
     return updateEvent(state, action);
   }
@@ -33,5 +37,30 @@ function addNewEvent(state, action) {
   return {
     ...state,
     events: { ...state.events, [event.id]: event }
+  };
+}
+
+function updateSolution(state, solution) {
+  const updatedEvents = addSolutionsToEvents(state.events, solution.events);
+  return { ...state, events: updatedEvents };
+}
+
+function addSolutionsToEvents(events, solutions) {
+  const updatedEvents = {};
+  Object.values(events).forEach(event => {
+    updatedEvents[event.id] = addSolutionsToVariables(
+      event,
+      solutions[event.id]
+    );
+  });
+  return updatedEvents;
+}
+
+function addSolutionsToVariables(event, solutions) {
+  return {
+    ...event,
+    start: { ...event.start, solution: solutions.start },
+    duration: { ...event.duration, solution: solutions.duration },
+    end: { ...event.end, solution: solutions.end }
   };
 }
