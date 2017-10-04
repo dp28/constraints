@@ -19,38 +19,41 @@ export function reducer(event, action) {
 
 function updateEvent(event, action) {
   const { eventPart, rangePart, timeInUnits } = action;
-  if (isValidUpdate(event, action)) {
-    const unsolvedEvent = removeSolutions(event);
-    const eventVariable = unsolvedEvent[eventPart];
-    const updatedRange = { ...eventVariable.range, [rangePart]: timeInUnits };
-    const updatedEventVariable = { ...eventVariable, range: updatedRange };
-    return { ...unsolvedEvent, [eventPart]: updatedEventVariable };
+  if (isValidVariableUpdate(event[eventPart], rangePart, timeInUnits)) {
+    const updatedEvent = performUpdate(event, action);
+    if (isValidEvent(updatedEvent)) {
+      return removeSolutions(updatedEvent);
+    }
   }
   return event;
 }
 
-function isValidUpdate(event, action) {
+function performUpdate(event, action) {
   const { eventPart, rangePart, timeInUnits } = action;
-  return (
-    isValidVariableUpdate(event[eventPart], rangePart, timeInUnits) &&
-    !(willStartTooLate(event, action) || willEndTooEarly(event, action))
+  const eventVariable = event[eventPart];
+  const updatedRange = { ...eventVariable.range, [rangePart]: timeInUnits };
+  const updatedEventVariable = { ...eventVariable, range: updatedRange };
+  return { ...event, [eventPart]: updatedEventVariable };
+}
+
+function isValidEvent(event) {
+  return !(
+    startsTooLate(event) ||
+    endsTooEarly(event) ||
+    durationTooShort(event)
   );
 }
 
-function willStartTooLate(event, { eventPart, rangePart, timeInUnits }) {
-  return (
-    eventPart === "start" &&
-    rangePart === "max" &&
-    event.end.range.max < timeInUnits
-  );
+function startsTooLate({ start, end, duration }) {
+  return end.range.max < start.range.max;
 }
 
-function willEndTooEarly(event, { eventPart, rangePart, timeInUnits }) {
-  return (
-    eventPart === "end" &&
-    rangePart === "min" &&
-    event.start.range.min > timeInUnits
-  );
+function endsTooEarly({ start, end, duration }) {
+  return start.range.max + duration.range.min > end.range.min;
+}
+
+function durationTooShort({ start, end, duration }) {
+  return start.range.min + duration.range.max < end.range.max;
 }
 
 function isValidVariableUpdate(variable, param, value) {

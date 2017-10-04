@@ -18,7 +18,7 @@ describe("reducer", () => {
     const event = {
       id: "a",
       start: { range: { min: 10, max: 30 }, solution: 1 },
-      duration: { range: { min: 0, max: 100 }, solution: 1 },
+      duration: { range: { min: 5, max: 500 }, solution: 1 },
       end: { range: { min: 100, max: 300 }, solution: 1 }
     };
 
@@ -32,7 +32,7 @@ describe("reducer", () => {
       expect(reducer(event, action)).toEqual({
         id: "a",
         start: { range: { min: 20, max: 30 }, solution: null },
-        duration: { range: { min: 0, max: 100 }, solution: null },
+        duration: { range: { min: 5, max: 500 }, solution: null },
         end: { range: { min: 100, max: 300 }, solution: null }
       });
     });
@@ -66,23 +66,45 @@ describe("reducer", () => {
       });
 
       it("can be set to be more than the 'min'", () => {
-        const action = setEventVariable("a", "start", "max", 110);
-        expect(reducer(event, action).start.range.max).toEqual(110);
+        const action = setEventVariable("a", "start", "max", 80);
+        expect(reducer(event, action).start.range.max).toEqual(80);
       });
     });
 
-    describe("if the rangePart is 'min' and the eventPart is 'end'", () => {
-      it("cannot be set to be less than the min start", () => {
-        expect(reducer(event, setEventVariable("a", "end", "min", 1))).toBe(
-          event
-        );
+    describe("if the eventPart is 'end'", () => {
+      describe("if the rangePart is 'min'", () => {
+        it("cannot be set to be less than the min start", () => {
+          expect(reducer(event, setEventVariable("a", "end", "min", 1))).toBe(
+            event
+          );
+        });
+
+        it("cannot be set to less than the max start plus the min duration", () => {
+          expect(reducer(event, setEventVariable("a", "end", "min", 23))).toBe(
+            event
+          );
+        });
+      });
+
+      describe("if the rangePart is 'max'", () => {
+        it("cannot be set to less than the min start plus the max duration", () => {
+          const action = setEventVariable("a", "end", "max", 1000);
+          expect(reducer(event, action)).toBe(event);
+        });
       });
     });
 
-    describe("if the rangePart is 'max' and the eventPart is 'start'", () => {
-      it("cannot be set to be less than the max end", () => {
-        const action = setEventVariable("a", "start", "max", 1000);
-        expect(reducer(event, action)).toBe(event);
+    describe("if the eventPart is 'start'", () => {
+      describe("if the rangePart is 'max'", () => {
+        it("cannot be set to be less than the max end", () => {
+          const action = setEventVariable("a", "start", "max", 1000);
+          expect(reducer(event, action)).toBe(event);
+        });
+
+        it("cannot be set to more than the min end minus the min duration", () => {
+          const action = setEventVariable("a", "start", "max", 98);
+          expect(reducer(event, action)).toBe(event);
+        });
       });
     });
   });

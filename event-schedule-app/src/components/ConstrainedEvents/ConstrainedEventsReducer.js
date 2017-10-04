@@ -32,12 +32,20 @@ function updateEvent(state, action) {
 }
 
 function addNewEvent(state, action) {
-  const event = buildEvent(action);
-  event.isFocused = true;
+  const event = createEvent();
   return {
     ...state,
     events: { ...state.events, [event.id]: event }
   };
+}
+
+function createEvent() {
+  const event = buildEvent({ minStart: 10, maxEnd: 40 });
+  event.duration.range = { min: 10, max: 100 };
+  event.start.range.max = 20;
+  event.end.range.min = 30;
+  event.isFocused = true;
+  return event;
 }
 
 function updateSolution(state, solution) {

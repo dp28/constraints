@@ -35,11 +35,11 @@ describe("reducer", () => {
 
     describe("the created event", () => {
       it("should return an event created using the json-constraint buildEvent function", () => {
-        const expected = buildEvent({ minStart: 10, maxEnd: 20 });
+        const expected = buildEvent({});
         expect(newEvent).toMatchObject({
           start: { range: { min: 10, max: 20 } },
-          duration: { range: { min: 0, max: 10 } },
-          end: { range: { min: 10, max: 20 } }
+          duration: { range: { min: 10, max: 100 } },
+          end: { range: { min: 30, max: 40 } }
         });
       });
     });
