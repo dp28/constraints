@@ -5,7 +5,10 @@ import { VariableMarkerContainer } from "../VariableMarker/VariableMarkerContain
 
 const style = {
   width: "50%",
-  backgroundColor: "rgba(0, 0, 255, 0.5)"
+  left: "25%",
+  backgroundColor: "rgb(208, 233, 247)",
+  border: "1px solid",
+  borderColor: "rgb(76, 170, 225)"
 };
 
 export const Event = ({ event, focus, blur, start, end }) => (
@@ -14,8 +17,8 @@ export const Event = ({ event, focus, blur, start, end }) => (
       style={{
         height: "100%",
         width: "100%",
-        borderBottom:
-          start === end ? `10px solid ${style.backgroundColor}` : null
+        borderBottom: start === end ? `10px solid ${style.borderColor}` : null,
+        outline: event.isFocused ? `white dotted medium` : null
       }}
       tabIndex="0"
       onFocus={focus}
