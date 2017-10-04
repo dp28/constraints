@@ -7,8 +7,8 @@ import {
 
 import {
   reducer as constrainedEvents,
-  InitialState as ConstrainedEventsInitialState
-} from "../components/ConstrainedEvents/ConstrainedEventsReducer";
+  InitialState as EventsInitialState
+} from "../components/Events/EventsReducer";
 
 import {
   reducer as drag,
@@ -17,7 +17,7 @@ import {
 
 export const INITIAL_STATE = {
   config: ConfigInitialState,
-  constrainedEvents: ConstrainedEventsInitialState,
+  constrainedEvents: EventsInitialState,
   drag: DragInitialState
 };
 

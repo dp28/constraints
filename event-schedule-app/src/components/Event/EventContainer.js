@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
-import { focusEvent, blurEvent } from "./ConstrainedEventActions";
-import { ConstrainedEvent } from "./ConstrainedEvent";
+import { focusEvent, blurEvent } from "./EventActions";
+import { Event } from "./Event";
 
 export function mapStateToProps(state, { event }) {
   if (event.isFocused || isNotSolved(event)) {
@@ -27,7 +27,7 @@ export function mapDispatchToProps(dispatch, { event }) {
   };
 }
 
-export const ConstrainedEventContainer = connect(
+export const EventContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ConstrainedEvent);
+)(Event);

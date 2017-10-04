@@ -1,9 +1,9 @@
 import { buildEvent } from "json-constraints";
 
-import { reducer } from "./ConstrainedEventsReducer";
-import { createEvent, updateSolution } from "./ConstrainedEventsActions";
-import { reducer as eventReducer } from "../ConstrainedEvent/ConstrainedEventReducer";
-import { blurEvent } from "../ConstrainedEvent/ConstrainedEventActions";
+import { reducer } from "./EventsReducer";
+import { createEvent, updateSolution } from "./EventsActions";
+import { reducer as eventReducer } from "../Event/EventReducer";
+import { blurEvent } from "../Event/EventActions";
 
 describe("reducer", () => {
   it("should return an empty event map if called with undefined state", () => {
@@ -97,7 +97,7 @@ describe("reducer", () => {
   });
 
   describe("in response to actions with an eventId property", () => {
-    it("should delegate to the ConstrainedEventReducer to update the specified event", () => {
+    it("should delegate to the EventReducer to update the specified event", () => {
       const state = {
         events: {
           a: {

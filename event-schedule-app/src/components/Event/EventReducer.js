@@ -1,8 +1,4 @@
-import {
-  SET_EVENT_VARIABLE,
-  FOCUS_EVENT,
-  BLUR_EVENT
-} from "./ConstrainedEventActions";
+import { SET_EVENT_VARIABLE, FOCUS_EVENT, BLUR_EVENT } from "./EventActions";
 
 export function reducer(event, action) {
   switch (action.type) {

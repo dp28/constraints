@@ -7,7 +7,7 @@ import {
   selectPixelsToUnits
 } from "../Config/ConfigSelectors";
 import { startDragging, stopDragging } from "../Drag/DragActions";
-import { setEventVariable } from "../ConstrainedEvent/ConstrainedEventActions";
+import { setEventVariable } from "../Event/EventActions";
 
 export const mapStateToProps = (state, { eventId, eventPart, rangePart }) => {
   const toPixels = selectUnitsToPixels(state);

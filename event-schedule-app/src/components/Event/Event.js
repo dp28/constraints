@@ -8,7 +8,7 @@ const style = {
   backgroundColor: "rgba(0, 0, 255, 0.5)"
 };
 
-export const ConstrainedEvent = ({ event, focus, blur, start, end }) => (
+export const Event = ({ event, focus, blur, start, end }) => (
   <TimelineItemContainer start={start} end={end} style={style}>
     <div
       style={{

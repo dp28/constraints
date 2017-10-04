@@ -5,7 +5,7 @@ import {
   SET_EVENT_VARIABLE,
   FOCUS_EVENT,
   BLUR_EVENT
-} from "./ConstrainedEventActions";
+} from "./EventActions";
 
 describe("focusEvent", () => {
   it("should return a FOCUS_EVENT action", () => {

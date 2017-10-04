@@ -1,8 +1,5 @@
-import {
-  mapStateToProps,
-  mapDispatchToProps
-} from "./ConstrainedEventContainer";
-import { focusEvent, blurEvent } from "./ConstrainedEventActions";
+import { mapStateToProps, mapDispatchToProps } from "./EventContainer";
+import { focusEvent, blurEvent } from "./EventActions";
 
 describe("mapStateToProps", () => {
   describe("if the event is focused", () => {

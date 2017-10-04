@@ -1,9 +1,9 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import { solve } from "../../api/solver";
-import { BLUR_EVENT } from "../ConstrainedEvent/ConstrainedEventActions";
-import { selectEvents } from "./ConstrainedEventsSelectors";
-import { updateSolution } from "./ConstrainedEventsActions";
+import { BLUR_EVENT } from "../Event/EventActions";
+import { selectEvents } from "./EventsSelectors";
+import { updateSolution } from "./EventsActions";
 
 export function* solveCurrentProblem(store) {
   const events = selectEvents(store.getState());

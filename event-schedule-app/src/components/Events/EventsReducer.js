@@ -1,7 +1,7 @@
 import { buildEvent } from "json-constraints";
 
-import { CREATE_EVENT, UPDATE_SOLUTION } from "./ConstrainedEventsActions";
-import { reducer as eventReducer } from "../ConstrainedEvent/ConstrainedEventReducer";
+import { CREATE_EVENT, UPDATE_SOLUTION } from "./EventsActions";
+import { reducer as eventReducer } from "../Event/EventReducer";
 
 export const InitialState = { events: {} };
 

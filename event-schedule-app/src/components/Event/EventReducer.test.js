@@ -1,9 +1,5 @@
-import { reducer } from "./ConstrainedEventReducer";
-import {
-  setEventVariable,
-  focusEvent,
-  blurEvent
-} from "./ConstrainedEventActions";
+import { reducer } from "./EventReducer";
+import { setEventVariable, focusEvent, blurEvent } from "./EventActions";
 
 describe("reducer", () => {
   it("should return undefined if called with undefined state", () => {

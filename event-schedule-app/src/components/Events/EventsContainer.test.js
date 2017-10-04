@@ -1,4 +1,4 @@
-import { mapStateToProps } from "./ConstrainedEventsContainer";
+import { mapStateToProps } from "./EventsContainer";
 
 describe("mapStateToProps", () => {
   function mockState({ config = {}, constrainedEvents = {} } = {}) {

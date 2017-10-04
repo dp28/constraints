@@ -1,4 +1,4 @@
-import { selectEvents } from "./ConstrainedEventsSelectors";
+import { selectEvents } from "./EventsSelectors";
 
 describe("selectEvents", () => {
   it("should return the events within constrainedEvents as an array", () => {

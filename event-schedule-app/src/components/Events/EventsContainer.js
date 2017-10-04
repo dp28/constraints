@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
-import { ConstrainedEvents } from "./ConstrainedEvents";
-import { selectEvents } from "./ConstrainedEventsSelectors";
+import { Events } from "./Events";
+import { selectEvents } from "./EventsSelectors";
 import { selectPixelsPerUnit } from "../Config/ConfigSelectors";
 
 export function mapStateToProps(state) {
@@ -11,6 +11,6 @@ export function mapStateToProps(state) {
   };
 }
 
-export const ConstrainedEventsContainer = connect(mapStateToProps)(
-  ConstrainedEvents
+export const EventsContainer = connect(mapStateToProps)(
+  Events
 );

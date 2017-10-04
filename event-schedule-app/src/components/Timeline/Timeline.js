@@ -1,7 +1,7 @@
 import React from "react";
 
 import { TimelineRow } from "../TimelineRow/TimelineRow";
-import { ConstrainedEventsContainer } from "../ConstrainedEvents/ConstrainedEventsContainer";
+import { EventsContainer } from "../Events/EventsContainer";
 import "./Timeline.css";
 
 export const Timeline = ({ toMinutes, numberOfUnits, startInUnits }) => {
@@ -15,7 +15,7 @@ export const Timeline = ({ toMinutes, numberOfUnits, startInUnits }) => {
   return (
     <div className="Timeline">
       {items}
-      <ConstrainedEventsContainer />
+      <EventsContainer />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { mapDispatchToProps } from "./NewEventButtonContainer";
-import { createEvent } from "../ConstrainedEvents/ConstrainedEventsActions";
+import { createEvent } from "../Events/EventsActions";
 
 describe("mapDispatchToProps", () => {
   it("return a function that dispatches a CREATE_EVENT action", () => {

@@ -1,9 +1,9 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import { solve } from "../../api/solver";
-import { updateSolution } from "./ConstrainedEventsActions";
-import { BLUR_EVENT } from "../ConstrainedEvent/ConstrainedEventActions";
-import { solveCurrentProblem, solveOnBlur } from "./ConstrainedEventsSagas";
+import { updateSolution } from "./EventsActions";
+import { BLUR_EVENT } from "../Event/EventActions";
+import { solveCurrentProblem, solveOnBlur } from "./EventsSagas";
 
 describe("solveCurrentProblem", () => {
   const store = {

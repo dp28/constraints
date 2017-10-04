@@ -3,7 +3,7 @@ import {
   UPDATE_SOLUTION,
   createEvent,
   updateSolution
-} from "./ConstrainedEventsActions";
+} from "./EventsActions";
 
 describe("createEvent", () => {
   it("should return a CREATE_EVENT action", () => {
