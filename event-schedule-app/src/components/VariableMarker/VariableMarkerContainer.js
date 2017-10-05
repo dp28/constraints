@@ -30,9 +30,9 @@ export function mapDispatchToProps(dispatch) {
   );
   return {
     ...bound,
-    stopDragging: ({ clientY }) => bound.stopDragging(clientY),
-    startDragging: startUnits => ({ clientY }) =>
-      bound.startDragging(clientY, startUnits)
+    stopDragging: (_, { y }) => bound.stopDragging(y),
+    startDragging: startUnits => (_, { y }) =>
+      bound.startDragging(y, startUnits)
   };
 }
 
@@ -43,11 +43,8 @@ export function mergeProps(stateProps, dispatchProps, ownProps) {
     ...ownProps,
     startDragging: dispatchProps.startDragging(stateProps.valueInUnits),
 
-    updateVariable: event => {
-      if (!event.clientY) {
-        return;
-      }
-      const distanceMoved = event.clientY - stateProps.dragStartY;
+    updateVariable: (_unusedMouseEvent, dragEventData) => {
+      const distanceMoved = dragEventData.y - stateProps.dragStartY;
       const timeUnitsMoved = stateProps.pixelsToUnits(distanceMoved);
       if (timeUnitsMoved) {
         const { eventId, eventPart, rangePart } = ownProps;

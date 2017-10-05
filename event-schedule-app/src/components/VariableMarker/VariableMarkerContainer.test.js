@@ -62,14 +62,14 @@ describe("mapDispatchToProps", () => {
   it("should return a function to startDragging from an event which is curried with the startUnits", () => {
     let arg = null;
     const dispatch = x => (arg = x);
-    mapDispatchToProps(dispatch).startDragging(3)({ clientY: 10 });
+    mapDispatchToProps(dispatch).startDragging(3)(null, { y: 10 });
     expect(arg).toEqual(startDragging(10, 3));
   });
 
   it("should return a function to stopDragging from an event", () => {
     let arg = null;
     const dispatch = x => (arg = x);
-    mapDispatchToProps(dispatch).stopDragging({ clientY: 10 });
+    mapDispatchToProps(dispatch).stopDragging(null, { y: 10 });
     expect(arg).toEqual(stopDragging(10));
   });
 });
@@ -101,8 +101,8 @@ describe("mergeProps", () => {
         dispatchProps,
         { eventId: "a", eventPart: "start", rangePart: "min" }
       );
-      const mockEvent = { clientY: 30 };
-      updateVariable(mockEvent);
+      const mockEventData = { y: 30 };
+      updateVariable(null, mockEventData);
       expect(setEventVariableArgs).toEqual([
         "a",
         "start",
@@ -124,8 +124,8 @@ describe("mergeProps", () => {
         dispatchProps,
         { eventId: "a", eventPart: "start", rangePart: "min" }
       );
-      const mockEvent = { clientY: 14 };
-      updateVariable(mockEvent);
+      const mockEventData = { y: 14 };
+      updateVariable(null, mockEventData);
       expect(setEventVariableArgs).toEqual(null);
     });
   });

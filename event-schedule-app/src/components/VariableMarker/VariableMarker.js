@@ -1,4 +1,5 @@
 import React from "react";
+import { DraggableCore as Draggable } from "react-draggable";
 
 const style = {
   position: "absolute",
@@ -18,14 +19,17 @@ export const VariableMarker = ({
   updateVariable
 }) => {
   return (
-    <div
-      style={{ ...style, top: `${centre - 10}px` }}
-      draggable="true"
+    <Draggable
+      axis={"y"}
+      grid={[100, 5]}
       onDrag={updateVariable}
-      onDragStart={startDragging}
-      onDragEnd={stopDragging}
+      onStart={startDragging}
+      onStop={stopDragging}
+      offsetParent={global.document ? global.document.body : undefined}
     >
-      {rangePart} {eventPart}
-    </div>
+      <div style={{ ...style, top: `${centre - 10}px` }}>
+        {rangePart} {eventPart}
+      </div>
+    </Draggable>
   );
 };
