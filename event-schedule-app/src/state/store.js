@@ -4,12 +4,11 @@ import createSagaMiddleware from "redux-saga";
 import { reducer, INITIAL_STATE } from "./reducer";
 import { solveOnBlur } from "../components/Events/EventsSagas";
 
-const devTools =
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const enhancer = compose(applyMiddleware(sagaMiddleware), devTools);
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 export const store = createStore(reducer, INITIAL_STATE, enhancer);
 
