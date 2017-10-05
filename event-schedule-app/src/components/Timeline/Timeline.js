@@ -2,7 +2,12 @@ import React from "react";
 
 import { TimelineRow } from "../TimelineRow/TimelineRow";
 import { EventsContainer } from "../Events/EventsContainer";
-import "./Timeline.css";
+
+const style = {
+  height: "100%",
+  width: "100%",
+  position: "relative"
+};
 
 export const Timeline = ({ toMinutes, numberOfUnits, startInUnits }) => {
   const items = buildRowUnits(numberOfUnits, startInUnits).map(unit => (
@@ -13,7 +18,7 @@ export const Timeline = ({ toMinutes, numberOfUnits, startInUnits }) => {
     />
   ));
   return (
-    <div className="Timeline">
+    <div className="Timeline" style={style}>
       {items}
       <EventsContainer />
     </div>

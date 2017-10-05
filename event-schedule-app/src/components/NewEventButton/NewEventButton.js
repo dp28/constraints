@@ -1,5 +1,8 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 export const NewEventButton = ({ createEvent }) => (
-  <button onClick={() => createEvent(10, 20)}>Add event</button>
+  <Button bsStyle="primary" onClick={() => createEvent(10, 20)}>
+    Add event
+  </Button>
 );
