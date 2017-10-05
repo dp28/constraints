@@ -3,7 +3,7 @@ import { buildEvent } from "json-constraints";
 import { reducer } from "./EventsReducer";
 import { createEvent, updateSolution } from "./EventsActions";
 import { reducer as eventReducer } from "../Event/EventReducer";
-import { blurEvent } from "../Event/EventActions";
+import { deselectEvent } from "../Event/EventActions";
 
 describe("reducer", () => {
   it("should return an empty event map if called with undefined state", () => {
@@ -109,7 +109,7 @@ describe("reducer", () => {
         }
       };
 
-      const action = blurEvent("a");
+      const action = deselectEvent("a");
 
       expect(reducer(state, action)).toEqual({
         events: {

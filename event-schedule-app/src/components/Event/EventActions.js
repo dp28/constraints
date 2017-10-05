@@ -1,13 +1,13 @@
-export const FOCUS_EVENT = "FOCUS_EVENT";
-export const BLUR_EVENT = "BLUR_EVENT";
+export const SELECT_EVENT = "SELECT_EVENT";
+export const DESELECT_EVENT = "DESELECT_EVENT";
 export const SET_EVENT_VARIABLE = "SET_EVENT_VARIABLE";
 
-export function focusEvent(eventId) {
-  return { type: FOCUS_EVENT, eventId };
+export function selectEvent(eventId) {
+  return { type: SELECT_EVENT, eventId };
 }
 
-export function blurEvent(eventId) {
-  return { type: BLUR_EVENT, eventId };
+export function deselectEvent(eventId) {
+  return { type: DESELECT_EVENT, eventId };
 }
 
 export function setEventVariable(eventId, eventPart, rangePart, timeInUnits) {

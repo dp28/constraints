@@ -1,5 +1,5 @@
 import { mapStateToProps, mapDispatchToProps } from "./EventContainer";
-import { focusEvent, blurEvent } from "./EventActions";
+import { selectEvent, deselectEvent } from "./EventActions";
 
 describe("mapStateToProps", () => {
   describe("if the event is focused", () => {
@@ -60,21 +60,21 @@ describe("mapStateToProps", () => {
 });
 
 describe("mapDispatchToProps", () => {
-  it("should return a focus function that dispatches a FOCUS_EVENT action with the correct id", () => {
+  it("should return a focus function that dispatches a SELECT_EVENT action with the correct id", () => {
     let dispatchArgs = null;
     const dispatch = (...args) => {
       dispatchArgs = args;
     };
     mapDispatchToProps(dispatch, { event: { id: "a" } }).focus();
-    expect(dispatchArgs).toEqual([focusEvent("a")]);
+    expect(dispatchArgs).toEqual([selectEvent("a")]);
   });
 
-  it("should return a blur function that dispatches a BLUR_EVENT action with the correct id", () => {
+  it("should return a blur function that dispatches a DESELECT_EVENT action with the correct id", () => {
     let dispatchArgs = null;
     const dispatch = (...args) => {
       dispatchArgs = args;
     };
     mapDispatchToProps(dispatch, { event: { id: "a" } }).blur();
-    expect(dispatchArgs).toEqual([blurEvent("a")]);
+    expect(dispatchArgs).toEqual([deselectEvent("a")]);
   });
 });

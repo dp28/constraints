@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import { solve } from "../../api/solver";
-import { BLUR_EVENT } from "../Event/EventActions";
+import { DESELECT_EVENT } from "../Event/EventActions";
 import { selectEvents } from "./EventsSelectors";
 import { updateSolution } from "./EventsActions";
 
@@ -12,5 +12,5 @@ export function* solveCurrentProblem(store) {
 }
 
 export function* solveOnBlur(store) {
-  yield takeLatest(BLUR_EVENT, solveCurrentProblem, store);
+  yield takeLatest(DESELECT_EVENT, solveCurrentProblem, store);
 }

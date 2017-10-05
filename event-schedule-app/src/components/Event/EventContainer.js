@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { focusEvent, blurEvent } from "./EventActions";
+import { selectEvent, deselectEvent } from "./EventActions";
 import { Event } from "./Event";
 
 export function mapStateToProps(state, { event }) {
@@ -22,8 +22,8 @@ function isNotSolved(event) {
 
 export function mapDispatchToProps(dispatch, { event }) {
   return {
-    focus: () => dispatch(focusEvent(event.id)),
-    blur: () => dispatch(blurEvent(event.id))
+    focus: () => dispatch(selectEvent(event.id)),
+    blur: () => dispatch(deselectEvent(event.id))
   };
 }
 

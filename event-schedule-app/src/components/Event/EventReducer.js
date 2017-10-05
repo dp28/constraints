@@ -1,12 +1,16 @@
-import { SET_EVENT_VARIABLE, FOCUS_EVENT, BLUR_EVENT } from "./EventActions";
+import {
+  SET_EVENT_VARIABLE,
+  SELECT_EVENT,
+  DESELECT_EVENT
+} from "./EventActions";
 
 export function reducer(event, action) {
   switch (action.type) {
     case SET_EVENT_VARIABLE:
       return updateEvent(event, action);
-    case FOCUS_EVENT:
+    case SELECT_EVENT:
       return { ...event, isFocused: true };
-    case BLUR_EVENT:
+    case DESELECT_EVENT:
       return { ...event, isFocused: false };
     default:
       return event;

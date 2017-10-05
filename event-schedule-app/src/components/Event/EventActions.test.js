@@ -1,29 +1,29 @@
 import {
-  focusEvent,
-  blurEvent,
+  selectEvent,
+  deselectEvent,
   setEventVariable,
   SET_EVENT_VARIABLE,
-  FOCUS_EVENT,
-  BLUR_EVENT
+  SELECT_EVENT,
+  DESELECT_EVENT
 } from "./EventActions";
 
-describe("focusEvent", () => {
-  it("should return a FOCUS_EVENT action", () => {
-    expect(focusEvent("a").type).toEqual(FOCUS_EVENT);
+describe("selectEvent", () => {
+  it("should return a SELECT_EVENT action", () => {
+    expect(selectEvent("a").type).toEqual(SELECT_EVENT);
   });
 
   it("should return the passed-in eventId", () => {
-    expect(focusEvent("a").eventId).toEqual("a");
+    expect(selectEvent("a").eventId).toEqual("a");
   });
 });
 
-describe("blurEvent", () => {
-  it("should return a BLUR_EVENT action", () => {
-    expect(blurEvent("a").type).toEqual(BLUR_EVENT);
+describe("deselectEvent", () => {
+  it("should return a DESELECT_EVENT action", () => {
+    expect(deselectEvent("a").type).toEqual(DESELECT_EVENT);
   });
 
   it("should return the passed-in eventId", () => {
-    expect(blurEvent("a").eventId).toEqual("a");
+    expect(deselectEvent("a").eventId).toEqual("a");
   });
 });
 

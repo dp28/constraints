@@ -2,7 +2,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 
 import { solve } from "../../api/solver";
 import { updateSolution } from "./EventsActions";
-import { BLUR_EVENT } from "../Event/EventActions";
+import { DESELECT_EVENT } from "../Event/EventActions";
 import { solveCurrentProblem, solveOnBlur } from "./EventsSagas";
 
 describe("solveCurrentProblem", () => {
@@ -25,11 +25,11 @@ describe("solveCurrentProblem", () => {
 });
 
 describe("solveOnBlur", () => {
-  it("should start the solveCurrentProblem saga on BLUR_EVENT actions", () => {
+  it("should start the solveCurrentProblem saga on DESELECT_EVENT actions", () => {
     const store = { store: true };
     const saga = solveOnBlur(store);
     expect(saga.next().value).toEqual(
-      takeLatest(BLUR_EVENT, solveCurrentProblem, store)
+      takeLatest(DESELECT_EVENT, solveCurrentProblem, store)
     );
   });
 });

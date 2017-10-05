@@ -1,5 +1,5 @@
 import { reducer } from "./EventReducer";
-import { setEventVariable, focusEvent, blurEvent } from "./EventActions";
+import { setEventVariable, selectEvent, deselectEvent } from "./EventActions";
 
 describe("reducer", () => {
   it("should return undefined if called with undefined state", () => {
@@ -105,15 +105,15 @@ describe("reducer", () => {
     });
   });
 
-  describe("in response to a FOCUS_EVENT action", () => {
+  describe("in response to a SELECT_EVENT action", () => {
     it("should set the 'isFocused' property in the event to true", () => {
-      expect(reducer({}, focusEvent("a")).isFocused).toEqual(true);
+      expect(reducer({}, selectEvent("a")).isFocused).toEqual(true);
     });
   });
 
-  describe("in response to a BLUR_EVENT action", () => {
+  describe("in response to a DESELECT_EVENT action", () => {
     it("should set the 'isFocused' property in the event to false", () => {
-      expect(reducer({ isFocused: true }, blurEvent("a")).isFocused).toEqual(
+      expect(reducer({ isFocused: true }, deselectEvent("a")).isFocused).toEqual(
         false
       );
     });
