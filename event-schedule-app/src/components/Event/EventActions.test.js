@@ -3,10 +3,12 @@ import {
   deselectEvent,
   setEventVariable,
   incrementEventVariable,
+  translateEvent,
   SET_EVENT_VARIABLE,
   INCREMENT_EVENT_VARIABLE,
   SELECT_EVENT,
-  DESELECT_EVENT
+  DESELECT_EVENT,
+  TRANSLATE_EVENT
 } from "./EventActions";
 
 describe("selectEvent", () => {
@@ -26,6 +28,20 @@ describe("deselectEvent", () => {
 
   it("should return the passed-in eventId", () => {
     expect(deselectEvent("a").eventId).toEqual("a");
+  });
+});
+
+describe("translateEvent", () => {
+  it("should return a TRANSLATE_EVENT action", () => {
+    expect(translateEvent("a").type).toEqual(TRANSLATE_EVENT);
+  });
+
+  it("should return the passed-in eventId", () => {
+    expect(translateEvent("a").eventId).toEqual("a");
+  });
+
+  it("should return the passed-in distanceInUnits", () => {
+    expect(translateEvent("a", 10).distanceInUnits).toEqual(10);
   });
 });
 

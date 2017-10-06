@@ -2,7 +2,8 @@ import {
   SET_EVENT_VARIABLE,
   INCREMENT_EVENT_VARIABLE,
   SELECT_EVENT,
-  DESELECT_EVENT
+  DESELECT_EVENT,
+  TRANSLATE_EVENT
 } from "./EventActions";
 
 export function reducer(event, action) {
@@ -15,6 +16,8 @@ export function reducer(event, action) {
       return { ...event, isFocused: true };
     case DESELECT_EVENT:
       return { ...event, isFocused: false };
+    case TRANSLATE_EVENT:
+      return translateEvent(action.distanceInUnits, event);
     default:
       return event;
   }
@@ -81,5 +84,23 @@ function removeSolutions(event) {
     start: { ...event.start, solution: null },
     duration: { ...event.duration, solution: null },
     end: { ...event.end, solution: null }
+  };
+}
+
+function translateEvent(distanceInUnits, event) {
+  return {
+    ...event,
+    start: translateVariable(distanceInUnits, event.start),
+    end: translateVariable(distanceInUnits, event.end)
+  };
+}
+
+function translateVariable(distanceInUnits, variable) {
+  return {
+    ...variable,
+    range: {
+      min: variable.range.min + distanceInUnits,
+      max: variable.range.max + distanceInUnits
+    }
   };
 }

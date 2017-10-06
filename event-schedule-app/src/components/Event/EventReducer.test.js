@@ -3,7 +3,8 @@ import {
   setEventVariable,
   incrementEventVariable,
   selectEvent,
-  deselectEvent
+  deselectEvent,
+  translateEvent
 } from "./EventActions";
 
 describe("reducer", () => {
@@ -216,6 +217,32 @@ describe("reducer", () => {
           expect(reducer(event, action)).toBe(event);
         });
       });
+    });
+  });
+
+  describe("in response to a TRANSLATE_EVENT action", () => {
+    const event = {
+      id: "a",
+      start: { range: { min: 10, max: 20 } },
+      duration: { range: { min: 0, max: 20 } },
+      end: { range: { min: 10, max: 20 } }
+    };
+    const action = translateEvent("a", 10);
+
+    it("should add the distanceInUnits to all of the event's start range parts", () => {
+      expect(reducer(event, action).start).toEqual({
+        range: { min: 20, max: 30 }
+      });
+    });
+
+    it("should add the distanceInUnits to all of the event's end range parts", () => {
+      expect(reducer(event, action).end).toEqual({
+        range: { min: 20, max: 30 }
+      });
+    });
+
+    it("should not change the event's duration", () => {
+      expect(reducer(event, action).duration).toBe(event.duration);
     });
   });
 });

@@ -1,5 +1,5 @@
 import { mapStateToProps, mapDispatchToProps } from "./EventContainer";
-import { selectEvent, deselectEvent } from "./EventActions";
+import { selectEvent, deselectEvent, translateEvent } from "./EventActions";
 
 describe("mapStateToProps", () => {
   describe("if the event is focused", () => {
@@ -76,5 +76,14 @@ describe("mapDispatchToProps", () => {
     };
     mapDispatchToProps(dispatch, { event: { id: "a" } }).blur();
     expect(dispatchArgs).toEqual([deselectEvent("a")]);
+  });
+
+  it("should return an onDrag function that dispatched a TRANSLATE_EVENT action", () => {
+    let dispatchArgs = null;
+    const dispatch = (...args) => {
+      dispatchArgs = args;
+    };
+    mapDispatchToProps(dispatch, { event: { id: "a" } }).translate(1);
+    expect(dispatchArgs).toEqual([translateEvent("a", 1)]);
   });
 });
