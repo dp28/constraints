@@ -2,7 +2,9 @@ import {
   selectEvent,
   deselectEvent,
   setEventVariable,
+  incrementEventVariable,
   SET_EVENT_VARIABLE,
+  INCREMENT_EVENT_VARIABLE,
   SELECT_EVENT,
   DESELECT_EVENT
 } from "./EventActions";
@@ -46,5 +48,29 @@ describe("setEventVariable", () => {
 
   it("should return an action with the passed in timeInUnits", () => {
     expect(setEventVariable("", "", "", 10).timeInUnits).toEqual(10);
+  });
+});
+
+describe("incrementEventVariable", () => {
+  it("should return a INCREMENT_EVENT_VARIABLE action", () => {
+    expect(incrementEventVariable().type).toEqual(INCREMENT_EVENT_VARIABLE);
+  });
+
+  it("should return an action with the passed in eventId", () => {
+    expect(incrementEventVariable("id", "", "", 10).eventId).toEqual("id");
+  });
+
+  it("should return an action with the passed in eventPart", () => {
+    expect(incrementEventVariable("", "start", "", 10).eventPart).toEqual(
+      "start"
+    );
+  });
+
+  it("should return an action with the passed in rangePart", () => {
+    expect(incrementEventVariable("", "", "min", 10).rangePart).toEqual("min");
+  });
+
+  it("should return an action with the passed in timeInUnits", () => {
+    expect(incrementEventVariable("", "", "", 10).timeInUnits).toEqual(10);
   });
 });

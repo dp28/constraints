@@ -3,8 +3,7 @@ import {
   mapDispatchToProps,
   mergeProps
 } from "./VariableMarkerContainer";
-import { setEventVariable } from "../Event/EventActions";
-import { startDragging, stopDragging } from "../Drag/DragActions";
+import { incrementEventVariable } from "../Event/EventActions";
 
 describe("mapStateToProps", () => {
   const state = {
@@ -52,81 +51,11 @@ describe("mapStateToProps", () => {
 });
 
 describe("mapDispatchToProps", () => {
-  it("should return a function to update the event variable", () => {
+  it("should return a function to update the event variable from an increment", () => {
     let arg = null;
     const dispatch = x => (arg = x);
-    mapDispatchToProps(dispatch).setEventVariable("a", "b", "c", 10);
-    expect(arg).toEqual(setEventVariable("a", "b", "c", 10));
-  });
-
-  it("should return a function to startDragging from an event which is curried with the startUnits", () => {
-    let arg = null;
-    const dispatch = x => (arg = x);
-    mapDispatchToProps(dispatch).startDragging(3)(null, { y: 10 });
-    expect(arg).toEqual(startDragging(10, 3));
-  });
-
-  it("should return a function to stopDragging from an event", () => {
-    let arg = null;
-    const dispatch = x => (arg = x);
-    mapDispatchToProps(dispatch).stopDragging(null, { y: 10 });
-    expect(arg).toEqual(stopDragging(10));
-  });
-});
-
-describe("mergeProps", () => {
-  const pixelsToUnits = pixels => Math.round(pixels / 10);
-
-  describe("#startDragging", () => {
-    it("should be bound to the startUnits of the drag state", () => {
-      const merged = mergeProps(
-        { valueInUnits: 10 },
-        { startDragging: x => y => [x, y] }
-      );
-      expect(merged.startDragging(2)).toEqual([10, 2]);
-    });
-  });
-
-  describe("#updateVariable", () => {
-    it("should call setEventVariable with the new units if the drag has changed them", () => {
-      let setEventVariableArgs = null;
-      const dispatchProps = {
-        startDragging: x => x,
-        setEventVariable: (...args) => {
-          setEventVariableArgs = args;
-        }
-      };
-      const { updateVariable } = mergeProps(
-        { pixelsToUnits, dragStartY: 10, dragStartUnits: 15 },
-        dispatchProps,
-        { eventId: "a", eventPart: "start", rangePart: "min" }
-      );
-      const mockEventData = { y: 30 };
-      updateVariable(null, mockEventData);
-      expect(setEventVariableArgs).toEqual([
-        "a",
-        "start",
-        "min",
-        15 + (30 - 10) / 10
-      ]);
-    });
-
-    it("should not call setEventVariable with the new units if the drag has not changed them", () => {
-      let setEventVariableArgs = null;
-      const dispatchProps = {
-        startDragging: x => x,
-        setEventVariable: (...args) => {
-          setEventVariableArgs = args;
-        }
-      };
-      const { updateVariable } = mergeProps(
-        { pixelsToUnits, dragStartUnits: 15, dragStartY: 10 },
-        dispatchProps,
-        { eventId: "a", eventPart: "start", rangePart: "min" }
-      );
-      const mockEventData = { y: 14 };
-      updateVariable(null, mockEventData);
-      expect(setEventVariableArgs).toEqual(null);
-    });
+    const ownProps = { eventId: "a", eventPart: "b", rangePart: "c" };
+    mapDispatchToProps(dispatch, ownProps).updateVariable(10);
+    expect(arg).toEqual(incrementEventVariable("a", "b", "c", 10));
   });
 });

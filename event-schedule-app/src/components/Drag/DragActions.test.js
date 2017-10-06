@@ -10,8 +10,8 @@ describe("startDragging", () => {
     expect(startDragging(10).type).toEqual(START_DRAGGING);
   });
 
-  it("should return the passed-in start pixels as startY", () => {
-    expect(startDragging(10).startY).toEqual(10);
+  it("should return the passed-in start pixels as startPixels", () => {
+    expect(startDragging(10).startPixels).toEqual(10);
   });
 
   it("should return the passed-in start units as startUnits", () => {
@@ -22,9 +22,5 @@ describe("startDragging", () => {
 describe("stopDragging", () => {
   it("should return a START_DRAGGING action", () => {
     expect(stopDragging(10).type).toEqual(STOP_DRAGGING);
-  });
-
-  it("should return the passed-in number as endY", () => {
-    expect(stopDragging(10).endY).toEqual(10);
   });
 });

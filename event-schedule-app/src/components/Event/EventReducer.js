@@ -1,5 +1,6 @@
 import {
   SET_EVENT_VARIABLE,
+  INCREMENT_EVENT_VARIABLE,
   SELECT_EVENT,
   DESELECT_EVENT
 } from "./EventActions";
@@ -8,6 +9,8 @@ export function reducer(event, action) {
   switch (action.type) {
     case SET_EVENT_VARIABLE:
       return updateEvent(event, action);
+    case INCREMENT_EVENT_VARIABLE:
+      return updateEvent(event, transformIncrementToSet(action, event));
     case SELECT_EVENT:
       return { ...event, isFocused: true };
     case DESELECT_EVENT:
@@ -15,6 +18,15 @@ export function reducer(event, action) {
     default:
       return event;
   }
+}
+
+function transformIncrementToSet(action, event) {
+  const { eventPart, rangePart, timeInUnits } = action;
+  return {
+    ...action,
+    type: SET_EVENT_VARIABLE,
+    timeInUnits: event[eventPart].range[rangePart] + timeInUnits
+  };
 }
 
 function updateEvent(event, action) {

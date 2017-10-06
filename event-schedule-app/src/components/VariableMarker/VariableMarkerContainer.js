@@ -1,13 +1,11 @@
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import { VariableMarker } from "./VariableMarker";
 import {
   selectUnitsToPixels,
   selectPixelsToUnits
 } from "../Config/ConfigSelectors";
-import { startDragging, stopDragging } from "../Drag/DragActions";
-import { setEventVariable } from "../Event/EventActions";
+import { incrementEventVariable } from "../Event/EventActions";
 
 export const mapStateToProps = (state, { eventId, eventPart, rangePart }) => {
   const toPixels = selectUnitsToPixels(state);
@@ -23,16 +21,14 @@ export const mapStateToProps = (state, { eventId, eventPart, rangePart }) => {
   };
 };
 
-export function mapDispatchToProps(dispatch) {
-  const bound = bindActionCreators(
-    { setEventVariable, startDragging, stopDragging },
-    dispatch
-  );
+export function mapDispatchToProps(dispatch, ownProps) {
   return {
-    ...bound,
-    stopDragging: (_, { y }) => bound.stopDragging(y),
-    startDragging: startUnits => (_, { y }) =>
-      bound.startDragging(y, startUnits)
+    updateVariable: timeUnitsMoved => {
+      const { eventId, eventPart, rangePart } = ownProps;
+      dispatch(
+        incrementEventVariable(eventId, eventPart, rangePart, timeUnitsMoved)
+      );
+    }
   };
 }
 
@@ -41,18 +37,15 @@ export function mergeProps(stateProps, dispatchProps, ownProps) {
     ...stateProps,
     ...dispatchProps,
     ...ownProps,
-    startDragging: dispatchProps.startDragging(stateProps.valueInUnits),
 
-    updateVariable: (_unusedMouseEvent, dragEventData) => {
-      const distanceMoved = dragEventData.y - stateProps.dragStartY;
-      const timeUnitsMoved = stateProps.pixelsToUnits(distanceMoved);
+    updateVariable: timeUnitsMoved => {
       if (timeUnitsMoved) {
         const { eventId, eventPart, rangePart } = ownProps;
-        dispatchProps.setEventVariable(
+        dispatchProps.incrementEventVariable(
           eventId,
           eventPart,
           rangePart,
-          timeUnitsMoved + stateProps.dragStartUnits
+          timeUnitsMoved
         );
       }
     }
@@ -61,6 +54,5 @@ export function mergeProps(stateProps, dispatchProps, ownProps) {
 
 export const VariableMarkerContainer = connect(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
+  mapDispatchToProps
 )(VariableMarker);

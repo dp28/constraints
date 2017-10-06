@@ -1,9 +1,9 @@
 export const START_DRAGGING = "START_DRAGGING";
 export const STOP_DRAGGING = "STOP_DRAGGING";
 
-export const startDragging = (startY, startUnits) => ({
+export const startDragging = (startPixels, startUnits) => ({
   type: START_DRAGGING,
-  startY,
+  startPixels,
   startUnits
 });
-export const stopDragging = endY => ({ type: STOP_DRAGGING, endY });
+export const stopDragging = () => ({ type: STOP_DRAGGING });
