@@ -12,6 +12,13 @@ const style = {
   borderColor: "rgb(76, 170, 225)"
 };
 
+const centred = {
+  position: "relative",
+  top: "50%",
+  textAlign: "center",
+  transform: "translateY(-50%)"
+};
+
 export const Event = ({ event, focus, blur, start, end, translate }) => (
   <TimelineItemContainer start={start} end={end} style={style}>
     <Draggable
@@ -31,14 +38,12 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
         onFocus={focus}
         onBlur={blur}
       >
+        {!event.isFocused && <div style={centred}>{event.name}</div>}
         {event.isFocused && (
           <div
             className="handle"
             style={{
-              position: "relative",
-              top: "50%",
-              textAlign: "center",
-              transform: "translateY(-50%)",
+              ...centred,
               border: "1px solid black"
             }}
           >

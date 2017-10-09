@@ -42,6 +42,10 @@ describe("reducer", () => {
           end: { range: { min: 30, max: 40 } }
         });
       });
+
+      it("should have a name", () => {
+        expect(newEvent.name).toBeDefined();
+      });
     });
   });
 

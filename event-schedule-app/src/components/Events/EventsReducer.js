@@ -45,6 +45,7 @@ function createEvent() {
   event.start.range.max = 20;
   event.end.range.min = 30;
   event.isFocused = true;
+  event.name = "New event";
   return event;
 }
 

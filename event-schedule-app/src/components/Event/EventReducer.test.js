@@ -4,7 +4,8 @@ import {
   incrementEventVariable,
   selectEvent,
   deselectEvent,
-  translateEvent
+  translateEvent,
+  setEventName
 } from "./EventActions";
 
 describe("reducer", () => {
@@ -122,6 +123,14 @@ describe("reducer", () => {
       expect(
         reducer({ isFocused: true }, deselectEvent("a")).isFocused
       ).toEqual(false);
+    });
+  });
+
+  describe("in response to a SET_EVENT_NAME action", () => {
+    it("should set the 'name' property in the event to the name in the action", () => {
+      expect(reducer({ name: "x" }, setEventName("a", "bla")).name).toEqual(
+        "bla"
+      );
     });
   });
 

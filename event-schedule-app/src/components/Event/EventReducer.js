@@ -3,7 +3,8 @@ import {
   INCREMENT_EVENT_VARIABLE,
   SELECT_EVENT,
   DESELECT_EVENT,
-  TRANSLATE_EVENT
+  TRANSLATE_EVENT,
+  SET_EVENT_NAME
 } from "./EventActions";
 
 export function reducer(event, action) {
@@ -18,6 +19,8 @@ export function reducer(event, action) {
       return { ...event, isFocused: false };
     case TRANSLATE_EVENT:
       return translateEvent(action.distanceInUnits, event);
+    case SET_EVENT_NAME:
+      return { ...event, name: action.name };
     default:
       return event;
   }

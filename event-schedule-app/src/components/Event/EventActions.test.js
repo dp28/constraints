@@ -4,11 +4,13 @@ import {
   setEventVariable,
   incrementEventVariable,
   translateEvent,
+  setEventName,
   SET_EVENT_VARIABLE,
   INCREMENT_EVENT_VARIABLE,
   SELECT_EVENT,
   DESELECT_EVENT,
-  TRANSLATE_EVENT
+  TRANSLATE_EVENT,
+  SET_EVENT_NAME
 } from "./EventActions";
 
 describe("selectEvent", () => {
@@ -42,6 +44,20 @@ describe("translateEvent", () => {
 
   it("should return the passed-in distanceInUnits", () => {
     expect(translateEvent("a", 10).distanceInUnits).toEqual(10);
+  });
+});
+
+describe("setEventName", () => {
+  it("should return a SET_EVENT_NAME action", () => {
+    expect(setEventName("a").type).toEqual(SET_EVENT_NAME);
+  });
+
+  it("should return the passed-in eventId", () => {
+    expect(setEventName("a").eventId).toEqual("a");
+  });
+
+  it("should return the passed-in name", () => {
+    expect(setEventName("a", "bla").name).toEqual("bla");
   });
 });
 
