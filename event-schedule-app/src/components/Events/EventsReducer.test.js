@@ -30,7 +30,7 @@ describe("reducer", () => {
     });
 
     it("should focus on the new event", () => {
-      expect(newEvent.isFocused).toEqual(true);
+      expect(newEvent.isSelected).toEqual(true);
     });
 
     describe("the created event", () => {

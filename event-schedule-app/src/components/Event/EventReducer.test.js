@@ -113,15 +113,15 @@ describe("reducer", () => {
   });
 
   describe("in response to a SELECT_EVENT action", () => {
-    it("should set the 'isFocused' property in the event to true", () => {
-      expect(reducer({}, selectEvent("a")).isFocused).toEqual(true);
+    it("should set the 'isSelected' property in the event to true", () => {
+      expect(reducer({}, selectEvent("a")).isSelected).toEqual(true);
     });
   });
 
   describe("in response to a DESELECT_EVENT action", () => {
-    it("should set the 'isFocused' property in the event to false", () => {
+    it("should set the 'isSelected' property in the event to false", () => {
       expect(
-        reducer({ isFocused: true }, deselectEvent("a")).isFocused
+        reducer({ isSelected: true }, deselectEvent("a")).isSelected
       ).toEqual(false);
     });
   });

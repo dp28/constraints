@@ -4,7 +4,7 @@ import { selectEvent, deselectEvent, translateEvent } from "./EventActions";
 import { Event } from "./Event";
 
 export function mapStateToProps(state, { event }) {
-  if (event.isFocused || isNotSolved(event)) {
+  if (event.isSelected || isNotSolved(event)) {
     return {
       start: event.start.range.min,
       end: event.end.range.max

@@ -32,14 +32,14 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
           width: "100%",
           borderBottom:
             start === end ? `10px solid ${style.borderColor}` : null,
-          outline: event.isFocused ? `white dotted medium` : null
+          outline: event.isSelected ? `white dotted medium` : null
         }}
         tabIndex="0"
         onFocus={focus}
         onBlur={blur}
       >
-        {!event.isFocused && <div style={centred}>{event.name}</div>}
-        {event.isFocused && (
+        {!event.isSelected && <div style={centred}>{event.name}</div>}
+        {event.isSelected && (
           <div
             className="handle"
             style={{
@@ -50,7 +50,7 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
             Drag to move
           </div>
         )}
-        {event.isFocused && (
+        {event.isSelected && (
           <div>
             <VariableMarkerContainer
               eventId={event.id}

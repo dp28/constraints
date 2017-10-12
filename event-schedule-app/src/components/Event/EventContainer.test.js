@@ -4,7 +4,7 @@ import { selectEvent, deselectEvent, translateEvent } from "./EventActions";
 describe("mapStateToProps", () => {
   describe("if the event is focused", () => {
     const event = {
-      isFocused: true,
+      isSelected: true,
       start: { range: { min: 1 } },
       end: { range: { max: 10 } }
     };
@@ -21,7 +21,7 @@ describe("mapStateToProps", () => {
   describe("if the event is not focused", () => {
     describe("but it does not have solved variables", () => {
       const event = {
-        isFocused: false,
+        isSelected: false,
         start: { range: { min: 1 } },
         end: { range: { max: 10 } }
       };
@@ -37,7 +37,7 @@ describe("mapStateToProps", () => {
 
     describe("and it does have solved variables", () => {
       const event = {
-        isFocused: false,
+        isSelected: false,
         start: {
           range: { min: 1 },
           solution: 5

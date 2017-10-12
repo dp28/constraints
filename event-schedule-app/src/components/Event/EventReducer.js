@@ -14,9 +14,9 @@ export function reducer(event, action) {
     case INCREMENT_EVENT_VARIABLE:
       return updateEvent(event, transformIncrementToSet(action, event));
     case SELECT_EVENT:
-      return { ...event, isFocused: true };
+      return { ...event, isSelected: true };
     case DESELECT_EVENT:
-      return { ...event, isFocused: false };
+      return { ...event, isSelected: false };
     case TRANSLATE_EVENT:
       return translateEvent(action.distanceInUnits, event);
     case SET_EVENT_NAME:

@@ -44,7 +44,7 @@ function createEvent() {
   event.duration.range = { min: 10, max: 100 };
   event.start.range.max = 20;
   event.end.range.min = 30;
-  event.isFocused = true;
+  event.isSelected = true;
   event.name = "New event";
   return event;
 }
