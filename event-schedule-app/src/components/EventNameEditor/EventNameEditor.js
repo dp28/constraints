@@ -1,6 +1,10 @@
 import React from "react";
-import { FormControl } from "react-bootstrap";
+import { TextInput } from "../TextInput/TextInput";
 
 export const EventNameEditor = ({ event, setEventName }) => (
-  <FormControl type="text" value={event.name} onChange={setEventName} />
+  <TextInput
+    value={event.name}
+    onChange={setEventName}
+    name="eventNameEditor"
+  />
 );

@@ -1,10 +1,11 @@
 import React from "react";
-import { Grid, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { Provider } from "react-redux";
 
 import { TimelineContainer } from "../Timeline/TimelineContainer";
 import { ToolsContainer } from "../Tools/ToolsContainer";
-import "../../styles.css";
+import { store } from "../../state/store";
+import { Theme } from "../../theme";
 
 const style = {
   height: "100%"
@@ -12,15 +13,13 @@ const style = {
 
 export const App = () => (
   <div className="App" style={style}>
-    <Grid style={{ height: "100%" }}>
-      <Row style={{ height: "100%" }}>
-        <Col xs={12} sm={4}>
+    <MuiThemeProvider muiTheme={Theme}>
+      <Provider store={store}>
+        <div>
           <ToolsContainer />
-        </Col>
-        <Col xs={12} sm={8}>
           <TimelineContainer numberOfUnits={24 * 4} startInUnits={0} />
-        </Col>
-      </Row>
-    </Grid>
+        </div>
+      </Provider>
+    </MuiThemeProvider>
   </div>
 );

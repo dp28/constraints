@@ -3,14 +3,16 @@ import React from "react";
 import { TimelineItemContainer } from "../TimelineItem/TimelineItemContainer";
 import { VariableMarkerContainer } from "../VariableMarker/VariableMarkerContainer";
 import { Draggable } from "../Drag/Draggable";
+import Paper from "material-ui/Paper";
+import { Colours } from "../../theme";
 
 const style = {
   width: "50%",
-  left: "25%",
-  backgroundColor: "rgb(208, 233, 247)",
-  border: "1px solid",
-  borderColor: "rgb(76, 170, 225)"
+  left: "25%"
 };
+
+const DefaultColour = Colours.grey.light;
+const SelectedColour = Colours.primary.base;
 
 const centred = {
   position: "relative",
@@ -26,17 +28,17 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
       onDrag={translate}
       handle=".handle"
     >
-      <div
+      <Paper
         style={{
           height: "100%",
           width: "100%",
-          borderBottom:
-            start === end ? `10px solid ${style.borderColor}` : null,
-          outline: event.isSelected ? `white dotted medium` : null
+          outline: "none",
+          backgroundColor: event.isSelected ? SelectedColour : DefaultColour,
+          borderBottom: start === end ? `10px solid ${DefaultColour}` : null
         }}
         tabIndex="0"
         onFocus={focus}
-        onBlur={blur}
+        // onBlur={blur}
       >
         {!event.isSelected && <div style={centred}>{event.name}</div>}
         {event.isSelected && (
@@ -77,7 +79,7 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
             />
           </div>
         )}
-      </div>
+      </Paper>
     </Draggable>
   </TimelineItemContainer>
 );
