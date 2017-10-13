@@ -6,11 +6,6 @@ import { Draggable } from "../Drag/Draggable";
 import Paper from "material-ui/Paper";
 import { Colours } from "../../theme";
 
-const style = {
-  width: "50%",
-  left: "25%"
-};
-
 const DefaultColour = Colours.grey.light;
 const SelectedColour = Colours.primary.base;
 
@@ -21,8 +16,16 @@ const centred = {
   transform: "translateY(-50%)"
 };
 
-export const Event = ({ event, focus, blur, start, end, translate }) => (
-  <TimelineItemContainer start={start} end={end} style={style}>
+export const Event = ({ event, focus, start, end, translate, zIndex }) => (
+  <TimelineItemContainer
+    start={start}
+    end={end}
+    style={{
+      width: "50%",
+      left: "25%",
+      zIndex
+    }}
+  >
     <Draggable
       currentPositionInUnits={start}
       onDrag={translate}
@@ -34,12 +37,10 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
           width: "100%",
           outline: "none",
           backgroundColor: event.isSelected ? SelectedColour : DefaultColour,
-          borderBottom: start === end ? `10px solid ${DefaultColour}` : null,
-          zIndex: event.isSelected ? 10 : 1
+          borderBottom: start === end ? `10px solid ${DefaultColour}` : null
         }}
         tabIndex="0"
         onFocus={focus}
-        // onBlur={blur}
       >
         {!event.isSelected && <div style={centred}>{event.name}</div>}
         {event.isSelected && (

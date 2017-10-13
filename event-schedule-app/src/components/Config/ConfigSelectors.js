@@ -29,3 +29,8 @@ export const selectBounds = createSelector(
   state => state.config,
   config => config.bounds
 );
+
+export const selectRatioThroughBounds = createSelector(
+  selectBounds,
+  ({ min, max }) => unit => (unit - min) / (max - min)
+);
