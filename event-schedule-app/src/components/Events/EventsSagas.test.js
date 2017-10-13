@@ -4,6 +4,9 @@ import { solve } from "../../api/solver";
 import { updateSolution } from "./EventsActions";
 import { DESELECT_EVENT } from "../Event/EventActions";
 import { solveCurrentProblem, solveOnBlur } from "./EventsSagas";
+import { save, load } from "../../state/localStorageRepository";
+
+afterEach(() => localStorage.clear());
 
 describe("solveCurrentProblem", () => {
   const store = {
@@ -21,6 +24,16 @@ describe("solveCurrentProblem", () => {
     saga.next();
     const solution = { a: "1", b: "2" };
     expect(saga.next(solution).value).toEqual(put(updateSolution(solution)));
+  });
+
+  it("should save the current state to localStorage", () => {
+    const state = { constrainedEvents: { events: { a: { id: "a" } } } };
+    const mockStore = { getState: () => state };
+    const saga = solveCurrentProblem(store);
+    saga.next();
+    saga.next();
+    saga.next();
+    expect(load()).toEqual(state);
   });
 });
 
