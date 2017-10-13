@@ -5,7 +5,7 @@ import { reducer as eventReducer } from "../Event/EventReducer";
 
 export const InitialState = { events: {} };
 
-export function reducer(state = InitialState, action) {
+export function reducer(state = InitialState, action, fullState) {
   switch (action.type) {
     case CREATE_EVENT:
       return addNewEvent(state, action);
@@ -13,16 +13,16 @@ export function reducer(state = InitialState, action) {
       return updateSolution(state, action.solution);
     default:
       if (action.eventId) {
-        return updateEvent(state, action);
+        return updateEvent(state, action, fullState);
       }
       return state;
   }
 }
 
-function updateEvent(state, action) {
+function updateEvent(state, action, fullState) {
   const { events } = state;
   const { eventId } = action;
-  const updatedEvent = eventReducer(events[eventId], action);
+  const updatedEvent = eventReducer(events[eventId], action, fullState);
   if (updatedEvent === events[eventId]) {
     return state;
   }

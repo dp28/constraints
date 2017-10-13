@@ -6,19 +6,21 @@ import {
   TRANSLATE_EVENT,
   SET_EVENT_NAME
 } from "./EventActions";
+import { selectBounds } from "../Config/ConfigSelectors";
 
-export function reducer(event, action) {
+export function reducer(event, action, fullState) {
   switch (action.type) {
     case SET_EVENT_VARIABLE:
-      return updateEvent(event, action);
+      return updateEvent(event, action, fullState);
     case INCREMENT_EVENT_VARIABLE:
-      return updateEvent(event, transformIncrementToSet(action, event));
+      const setEventVariableAction = transformIncrementToSet(action, event);
+      return updateEvent(event, setEventVariableAction, fullState);
     case SELECT_EVENT:
       return { ...event, isSelected: true };
     case DESELECT_EVENT:
       return { ...event, isSelected: false };
     case TRANSLATE_EVENT:
-      return translateEvent(action.distanceInUnits, event);
+      return translateEvent(action.distanceInUnits, event, fullState);
     case SET_EVENT_NAME:
       return { ...event, name: action.name };
     default:
@@ -35,11 +37,11 @@ function transformIncrementToSet(action, event) {
   };
 }
 
-function updateEvent(event, action) {
+function updateEvent(event, action, fullState) {
   const { eventPart, rangePart, timeInUnits } = action;
   if (isValidVariableUpdate(event[eventPart], rangePart, timeInUnits)) {
     const updatedEvent = performUpdate(event, action);
-    if (isValidEvent(updatedEvent)) {
+    if (isValidEvent(updatedEvent, fullState)) {
       return removeSolutions(updatedEvent);
     }
   }
@@ -54,11 +56,12 @@ function performUpdate(event, action) {
   return { ...event, [eventPart]: updatedEventVariable };
 }
 
-function isValidEvent(event) {
+function isValidEvent(event, fullState) {
   return !(
     startsTooLate(event) ||
     endsTooEarly(event) ||
-    durationTooShort(event)
+    durationTooShort(event) ||
+    isOutsideBounds(event, fullState)
   );
 }
 
@@ -72,6 +75,11 @@ function endsTooEarly({ start, end, duration }) {
 
 function durationTooShort({ start, end, duration }) {
   return start.range.min + duration.range.max < end.range.max;
+}
+
+function isOutsideBounds(event, fullState) {
+  const bounds = selectBounds(fullState);
+  return event.end.range.max > bounds.max || event.start.range.min < bounds.min;
 }
 
 function isValidVariableUpdate(variable, param, value) {
@@ -90,12 +98,14 @@ function removeSolutions(event) {
   };
 }
 
-function translateEvent(distanceInUnits, event) {
-  return {
+function translateEvent(distanceInUnits, event, fullState) {
+  const newEvent = {
     ...event,
     start: translateVariable(distanceInUnits, event.start),
     end: translateVariable(distanceInUnits, event.end)
   };
+
+  return isOutsideBounds(newEvent, fullState) ? event : newEvent;
 }
 
 function translateVariable(distanceInUnits, variable) {
