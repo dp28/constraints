@@ -34,7 +34,8 @@ export const Event = ({ event, focus, blur, start, end, translate }) => (
           width: "100%",
           outline: "none",
           backgroundColor: event.isSelected ? SelectedColour : DefaultColour,
-          borderBottom: start === end ? `10px solid ${DefaultColour}` : null
+          borderBottom: start === end ? `10px solid ${DefaultColour}` : null,
+          zIndex: event.isSelected ? 10 : 1
         }}
         tabIndex="0"
         onFocus={focus}

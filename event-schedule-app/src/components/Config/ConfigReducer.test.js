@@ -4,7 +4,8 @@ describe("reducer", () => {
   it("should return the defaults for minutesPerUnit and pixelsPerUnit if no state is given", () => {
     expect(reducer(undefined, { type: "a" })).toEqual({
       minutesPerUnit: 15,
-      pixelsPerUnit: 5
+      pixelsPerUnit: 5,
+      bounds: { min: 0, max: 24 * (60 / 15) }
     });
   });
 

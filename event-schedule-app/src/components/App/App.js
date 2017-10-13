@@ -17,7 +17,7 @@ export const App = () => (
       <Provider store={store}>
         <div>
           <ToolsContainer />
-          <TimelineContainer numberOfUnits={24 * 4} startInUnits={0} />
+          <TimelineContainer />
         </div>
       </Provider>
     </MuiThemeProvider>

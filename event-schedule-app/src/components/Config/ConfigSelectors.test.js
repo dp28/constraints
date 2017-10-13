@@ -3,7 +3,8 @@ import {
   selectUnitsToPixelString,
   selectUnitsToMinutes,
   selectUnitsToPixels,
-  selectPixelsToUnits
+  selectPixelsToUnits,
+  selectBounds
 } from "./ConfigSelectors";
 
 describe("selectPixelsPerUnit", () => {
@@ -43,5 +44,12 @@ describe("selectPixelsToUnits", () => {
   it("should round to the nearest unit", () => {
     const state = { config: { pixelsPerUnit: 10 } };
     expect(selectPixelsToUnits(state)(25)).toEqual(3);
+  });
+});
+
+describe("selectBounds", () => {
+  it("should return the bounds from the config", () => {
+    const state = { config: { bounds: { min: 1, max: 10 } } };
+    expect(selectBounds(state)).toEqual({ min: 1, max: 10 });
   });
 });

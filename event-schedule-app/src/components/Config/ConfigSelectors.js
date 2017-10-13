@@ -24,3 +24,8 @@ export const selectUnitsToPixelString = createSelector(
   selectPixelsPerUnit,
   pixelsPerUnit => units => `${units * pixelsPerUnit}px`
 );
+
+export const selectBounds = createSelector(
+  state => state.config,
+  config => config.bounds
+);
